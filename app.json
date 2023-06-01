@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "untitled2",
-    "slug": "untitled2",
+    "slug": "pantort",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,23 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.jarek7410.pantort"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "25011162-3bc7-42b1-8769-4769664ce7d8"
+      }
+    },
+    "owner": "jarek7410",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/25011162-3bc7-42b1-8769-4769664ce7d8"
     }
   }
 }

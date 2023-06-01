@@ -2,15 +2,27 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {BridgeKeyBoard} from "./components/BridgeKeyBoard";
-import Card from 'react-playing-card'
+import {BridgeScreen} from "./components/BridgeScreen";
+import {decodeAction} from "./helpers/bridgekeyboardhelpers";
 
+const round={
+    round:0, //0 to inf
+    ns:0,
+    ew:0,
+    firstBoard:1,
+    lastBoard:1,
+}
 export default function App() {
+    const keyboardhendler=id=>{
+        console.log(decodeAction(id))
+    }
     return (
-    <View style={styles.container}>
-        <SafeAreaProvider>
-            <Text>ITS working kinde of</Text>
-            <BridgeKeyBoard />
-            <Card rank="A" suit="S" />
+    <View style={styles.container} key="main main">
+        <SafeAreaProvider style={{
+            justifyContent:"center",
+        }}>
+            <BridgeScreen round={round}/>
+            <BridgeKeyBoard onChange={keyboardhendler}/>
         </SafeAreaProvider>
     </View>
     );
