@@ -49,3 +49,9 @@ export enum result{
     over="+",
     fair="="
 }
+export enum Boardsceen{
+    board,
+    contract,
+    lead,
+    result,
+}

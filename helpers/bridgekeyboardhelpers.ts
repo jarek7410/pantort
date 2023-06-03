@@ -10,13 +10,20 @@ export const decodeAction = (eventId:number) => {
             number: eventId
         }
     }
-  if(eventId<=10){
-      return {
-          type:[type.number,type.lead],
-          number:eventId,
-          lead:vals[eventId],
-      }
-  }
+    if(eventId<10){
+        return {
+            type:[type.number,type.lead],
+            number:eventId,
+            lead:vals[eventId],
+        }
+    }
+    if(eventId===10){
+        return {
+            type:[type.number,type.lead],
+            number:0,
+            lead:vals[eventId],
+        }
+    }
     if(eventId===11){
         return {
             type:[type.wind],

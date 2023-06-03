@@ -3,8 +3,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {BridgeKeyBoard} from "./components/BridgeKeyBoard";
 import {BridgeScreen} from "./components/BridgeScreen";
 import {decodeAction} from "./helpers/bridgekeyboardhelpers";
-import {useState} from "react";
-import {bid, result, suit, vals, wind} from "./helpers/enumhelper";
+import {useEffect, useState} from "react";
+import {bid, result, Boardsceen, suit, vals, wind} from "./helpers/enumhelper";
+import {boardUpdate} from "./helpers/boardhelper";
 
 const roundDefault={
     round:0, //0 to inf
@@ -14,34 +15,48 @@ const roundDefault={
     lastBoard:1,
 }
 const boardDefault={
-    number:0, //1 to 32
+    number:4, //1 to 32
     contract:{
         suit:suit.nt,
         number:1,
+        double:bid.xx,
         wind:wind.N,
-        double:bid.x
     },
     lead:{
         suit:suit.diamonds,
-        vals:vals.seven,
+        vals:vals.A,
     },
     outcome:{
-        number:0,
-        result:result.fair
+        tricks:1,
+        result:result.fair,
     }
 }
 export default function App() {
+    const [focus,setFocus]=useState(Boardsceen.board);
     const [round,setRound]=useState(roundDefault);
-    const [board,setBoard]=useState(boardDefault)
+    // const [board,setBoard]=useState(boardDefault)
+    const [board,setBoard]=useState({})
+    const [,setRender]=useState(0);
+
+    useEffect(()=>{
+      console.count("render")
+    })
     const keyboardhendler=id=>{
-        console.log(decodeAction(id))
+        let action=decodeAction(id)
+        console.log("action"+action);
+        const [workboard,workfocus]=boardUpdate(board,action,focus)
+        setBoard({...board,workboard});
+        setFocus(workfocus);
+        console.log(typeof(workboard));
+        console.log(board)
+        setRender(Math.random())
     }
     return (
     <View style={styles.container} key="main main">
         <SafeAreaProvider style={{
             justifyContent:"center",
         }}>
-            <BridgeScreen round={round} board={board}/>
+            <BridgeScreen focus={focus} round={round} board={board}/>
             <BridgeKeyBoard onChange={keyboardhendler}/>
         </SafeAreaProvider>
     </View>

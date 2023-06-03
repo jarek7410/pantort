@@ -1,38 +1,52 @@
 import React from "react";
 import {View, Text, StyleSheet, TouchableOpacity, TouchableHighlight} from "react-native";
 import {BridgeScreenRound} from "./BridgeScreenRound";
-import {constractComposer} from "../helpers/contractcomposerhelper";
+import {constractComposer, leadComposeer, outcomeComposer} from "../helpers/composerhelper";
+import {Boardsceen} from "../helpers/enumhelper";
 
-export const BridgeScreen =({round,board,menuEnable})=>{
+export const BridgeScreen =({round,board,menuEnable,focus})=>{
     let boards;
     if(round.firstBoard===round.lastBoard){
         boards=round.firstBoard;
     }else{
         boards=round.firstBoard+"-"+round.lastBoard;
     }
-    let contract=constractComposer(board.contract);
+    const contract=constractComposer(board.contract);
+    const lead=leadComposeer(board.lead);
+    const outcome=outcomeComposer(board.outcome);
+
     return(
         <View style={styles.screen}>
             <BridgeScreenRound round={round} boards={boards}/>
 
             <View >
-                <View style={[styles.row,{
-                    justifyContent:"flex-start"
-                }]}>
+                <View style={styles.textRow}>
                     <Text style={styles.textMain}>ROZDANIE:</Text>
-                    <Text style={styles.textMain}>{board.number}</Text>
+                    <Text style={styles.textMain}>
+                        {board.number}
+                        {focus===Boardsceen.board?"_":""}
+                    </Text>
                 </View>
-                <View style={[styles.row,{
-                justifyContent:"flex-start"
-                }]}>
+                <View style={styles.textRow}>
                     <Text style={styles.textMain}>KONTRAKT:</Text>
-                    <Text style={styles.textMain}>{contract}</Text>
+                    <Text style={styles.textMain}>
+                        {contract}
+                        {focus===Boardsceen.contract?"_":""}
+                    </Text>
                 </View>
-                <View style={styles.row}>
-                    <Text style={styles.textMain}>VIST:</Text>
+                <View style={styles.textRow}>
+                    <Text style={styles.textMain}>WIST:</Text>
+                    <Text style={styles.textMain}>
+                        {lead}
+                        {focus===Boardsceen.lead?"_":""}
+                    </Text>
                 </View>
-                <View style={styles.row}>
+                <View style={styles.textRow}>
                     <Text style={styles.textMain}>WYNIK:</Text>
+                    <Text style={styles.textMain}>
+                        {outcome}
+                        {focus===Boardsceen.result?"_":""}
+                    </Text>
                 </View>
             </View>
             <View style={[styles.row,styles.narow,{
@@ -69,6 +83,13 @@ const styles=StyleSheet.create({
         justifyContent:"space-between",
         alignItems:"center",
         width:"100%"
+    },
+    textRow:{
+        flexDirection:"row",
+        justifyContent:"flex-start",
+        alignItems:"center",
+        width:"100%"
+
     },
     narow:{
         height:20,

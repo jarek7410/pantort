@@ -11,16 +11,16 @@ export const buttonTable= [
             { id: 1, name: "1", icon:"numeric-1" },
             { id: 2, name: "2",  icon:"numeric-2"  },
             { id: 3, name: "3",  icon:"numeric-3"  },
-            { id: 19, name: "J, +", text:"J"  },
-            { id: 20, name: "Q, -",  text:"Q"  },
+            { id: 19, name: "J, +", text:"J +"  },
+            { id: 20, name: "Q, -",  text:"Q -"  },
         ]
     },
     { row: 3,children:[
             { id: 4, name: "4", icon:"numeric-4" },
             { id: 5, name: "5",  icon:"numeric-5"  },
             { id: 6, name: "6",  icon:"numeric-6"  },
-            { id: 17, name: "K, pass", text: "K"   },
-            { id: 18, name: "A, =",  text:"A"  },
+            { id: 17, name: "K, pass", text: "K pass"   },
+            { id: 18, name: "A, =",  text:"A ="  },
         ]
     },
     { row: 4,children:[
