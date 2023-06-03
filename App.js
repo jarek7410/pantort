@@ -14,7 +14,7 @@ const roundDefault={
     firstBoard:1,
     lastBoard:1,
 }
-const boardDefault={
+const boardExample={
     number:4, //1 to 32
     contract:{
         suit:suit.nt,
@@ -31,11 +31,22 @@ const boardDefault={
         result:result.fair,
     }
 }
+const boardDefault={
+    number:"",
+    contract:{
+        // suit:"",
+        // number:"",
+        // double:"",
+        // wind:"",
+    },
+    lead:{},
+    outcome:{},
+}
 export default function App() {
     const [focus,setFocus]=useState(Boardsceen.board);
     const [round,setRound]=useState(roundDefault);
     // const [board,setBoard]=useState(boardDefault)
-    const [board,setBoard]=useState({})
+    const [board,setBoard]=useState(boardDefault)
     const [,setRender]=useState(0);
 
     useEffect(()=>{
@@ -43,12 +54,9 @@ export default function App() {
     })
     const keyboardhendler=id=>{
         let action=decodeAction(id)
-        console.log("action"+action);
         const [workboard,workfocus]=boardUpdate(board,action,focus)
         setBoard({...board,workboard});
         setFocus(workfocus);
-        console.log(typeof(workboard));
-        console.log(board)
         setRender(Math.random())
     }
     return (

@@ -87,7 +87,7 @@ export const decodeAction = (eventId:number) => {
         }
     }
     if(eventId<=25){
-        let output={type:type.suit, suit: undefined}
+        let output={type:[type.suit], suit: undefined}
         switch (eventId){
             case 21:
                 output.suit=suit.spades
@@ -105,6 +105,7 @@ export const decodeAction = (eventId:number) => {
                 output.suit=suit.nt
                 break;
         }
+        console.log(output)
         return output;
     }
     return null;

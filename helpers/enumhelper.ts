@@ -10,11 +10,11 @@ export enum type{
 
 }
 export enum suit{
-    spades="spades",
-    hearts="hearts",
-    diamonds="diamonds",
-    clubs="clubs",
-    nt="nt",
+    spades,
+    hearts,
+    diamonds,
+    clubs,
+    nt,
 }
 export enum wind{
     NS="NS",
@@ -50,8 +50,10 @@ export enum result{
     fair="="
 }
 export enum Boardsceen{
+    BACK,
     board,
     contract,
     lead,
     result,
+    DONE,
 }

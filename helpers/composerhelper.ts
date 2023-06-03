@@ -4,30 +4,32 @@ export const constractComposer = (contract) => {
     if(!contract){
         return "";
     }
-    let composed:string;
-        switch (contract.suit){
-            case suit.nt:
-                composed="NT"
-                break;
-            case suit.hearts:
-                composed="H"
-                break;
-            case suit.spades:
-                composed="S"
-                break;
-            case suit.clubs:
-                composed="C"
-                break
-            case suit.diamonds:
-                composed="D"
-                break
-        }
+    let composed:string="";
     if(contract.number>7||contract.number<0) {
         throw new Error('Parameter is not a number!');
     }
     if(!isNaN(contract.number)){
         composed+=contract.number;
     }
+        switch (contract.suit){
+            case suit.nt:
+                composed+="NT"
+                break;
+            case suit.hearts:
+                composed+="H"
+                break;
+            case suit.spades:
+                composed+="S"
+                break;
+            case suit.clubs:
+                composed+="C"
+                break
+            case suit.diamonds:
+                composed+="D"
+                break
+            default:
+                break;
+        }
     switch (contract.double){
         case bid.xx:
             composed+="XX "
@@ -35,7 +37,7 @@ export const constractComposer = (contract) => {
         case bid.x:
             composed+="X  "
             break
-        case bid.pass:
+        default:
             composed+="   "
             break
     }
