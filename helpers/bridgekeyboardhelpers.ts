@@ -1,4 +1,4 @@
-import {bid, lead, result, suit, type, wind} from "./enumhelper"
+import {bid, vals, result, suit, type, wind} from "./enumhelper"
 
 export const decodeAction = (eventId:number) => {
     if(eventId<=0){
@@ -14,7 +14,7 @@ export const decodeAction = (eventId:number) => {
       return {
           type:[type.number,type.lead],
           number:eventId,
-          lead:lead[eventId],
+          lead:vals[eventId],
       }
   }
     if(eventId===11){
@@ -54,28 +54,28 @@ export const decodeAction = (eventId:number) => {
     if(eventId===17){
         return {
             type:[type.bid,type.lead],
-            lead:lead.K,
+            lead:vals.K,
             bid:bid.pass
         }
     }
     if(eventId===18){
         return {
             type:[type.result,type.lead],
-            lead:lead.A,
+            lead:vals.A,
             result:result.fair
         }
     }
     if(eventId===19){
         return {
             type:[type.result,type.lead],
-            lead:lead.J,
+            lead:vals.J,
             result:result.over
         }
     }
     if(eventId===20){
         return {
             type:[type.result,type.lead],
-            lead:lead.Q,
+            lead:vals.Q,
             result:result.under
         }
     }

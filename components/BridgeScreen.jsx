@@ -1,5 +1,7 @@
 import React from "react";
 import {View, Text, StyleSheet, TouchableOpacity, TouchableHighlight} from "react-native";
+import {BridgeScreenRound} from "./BridgeScreenRound";
+import {constractComposer} from "../helpers/contractcomposerhelper";
 
 export const BridgeScreen =({round,board,menuEnable})=>{
     let boards;
@@ -8,34 +10,32 @@ export const BridgeScreen =({round,board,menuEnable})=>{
     }else{
         boards=round.firstBoard+"-"+round.lastBoard;
     }
+    let contract=constractComposer(board.contract);
     return(
         <View style={styles.screen}>
-            <View style={styles.row}>
-                <View>
-                    <Text >round {round.round}</Text>
-                </View>
-                <View>
-                    <Text>NS:{round.ns} EW:{round.ew}</Text>
-                </View>
-                <View>
-                    <Text>
-                        {boards}
-                    </Text>
-                </View>
-            </View>
-            <View
-                style={{
-                    borderBottomColor: 'black',
-                    borderBottomWidth: 1,
-                }}
-            />
+            <BridgeScreenRound round={round} boards={boards}/>
+
             <View >
-                <Text style={styles.textMain}>ROZDANIE:</Text>
-                <Text style={styles.textMain}>KONTRAKT:</Text>
-                <Text style={styles.textMain}>VIST:</Text>
-                <Text style={styles.textMain}>WYNIK:</Text>
+                <View style={[styles.row,{
+                    justifyContent:"flex-start"
+                }]}>
+                    <Text style={styles.textMain}>ROZDANIE:</Text>
+                    <Text style={styles.textMain}>{board.number}</Text>
+                </View>
+                <View style={[styles.row,{
+                justifyContent:"flex-start"
+                }]}>
+                    <Text style={styles.textMain}>KONTRAKT:</Text>
+                    <Text style={styles.textMain}>{contract}</Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.textMain}>VIST:</Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.textMain}>WYNIK:</Text>
+                </View>
             </View>
-            <View style={[styles.row,{
+            <View style={[styles.row,styles.narow,{
                 marginTop:10,
             }]}>
                 <TouchableHighlight
@@ -60,16 +60,18 @@ const styles=StyleSheet.create({
     screen:{
         margin:5,
         width:290,
-        height:190,
+        height:195  ,
         padding:5,
         backgroundColor:"darkgreen",
     },
     row:{
         flexDirection:"row",
-        height:20,
         justifyContent:"space-between",
         alignItems:"center",
         width:"100%"
+    },
+    narow:{
+        height:20,
     },
     textMain:{
         fontSize:25,

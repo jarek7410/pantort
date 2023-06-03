@@ -18,14 +18,18 @@ export enum suit{
 }
 export enum wind{
     NS="NS",
-    EW="EW"
+    EW="EW",
+    E="E",
+    W="W",
+    N="N",
+    S="S",
 }
 export enum bid{
     pass,
     x,
     xx
 }
-export enum lead{
+export enum vals{
     two=2,
     tree,
     four,
