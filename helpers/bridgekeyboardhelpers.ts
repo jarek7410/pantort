@@ -12,16 +12,16 @@ export const decodeAction = (eventId:number) => {
     }
     if(eventId<10){
         return {
-            type:[type.number,type.lead],
+            type:[type.number,type.vals],
             number:eventId,
-            lead:vals[eventId],
+            vals:eventId,
         }
     }
     if(eventId===10){
         return {
-            type:[type.number,type.lead],
+            type:[type.number,type.vals],
             number:0,
-            lead:vals[eventId],
+            vals:eventId,
         }
     }
     if(eventId===11){
@@ -60,29 +60,29 @@ export const decodeAction = (eventId:number) => {
     }
     if(eventId===17){
         return {
-            type:[type.bid,type.lead],
-            lead:vals.K,
+            type:[type.bid,type.vals],
+            vals:vals.K,
             bid:bid.pass
         }
     }
     if(eventId===18){
         return {
-            type:[type.result,type.lead],
-            lead:vals.A,
+            type:[type.result,type.vals],
+            vals:vals.A,
             result:result.fair
         }
     }
     if(eventId===19){
         return {
-            type:[type.result,type.lead],
-            lead:vals.J,
+            type:[type.result,type.vals],
+            vals:vals.J,
             result:result.over
         }
     }
     if(eventId===20){
         return {
-            type:[type.result,type.lead],
-            lead:vals.Q,
+            type:[type.result,type.vals],
+            vals:vals.Q,
             result:result.under
         }
     }
@@ -105,7 +105,6 @@ export const decodeAction = (eventId:number) => {
                 output.suit=suit.nt
                 break;
         }
-        console.log(output)
         return output;
     }
     return null;

@@ -3,7 +3,7 @@ export enum type{
     CANCEL=400,
     number=0,
     bid,
-    lead,
+    vals,
     result,
     wind=4,
     suit,
@@ -56,4 +56,11 @@ export enum Boardsceen{
     lead,
     result,
     DONE,
+}
+export enum appScreen{
+    plauers,
+    board,
+    movement,
+    menu,
+
 }

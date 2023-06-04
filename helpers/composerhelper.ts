@@ -71,6 +71,8 @@ export const leadComposeer = (lead) => {
         case suit.diamonds:
             composed="D"
             break
+        default:
+            composed=""
     }
     switch (lead.vals) {
         case 2:
@@ -117,8 +119,10 @@ export const outcomeComposer = (outcome) => {
         case result.fair:
             composed="="
             return composed
+        default:
+            composed=""
     }
-    if(!isNaN(outcome.tricks)) {
+    if(!isNaN(outcome.tricks)&&outcome.result) {
         composed += outcome.tricks
     }
     return composed

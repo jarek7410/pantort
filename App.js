@@ -1,81 +1,54 @@
-import { StyleSheet,  View } from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import {BridgeKeyBoard} from "./components/BridgeKeyBoard";
-import {BridgeScreen} from "./components/BridgeScreen";
-import {decodeAction} from "./helpers/bridgekeyboardhelpers";
-import {useEffect, useState} from "react";
-import {bid, result, Boardsceen, suit, vals, wind} from "./helpers/enumhelper";
-import {boardUpdate} from "./helpers/boardhelper";
 
-const roundDefault={
-    round:0, //0 to inf
-    ns:0,
-    ew:0,
-    firstBoard:1,
-    lastBoard:1,
-}
-const boardExample={
-    number:4, //1 to 32
-    contract:{
-        suit:suit.nt,
-        number:1,
-        double:bid.xx,
-        wind:wind.N,
-    },
-    lead:{
-        suit:suit.diamonds,
-        vals:vals.A,
-    },
-    outcome:{
-        tricks:1,
-        result:result.fair,
-    }
-}
-const boardDefault={
-    number:"",
-    contract:{
-        // suit:"",
-        // number:"",
-        // double:"",
-        // wind:"",
-    },
-    lead:{},
-    outcome:{},
-}
+import {useEffect, useRef, useState} from "react";
+import {appScreen} from "./helpers/enumhelper";
+import {ScreenSetter} from "./components/ScreenSetter";
+import {gameCource1, movementExample} from "./helpers/exampleData";
+import {boardDefault, roundDefault} from "./helpers/defaultData";
+
+
+
+
 export default function App() {
-    const [focus,setFocus]=useState(Boardsceen.board);
+    const pairNumber=useRef(0);
     const [round,setRound]=useState(roundDefault);
-    // const [board,setBoard]=useState(boardDefault)
     const [board,setBoard]=useState(boardDefault)
-    const [,setRender]=useState(0);
-
+    const [screen,setScreen]=useState(appScreen.movement)
+    let course
     useEffect(()=>{
-      console.count("render")
-    })
-    const keyboardhendler=id=>{
-        let action=decodeAction(id)
-        const [workboard,workfocus]=boardUpdate(board,action,focus)
-        setBoard({...board,workboard});
-        setFocus(workfocus);
-        setRender(Math.random())
-    }
+        course=gameCource1;
+    },[])
+
     return (
     <View style={styles.container} key="main main">
-        <SafeAreaProvider style={{
-            justifyContent:"center",
-        }}>
-            <BridgeScreen focus={focus} round={round} board={board}/>
-            <BridgeKeyBoard onChange={keyboardhendler}/>
+        <SafeAreaProvider style={styles.safeArea}>
+            <ScreenSetter
+                course={course}
+                round={round}
+                board={board} setBoard={setBoard}
+                pairNumber={pairNumber} movement={movementExample}
+            />
         </SafeAreaProvider>
+        <Button title="change screen" onPress={()=>{
+            if(screen===appScreen.movement){
+                setScreen(appScreen.board)
+            }else{
+                setScreen(appScreen.movement)
+            }
+        }}/>
     </View>
     );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#454545',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    safeArea: {
+        justifyContent:"center",
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#454545',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });

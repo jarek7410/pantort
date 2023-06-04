@@ -1,4 +1,5 @@
-import {bid, Boardsceen, type, wind} from "./enumhelper";
+import {bid, Boardsceen, suit, type, wind} from "./enumhelper";
+
 
 
 export const boardUpdate = (board, action,focus) => {
@@ -8,7 +9,7 @@ export const boardUpdate = (board, action,focus) => {
         }
         board.number=numberWriter(board.number,action);
         if(board.number>32){
-            board.number="TOO BIG";//TODO: add acceptable error message
+            board.number="";//TODO: add acceptable error message
         }
     }
     if(focus===Boardsceen.contract){
@@ -16,6 +17,9 @@ export const boardUpdate = (board, action,focus) => {
     }
     if(focus===Boardsceen.lead){
         board=leadHandler(board,action);
+    }
+    if(focus===Boardsceen.result){
+        board=resultHandler(board,action);
     }
 
 
@@ -30,11 +34,29 @@ export const boardUpdate = (board, action,focus) => {
     }
     return [board,focus];
 }
+const resultHandler = (board, action) => {
+    if(action.type.includes(type.result)){
+        board.outcome.result=action.result;
+    }
+    if(action.type.includes(type.number)){
+        board.outcome.tricks=numberWriter(board.outcome.tricks,action);
+        if(board.outcome.tricks>13){
+            board.outcome.tricks="";
+        }
+        //TODO: add guardian for tricks
+    }
+    return board;
+};
 const leadHandler = (board, action) => {
     if(action.type.includes(type.suit)){
         board.lead.suit=action.suit;
+        if(action.suit===suit.nt){
+            board.lead.suit="";
+        }
     }
-
+    if(action.type.includes(type.vals)){
+        board.lead.vals=action.vals;
+    }
     return board;
 };
 const contractHenler = (board,action) => {
@@ -69,11 +91,13 @@ const contractHenler = (board,action) => {
                 board.contract.wind = wind.E;
             }
         }
-        console.log(board.contract);
     }
     if(action.type.includes(type.bid)){
         if(action.bid===bid.x){
             board.contract.double=bid.x;
+        }
+        if(action.bid===bid.pass) {
+            board.contract.double = "";
         }
         if(action.bid===bid.xx){
             board.contract.double=bid.xx;
@@ -84,7 +108,11 @@ const contractHenler = (board,action) => {
 }
 const numberWriter = (number:number,action) => {
     if(!number) {
-        number = action.number;
+        if(action.number===0){
+            number=10;
+        }else{
+            number = action.number;
+        }
     }else{
         number = number*10+action.number;
     }
