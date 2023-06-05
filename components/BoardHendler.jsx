@@ -6,7 +6,8 @@ import {BridgeScreen} from "./BridgeScreen";
 import {BridgeKeyBoard} from "./BridgeKeyBoard";
 import {boardDefault} from "../helpers/defaultData";
 
-export const BoardHendler = (round,boardEndHandler) => {
+export const BoardHendler = ({round, endHandler}
+) => {
     const [focus, setFocus] = useState(Boardsceen.board);
     const [board, setBoard] = useState(boardDefault);
     const keyboardHandler = id => {
@@ -15,7 +16,8 @@ export const BoardHendler = (round,boardEndHandler) => {
         setBoard({...board, workboard});
         setFocus(workfocus);
         if(workfocus===Boardsceen.DONE){
-            boardEndHandler(board);
+            console.log(typeof(endHandler))
+            endHandler(board);
         }
     }
     return (

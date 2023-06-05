@@ -1,15 +1,15 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, TouchableOpacity, TouchableHighlight} from "react-native";
 import {BridgeScreenRound} from "./BridgeScreenRound";
 import {constractComposer, leadComposeer, outcomeComposer} from "../helpers/composerhelper";
 import {Boardsceen} from "../helpers/enumhelper";
 
 export const BridgeScreen =({round,board,menuEnable,focus})=>{
-    let boards;
-    if(round.firstBoard===round.lastBoard){
-        boards=round.firstBoard;
+    let boards="";
+    if(round.length===1){
+        boards=round.boards[0];
     }else{
-        boards=round.firstBoard+"-"+round.lastBoard;
+        boards=round.boards[0]+"-"+round.boards[round.boards.length-1]
     }
     const contract=constractComposer(board.contract);
     const lead=leadComposeer(board.lead);

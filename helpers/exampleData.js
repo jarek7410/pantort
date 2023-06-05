@@ -35,6 +35,7 @@ export const gameCource2=[//michell movement
     {
         type: appScreen.movement,
         round: 2,
+        table: 1,
         ns: {
             table: 1,
             wind: wind.NS,
@@ -55,6 +56,7 @@ export const gameCource2=[//michell movement
     {
         type: appScreen.movement,
         round: 3,
+        table: 2,
         ns: {
             table: 2,
             wind: wind.NS,
@@ -71,6 +73,9 @@ export const gameCource2=[//michell movement
         table:3,
         ns:5,
         ew:2,
+    },
+    {
+        type: appScreen.tournamentEnd,
     }
 ]
 export const gameCource1=[//mitcheel movement
@@ -85,6 +90,7 @@ export const gameCource1=[//mitcheel movement
     {
         type: appScreen.movement,
         round: 2,
+        table: 1,
         ns: {
             table: 1,
             wind: wind.NS,
@@ -105,6 +111,7 @@ export const gameCource1=[//mitcheel movement
     {
         type: appScreen.movement,
         round: 2,
+        table: 1,
         ns: {
             table: 1,
             wind: wind.NS,
@@ -121,5 +128,8 @@ export const gameCource1=[//mitcheel movement
         table:1,
         ns:1,
         ew:6,
+    },
+    {
+      type: appScreen.tournamentEnd,
     }
 ]

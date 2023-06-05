@@ -1,4 +1,4 @@
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import {useEffect, useRef, useState} from "react";
@@ -12,31 +12,30 @@ import {boardDefault, roundDefault} from "./helpers/defaultData";
 
 export default function App() {
     const pairNumber=useRef(0);
-    const [round,setRound]=useState(roundDefault);
-    const [board,setBoard]=useState(boardDefault)
+    const [boards,setBoards]=useState([])
     const [screen,setScreen]=useState(appScreen.movement)
-    let course
+    const [loading,setLoading]=useState(true)
+    const [course,setCourse]=useState({})
+    const boardsHandler=(board)=>{
+        setBoards([...boards,board])
+        console.log(boards)
+        console.log(board)
+    }
     useEffect(()=>{
-        course=gameCource1;
+        setCourse(gameCource1);
+        setLoading(false)
     },[])
 
     return (
     <View style={styles.container} key="main main">
         <SafeAreaProvider style={styles.safeArea}>
-            <ScreenSetter
+            {loading ||<><ScreenSetter
                 course={course}
-                round={round}
-                board={board} setBoard={setBoard}
-                pairNumber={pairNumber} movement={movementExample}
-            />
+                boardsHandler={boardsHandler}
+                pairNumber={pairNumber}
+            /></>}
+            {loading && <Button title="loading" onPress={()=>{}}/>}
         </SafeAreaProvider>
-        <Button title="change screen" onPress={()=>{
-            if(screen===appScreen.movement){
-                setScreen(appScreen.board)
-            }else{
-                setScreen(appScreen.movement)
-            }
-        }}/>
     </View>
     );
 }

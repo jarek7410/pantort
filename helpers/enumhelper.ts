@@ -61,6 +61,7 @@ export enum appScreen{
     plauers,
     board,
     movement,
+    tournamentEnd,
     menu,
 
 }

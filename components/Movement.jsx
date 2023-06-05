@@ -1,10 +1,14 @@
 import {StyleSheet, View, Text, Pressable} from "react-native";
 import React from "react";
 
-export const Movement = ({movement}) => {
+export const Movement = ({movement,endHandler}) => {
+    const pressHandler=()=> {
+        endHandler();
+    }
+
     return (
         <>
-            <Pressable onPress={()=>{}}>
+            <Pressable onPress={pressHandler}>
             <View style={styles.screen}>
                 <View style={styles.row}>
                     <View style={styles.card}>
@@ -18,8 +22,9 @@ export const Movement = ({movement}) => {
                         }}
                     />
                     <View style={styles.card}>
-                        <Text style={styles.textMain}>NS{"->"}{movement.ns}</Text>
-                        <Text style={styles.textMain}>EW{"->"}{movement.ew}</Text>
+                        <Text style={styles.textMain}>ZE STOŁU:{movement.table}</Text>
+                        <Text style={styles.textMain}>NS{"->"}{movement.ns.table} {movement.ns.wind}</Text>
+                        <Text style={styles.textMain}>EW{"->"}{movement.ew.table} {movement.ew.wind}</Text>
                     </View>
 
 
