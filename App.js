@@ -1,13 +1,42 @@
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, ScrollView, StyleSheet, View} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {ScreenSetter} from "./components/ScreenSetter";
 import {gameCource1} from "./helpers/exampleData";
-import Realm from "realm";
+// import Realm from "realm";
+import {BridgeScreen} from "./components/BridgeScreen";
+import {Boardsceen} from "./helpers/enumhelper";
+import {roundDefault} from "./helpers/defaultData";
+
+const boardSchema={
+    name:"board",
+    properties:{
+        _id: "int",
+        number: "int",
+        contract:{
+            suit:"int",
+            number:"int",
+            double:"int",
+            wind:"int",
+        },
+        lead:{
+            suit:"int",
+            vals:"int",
+        },
+        outcome:{
+            tricks:"int",
+            result:"int",
+        }
+    },
+    primatyKey:"_id"
+}
 
 
 export default function App() {
+    // const [realm,setRealm]=useState(null)
+    // const [playedBoards,setPlayedBoards]=useState([])
+
     const pairNumber=useRef(0);
     const [boards,setBoards]=useState([])
     const [loading,setLoading]=useState(true)
@@ -17,25 +46,59 @@ export default function App() {
     // const [user, setUser] = React.useState(app.currentUser);
     const boardsHandler=(board)=>{
         setBoards([...boards,...board])
-        console.log(boards)
-        console.log(board)
+        // console.log(boards)
+        // addBoard(board)
+        // console.log(board)
     }
+    // useEffect(()=>{
+    //     (async ()=>{
+    //         const realm= await Realm.open({
+    //             path:"myrealm",
+    //             schema:[boardSchema]
+    //         }).then((realm)=>{
+    //             const boards=realm.objects("board");
+    //             setBoards([...boards])
+    //         })
+    //             try{
+    //                 boards.addlistener(()=>{
+    //                     setBoards([...boards])
+    //                 })
+    //             }catch (error){
+    //                 console.error("Error updateing boards",error)
+    //             }
+    //     }
+    //     )();
+    // },[])
+
+    // const addBoard=(board)=>{
+    //     realm.write(()=>{
+    //         board1 = realm.create("board",board)
+    //     })
+    // }
+
     useEffect(()=>{
         setCourse(gameCource1);
         setLoading(false)
     },[])
 
+
     return (
-    <View style={styles.container} key="main main">
-        <SafeAreaProvider style={styles.safeArea}>
-            {loading ||<><ScreenSetter
-                course={course}
-                boardsHandler={boardsHandler}
-                pairNumber={pairNumber}
-            /></>}
-            {loading && <Button title="loading" onPress={()=>{}}/>}
-        </SafeAreaProvider>
-        {user ? <UserDetail user={user} /> : <Login setUser={setUser} />}
+    <View style={[styles.container,styles.row]} key="main main">
+        <View>
+            <SafeAreaProvider style={styles.safeArea}>
+                {loading ||<><ScreenSetter
+                    course={course}
+                    boardsHandler={boardsHandler}
+                    pairNumber={pairNumber}
+                /></>}
+                {loading && <Button title="loading" onPress={()=>{}}/>}
+            </SafeAreaProvider>
+        </View>
+        <ScrollView>
+            {boards && boards.map((item)=>{
+                return <BridgeScreen baord={item} focus={Boardsceen.BACK} round={roundDefault}/>
+            })}
+        </ScrollView>
     </View>
     );
 }
@@ -67,4 +130,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    row:{
+        flexDirection: 'row',
+    }
 });

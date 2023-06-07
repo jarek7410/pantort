@@ -11,6 +11,7 @@ export const BridgeScreen =({round,board,focus})=>{
     }else{
         boards=round.boards[0]+"-"+round.boards[round.boards.length-1]
     }
+    console.log("board: ",board)
     const contract=constractComposer(board.contract);
     const lead=leadComposeer(board.lead);
     const outcome=outcomeComposer(board.outcome);
