@@ -1,48 +1,61 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {appScreen} from "../helpers/enumhelper";
 import {Movement} from "./Movement";
 import {BoardHendler} from "./BoardHendler";
-import {roundDefault} from "../helpers/defaultData";
 import {Text} from "react-native";
-import {movementExample} from "../helpers/exampleData";
 import {TournamentEndScreen} from "./TournamentEndScreen";
 
 export const ScreenSetter = ({course,boardsHandler}) => {
-    const [movement,setMovement]=useState(movementExample);
-    const [round,setRound]=useState(roundDefault);
-    const [screen, setScreen] = useState("");
-    const [coursePointer, setCoursePointer] = useState(0);
-    useEffect(()=>{
-        console.log("ScreenSetter useEffect")
-        console.log(round)
-        let courseCurent=course[coursePointer]
+    const playedBoard = useRef([])
+    const playedBoardData = useRef([])
 
-        setScreen(courseCurent.type)
-        setRound(courseCurent)
-        setMovement(courseCurent)
+    const [screen, setScreen] = useState("");
+
+    const [coursePointer, setCoursePointer] = useState(0);
+
+    const [currentBoard, setCurentBoard] = useState({});
+    useEffect(()=>{
+        console.log("current played board: ",currentBoard.round)
+        let courseCurentLocal=course[coursePointer]
+
+        setCurentBoard(courseCurentLocal)
+        setScreen(courseCurentLocal.type)
+        // setRound(courseCurentLocal)
+        // setMovement(courseCurentLocal)
             // setScreen(course[coursePointer].type)
 
     },[coursePointer])
     const boardEndHandler = (board) => {
-        console.log("OK exceeded screen")
-        setCoursePointer(coursePointer+1)
-        boardsHandler(board)
+        playedBoardData.current=[...playedBoardData.current,board]
+        playedBoard.current=[...playedBoard.current,board.number]
+        console.log("board number: ",board.number)
+        // console.log("played boards:",playedBoardData.current)
+        // console.log("boards 1.",playedBoard.current)
+        // console.log("boards 2.",currentBoard.boards)
+        // console.log("method 1: ",
+        //     currentBoard.boards.every(y => playedBoard.current.includes(y)))
+        if(currentBoard.boards.every(y => playedBoard.current.includes(y))){
+            setCoursePointer(coursePointer+1)
+            boardsHandler(playedBoardData.current)
+        }
+        else{
+        }
     }
     const movementEndHandler = () => {
         console.log("OK exceeded screen")
         setCoursePointer(coursePointer+1)
     }
-    if(appScreen.board === screen) {
+    if(screen === appScreen.board) {
         return(
             <>
-                <BoardHendler endHandler={boardEndHandler} round={round}/>
+                <BoardHendler endHandler={boardEndHandler} round={currentBoard}/>
             </>
         )
     }
     if(screen===appScreen.movement){
         return(
             <>
-                <Movement movement={movement} endHandler={movementEndHandler}/>
+                <Movement movement={currentBoard} endHandler={movementEndHandler}/>
             </>
         )
     }
@@ -53,6 +66,7 @@ export const ScreenSetter = ({course,boardsHandler}) => {
             </>
         )
     }
+
     return (
         <>
             <Text>error</Text>

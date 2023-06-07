@@ -5,7 +5,7 @@ export const roundDefault={
     boards:[],
 }
 
-export const boardDefault={
+export const boardEmpty={
     number:"",
     contract:{
         suit:"",

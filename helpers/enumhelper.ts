@@ -58,6 +58,7 @@ export enum Boardsceen{
     DONE,
 }
 export enum appScreen{
+    hello,
     plauers,
     board,
     movement,

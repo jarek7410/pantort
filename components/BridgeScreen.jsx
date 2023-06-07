@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {View, Text, StyleSheet, TouchableOpacity, TouchableHighlight} from "react-native";
 import {BridgeScreenRound} from "./BridgeScreenRound";
 import {constractComposer, leadComposeer, outcomeComposer} from "../helpers/composerhelper";
 import {Boardsceen} from "../helpers/enumhelper";
 
-export const BridgeScreen =({round,board,menuEnable,focus})=>{
+export const BridgeScreen =({round,board,focus})=>{
     let boards="";
     if(round.length===1){
         boards=round.boards[0];
