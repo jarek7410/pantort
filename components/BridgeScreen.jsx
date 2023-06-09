@@ -4,14 +4,16 @@ import {BridgeScreenRound} from "./BridgeScreenRound";
 import {constractComposer, leadComposeer, outcomeComposer} from "../helpers/composerhelper";
 import {Boardsceen} from "../helpers/enumhelper";
 
-export const BridgeScreen =({round,board,focus})=>{
+export const BridgeScreen =({logContext,round,board,focus})=>{
     let boards="";
     if(round.length===1){
         boards=round.boards[0];
     }else{
         boards=round.boards[0]+"-"+round.boards[round.boards.length-1]
     }
-    console.log("board: ",board)
+    if(board===undefined){
+        console.error(logContext+" board: ",board)
+    }
     const contract=constractComposer(board.contract);
     const lead=leadComposeer(board.lead);
     const outcome=outcomeComposer(board.outcome);

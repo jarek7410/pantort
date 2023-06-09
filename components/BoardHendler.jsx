@@ -57,7 +57,7 @@ export const BoardHendler = ({round, endHandler}
                     </View>
                 </View>
             </Modal>
-            <BridgeScreen focus={focus} round={round} board={board}/>
+            <BridgeScreen logContext={"boardhendler"} focus={focus} round={round} board={board}/>
             <BridgeKeyBoard onChange={keyboardHandler}/>
         </>
     )

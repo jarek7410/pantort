@@ -29,11 +29,7 @@ export const ScreenSetter = ({course,boardsHandler}) => {
         playedBoardData.current=[...playedBoardData.current,board]
         playedBoard.current=[...playedBoard.current,board.number]
         console.log("board number: ",board.number)
-        // console.log("played boards:",playedBoardData.current)
-        // console.log("boards 1.",playedBoard.current)
-        // console.log("boards 2.",currentBoard.boards)
-        // console.log("method 1: ",
-        //     currentBoard.boards.every(y => playedBoard.current.includes(y)))
+        console.log("played board: ",playedBoardData.current.length)
         if(currentBoard.boards.every(y => playedBoard.current.includes(y))){
             setCoursePointer(coursePointer+1)
             boardsHandler(playedBoardData.current)
