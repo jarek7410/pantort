@@ -6,7 +6,9 @@ import {Boardsceen} from "../helpers/enumhelper";
 
 export const BridgeScreen =({logContext,round,board,focus})=>{
     let boards="";
-    if(round.length===1){
+    if(round===undefined){
+        boards=" ";
+    }else if(round.length===1){
         boards=round.boards[0];
     }else{
         boards=round.boards[0]+"-"+round.boards[round.boards.length-1]

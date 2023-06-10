@@ -4,6 +4,7 @@ import {Movement} from "./Movement";
 import {BoardHendler} from "./BoardHendler";
 import {Text} from "react-native";
 import {TournamentEndScreen} from "./TournamentEndScreen";
+import {TournamentMessageScreen} from "./TournamentMessageScreen";
 
 export const ScreenSetter = ({course,boardsHandler}) => {
     const playedBoard = useRef([])
@@ -13,12 +14,12 @@ export const ScreenSetter = ({course,boardsHandler}) => {
 
     const [coursePointer, setCoursePointer] = useState(0);
 
-    const [currentBoard, setCurentBoard] = useState({});
+    const [currentPart, setCurrentPart] = useState({});
     useEffect(()=>{
-        console.log("current played board: ",currentBoard.round)
+        console.log("current played board: ",currentPart.round)
         let courseCurentLocal=course[coursePointer]
 
-        setCurentBoard(courseCurentLocal)
+        setCurrentPart(courseCurentLocal)
         setScreen(courseCurentLocal.type)
         // setRound(courseCurentLocal)
         // setMovement(courseCurentLocal)
@@ -30,7 +31,7 @@ export const ScreenSetter = ({course,boardsHandler}) => {
         playedBoard.current=[...playedBoard.current,board.number]
         console.log("board number: ",board.number)
         console.log("played board: ",playedBoardData.current.length)
-        if(currentBoard.boards.every(y => playedBoard.current.includes(y))){
+        if(currentPart.boards.every(y => playedBoard.current.includes(y))){
             setCoursePointer(coursePointer+1)
             boardsHandler(playedBoardData.current)
         }
@@ -41,31 +42,20 @@ export const ScreenSetter = ({course,boardsHandler}) => {
         console.log("OK exceeded screen")
         setCoursePointer(coursePointer+1)
     }
-    if(screen === appScreen.board) {
-        return(
-            <>
-                <BoardHendler endHandler={boardEndHandler} round={currentBoard}/>
-            </>
-        )
-    }
-    if(screen===appScreen.movement){
-        return(
-            <>
-                <Movement movement={currentBoard} endHandler={movementEndHandler}/>
-            </>
-        )
-    }
-    if(screen===appScreen.tournamentEnd){
-        return(
-            <>
-                <TournamentEndScreen/>
-            </>
-        )
-    }
-
-    return (
+    return(
         <>
-            <Text>error</Text>
+            {appScreen.board === screen &&
+                <BoardHendler endHandler={boardEndHandler} round={currentPart}/>
+            }
+            {appScreen.movement === screen &&
+                <Movement movement={currentPart} endHandler={movementEndHandler}/>
+            }
+            {appScreen.tournamentEnd === screen &&
+                <TournamentEndScreen/>
+            }
+            {appScreen.message === screen &&
+                <TournamentMessageScreen message={currentPart} endHandler={movementEndHandler}/>
+            }
         </>
     )
 }

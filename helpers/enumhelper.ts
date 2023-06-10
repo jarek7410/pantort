@@ -64,5 +64,6 @@ export enum appScreen{
     movement,
     tournamentEnd,
     menu,
+    message,
 
 }

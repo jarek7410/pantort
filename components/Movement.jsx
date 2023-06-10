@@ -1,5 +1,6 @@
 import {StyleSheet, View, Text, Pressable} from "react-native";
 import React from "react";
+import {PressableScreen} from "./PressableScreen";
 
 export const Movement = ({movement,endHandler}) => {
     const pressHandler=()=> {
@@ -7,9 +8,7 @@ export const Movement = ({movement,endHandler}) => {
     }
 
     return (
-        <>
-            <Pressable onPress={pressHandler}>
-            <View style={styles.screen}>
+            <PressableScreen style={styles.screen} onPress={pressHandler}>
                 <View style={styles.row}>
                     <View style={styles.card}>
                         <Text style={styles.textMain}>ROZDANIE:{movement.round}</Text>
@@ -26,19 +25,13 @@ export const Movement = ({movement,endHandler}) => {
                         <Text style={styles.textMain}>NS{"->"}{movement.ns.table} {movement.ns.wind}</Text>
                         <Text style={styles.textMain}>EW{"->"}{movement.ew.table} {movement.ew.wind}</Text>
                     </View>
-
-
                 </View>
-            </View>
-            </Pressable>
-        </>
+            </PressableScreen>
     )
 }
 const styles=StyleSheet.create({
     screen:{
         margin:5,
-        width:290,
-        height:195  ,
         padding:20,
         backgroundColor:"darkgreen",
         alignItems:"center",

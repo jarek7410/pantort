@@ -80,6 +80,10 @@ export const gameCource2=[//michell movement
 ]
 export const gameCource1=[//mitcheel movement
     {
+        type: appScreen.message,
+        message: "Welcome to the tournament"
+    },
+    {
         type:appScreen.board,
         round:1,
         boards:[1,2],
