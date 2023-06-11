@@ -1,10 +1,10 @@
 import React, {useRef, useState} from "react";
-import {Boardsceen} from "../helpers/enumhelper";
-import {decodeAction} from "../helpers/bridgekeyboardhelpers";
-import {boardUpdate} from "../helpers/boardhelper";
+import {Boardsceen} from "../../helpers/enumhelper";
+import {decodeAction} from "../../helpers/bridgekeyboardhelpers";
+import {boardUpdate} from "../../helpers/boardhelper";
 import {BridgeScreen} from "./BridgeScreen";
 import {BridgeKeyBoard} from "./BridgeKeyBoard";
-import {boardEmpty} from "../helpers/defaultData";
+import {boardEmpty} from "../../helpers/defaultData";
 import {Modal, Text, View, StyleSheet, Pressable} from "react-native";
 
 export const BoardHendler = ({round, endHandler}

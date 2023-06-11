@@ -67,3 +67,9 @@ export enum appScreen{
     message,
 
 }
+export enum Vulnerability{
+    NONE,
+    NS,
+    EW,
+    BOTH,
+}

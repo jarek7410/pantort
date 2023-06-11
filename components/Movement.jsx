@@ -32,7 +32,8 @@ export const Movement = ({movement,endHandler}) => {
 const styles=StyleSheet.create({
     screen:{
         margin:5,
-        padding:20,
+        padding:5,
+        width:"100%",
         backgroundColor:"darkgreen",
         alignItems:"center",
         justifyContent:"center",

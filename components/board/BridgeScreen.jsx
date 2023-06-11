@@ -1,16 +1,16 @@
 import React from "react";
 import {View, Text, StyleSheet, TouchableOpacity, TouchableHighlight} from "react-native";
-import {BridgeScreenRound} from "./BridgeScreenRound";
-import {constractComposer, leadComposeer, outcomeComposer} from "../helpers/composerhelper";
-import {Boardsceen} from "../helpers/enumhelper";
+import {BridgeScreenRound} from "../BridgeScreenRound";
+import {constractComposer, leadComposeer, outcomeComposer} from "../../helpers/composerhelper";
+import {Boardsceen} from "../../helpers/enumhelper";
 
 export const BridgeScreen =({logContext,round,board,focus})=>{
     let boards="";
-    if(round===undefined){
+    if(round.boards.length===0){
         boards=" ";
-    }else if(round.length===1){
+    }else if(round.boards.length===1){
         boards=round.boards[0];
-    }else{
+    }else if(round){
         boards=round.boards[0]+"-"+round.boards[round.boards.length-1]
     }
     if(board===undefined){

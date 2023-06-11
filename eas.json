@@ -13,10 +13,11 @@
       "channel": "preview"
     },
     "production": {
-      "channel": "production"
+      "channel": "production",
+      "developmentClient": false,
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
     }
-  },
-  "submit": {
-    "production": {}
   }
 }

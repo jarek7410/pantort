@@ -12,10 +12,10 @@ export const PressableScreen = ({style,children,onPress})=>{
 }
 const styles = StyleSheet.create({
     screen:{
-        width:500,
+        width:"100%",
         aspectRatio:2,
         backgroundColor:"darkgreen",
-        marginHorizontal : 10,
+        marginHorizontal : 1,
         justifyContent:"center",
         alignItems:"center",
     },

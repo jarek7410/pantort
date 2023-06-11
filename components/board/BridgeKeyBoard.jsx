@@ -1,7 +1,7 @@
 import React from "react";
 import {View,Text,StyleSheet} from "react-native";
-import {Row} from "./Row";
-import {buttonTable} from "../helpers/keyboardlayouthelper";
+import {Row} from "../Row";
+import {buttonTable} from "../../helpers/keyboardlayouthelper";
 
 
 export const BridgeKeyBoard =({onClick,onChange})=>{

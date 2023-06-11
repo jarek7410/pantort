@@ -1,11 +1,11 @@
 import * as React from "react";
 import {Pressable, StyleSheet, Text, TextInput, View} from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import {color} from "../styles/colors";
+import {color} from "../../styles/colors";
 
 export const ChousePairPremade = ({setPair}) => {
     const [isNS, setIsNS] = React.useState(true);
-    const [tableNumber, setTableNumber] = React.useState(0);
+    const [tableNumber, setTableNumber] = React.useState("");
     const submit=()=>{
         if(tableNumber===0){
             return
@@ -57,8 +57,8 @@ export const ChousePairPremade = ({setPair}) => {
                 />
             </View>
             <Pressable onPress={submit}>
-                <View style={[styles.item,]}>
-                    <Text style={[styles.text,{color:"dark"}]}>Dodaj</Text>
+                <View style={[styles.item]}>
+                    <Text style={[styles.text,{color:"dark"}]}>Dalej</Text>
                 </View>
             </Pressable>
         </View>
@@ -72,8 +72,6 @@ const styles = StyleSheet.create({
     },
     item:{
         backgroundColor:"darkgreen",
-        flex:1,
-        aspectRatio:5,
         margin:10,
         padding:10,
         justifyContent:"center",
@@ -85,8 +83,8 @@ const styles = StyleSheet.create({
     },
     textNoDecoration: { textDecorationLine: "none" },
     textInput:{
-        fontSize:21,
-        height: 30,
+        fontSize:25,
+        height: 60,
         width: 60,
         borderWidth: 1,
         padding: 10,

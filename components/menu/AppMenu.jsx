@@ -8,7 +8,8 @@ import {
     gameCource4,
     gameCource5,
     gameCource6
-} from "../helpers/ExampleCoursefor3";
+} from "../../helpers/ExampleCoursefor3";
+import {MenuOption} from "./MenuOption";
 
 
 
@@ -17,7 +18,7 @@ export const AppMenu = ({setCourse}) => {
     const [isPairscreen,setIsPairscreen] = React.useState(false);
     const [isPremadeCourse,setIsPremadeCourse] = React.useState(false);
     const premadeActionHandler = (pairNumber) => {
-        if (!(pairNumber > 0 && pairNumber < 6)) {
+        if (!(pairNumber > 0 && pairNumber <= 6)) {
             return;
         }
         console.info("pairNumber",pairNumber)
@@ -56,7 +57,10 @@ export const AppMenu = ({setCourse}) => {
     }
 
 
-  return(
+    const setChousetabelka= () => {
+        setCourse(0);
+    }
+    return(
       <View
             style={{
                 width:300,
@@ -66,18 +70,18 @@ export const AppMenu = ({setCourse}) => {
                 {isPremadeCourse &&
                     <ChousePairPremade setPair={premadeActionHandler}/>}
                 {isHomescreen &&
-                  <HomeScreen premade3={setPremadeCourse}/>}
+                  <HomeScreen premade3={setPremadeCourse} tabelka={setChousetabelka}/>}
       </View>
   )
 }
-const HomeScreen = ({premade3}) => {
+const HomeScreen = ({premade3,tabelka}) => {
     return (
         <>
             <View style={[styles.menu]}>
-                <MenuOption text="Dołacz do Turnieju" handler={()=> {}}/>
+                <MenuOption style={{backgroundColor: "grey"}} text="Dołacz do Turnieju" handler={()=> {}}/>
                 <MenuOption text="domyślny na 3" handler={premade3}/>
-                <MenuOption text="mecz" handler={()=> {}}/>
-                <MenuOption text="na tabelke" handler={()=> {}}/>
+                <MenuOption style={{backgroundColor: "grey"}} text="mecz" handler={()=> {}}/>
+                <MenuOption text="na tabelke" handler={tabelka}/>
             </View>
         </>
     );
@@ -86,19 +90,10 @@ const HomeScreen = ({premade3}) => {
 const ProfileScreen = ({route}) => {
     return <Text>This is {route.params.name}'s profile</Text>;
 };
-const MenuOption = ({text,handler}) => {
-    return(
-        <Pressable onPress={handler}>
-            <View style={[styles.item,]}>
-                    <Text style={[styles.text,{color:"dark"}]}>{text}</Text>
-            </View>
-        </Pressable>
-    )
-}
+
 const styles = StyleSheet.create({
     menu:{
         // backgroundColor:color.primary,
-        margin:20,
         padding:10,
     },
     item:{
@@ -107,6 +102,7 @@ const styles = StyleSheet.create({
         aspectRatio:5,
         margin:10,
         padding:10,
+        width:200,
         justifyContent:"center",
         alignItems:"center",
     },
