@@ -1,13 +1,12 @@
 import {Button, ScrollView, StyleSheet, View} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import React, {useEffect, useRef, useState} from "react";
+import React, { useRef, useState} from "react";
 import {ScreenSetter} from "./components/ScreenSetter";
-import {boardExample, gameCource1} from "./helpers/exampleData";
-// import Realm from "realm";
 import {BridgeScreen} from "./components/BridgeScreen";
 import {appScreen, Boardsceen} from "./helpers/enumhelper";
-import {boardEmpty, roundDefault} from "./helpers/defaultData";
+import { roundDefault} from "./helpers/defaultData";
+import {gameCource1} from "./helpers/ExampleCoursefor3";
 import {AppMenu} from "./components/AppMenu";
 
 
@@ -41,6 +40,10 @@ export default function App() {
     const [boards,setBoards]=useState([])
     const [loading,setLoading]=useState(true)
     const [course,setCourse]=useState({type:appScreen.menu})
+    // useEffect(()=>{
+    //     setLoading(false)
+    //     loadCoursePremade()
+    // },[])
     const boardsHandler=(board)=>{
         setBoards([...board])
     }
@@ -48,8 +51,8 @@ export default function App() {
         setCourse(gameCource1);
         setLoading(false)
     }
-    const loadCourse=()=> {
-        setCourse(gameCource1);
+    const loadCourse=(course)=> {
+        setCourse(course);
         setLoading(false)
     }
 
@@ -66,14 +69,13 @@ export default function App() {
                 boardsHandler={boardsHandler}
                 pairNumber={pairNumber}
             />}
-            {loading && <AppMenu/>}
-            {loading && <Button title="loading" onPress={loadCourse}/>}
+            {loading && <AppMenu setCourse={loadCourse}/>}
+            {loading && <Button title="loading" onPress={loadCoursePremade}/>}
 
         </View>
         <View key={"2"}>
             {boards.length >=6 &&
             <View>
-                {console.log("boards",boards)}
                 {boards.map((item)=>{
                     if(item) {
                         return <BridgeScreen logContext={"app"} key={item.number} board={JSON.parse(JSON.stringify(item))} focus={Boardsceen.BACK} round={roundDefault}/>

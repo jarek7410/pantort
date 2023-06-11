@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from "react";
 import {appScreen} from "../helpers/enumhelper";
 import {Movement} from "./Movement";
 import {BoardHendler} from "./BoardHendler";
-import {Text} from "react-native";
 import {TournamentEndScreen} from "./TournamentEndScreen";
 import {TournamentMessageScreen} from "./TournamentMessageScreen";
 
@@ -21,9 +20,6 @@ export const ScreenSetter = ({course,boardsHandler}) => {
 
         setCurrentPart(courseCurentLocal)
         setScreen(courseCurentLocal.type)
-        // setRound(courseCurentLocal)
-        // setMovement(courseCurentLocal)
-            // setScreen(course[coursePointer].type)
 
     },[coursePointer])
     const boardEndHandler = (board) => {
