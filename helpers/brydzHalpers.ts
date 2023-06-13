@@ -1,3 +1,4 @@
+import {log} from "expo-updates/build-cli/utils/log";
 
 export const expectablePointsTableka=(number:number,val:boolean)=>{
     const num:number=number>=20?number-20:20-number;
@@ -58,6 +59,7 @@ export const expectablePointsTableka=(number:number,val:boolean)=>{
     }
 }
 export const impTable=(difference:number)=>{
+    console.log("imptool",difference)
     if(difference<=10){
         return 0;
     }

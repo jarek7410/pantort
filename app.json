@@ -2,9 +2,9 @@
   "expo": {
     "name": "panTort",
     "slug": "pantort",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "orientation": "portrait",
-    "icon": "./assets/logo_card.png",
+    "icon": "./assets/piernik.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -19,12 +19,12 @@
       "buildNumber": "2"
     },
     "android": {
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo_MZBS.png",
+        "foregroundImage": "./assets/piernik.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jarek7410.pantort"
+      "package": "com.jarek7410.pantort2"
     },
     "web": {
       "favicon": "./assets/favicon.png"

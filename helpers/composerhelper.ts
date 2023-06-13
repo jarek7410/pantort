@@ -1,4 +1,4 @@
-import {bid, result, suit, vals, wind} from "./enumhelper";
+import {bid, result, suit, vals, Vulnerability, wind} from "./enumhelper";
 import {contract, outcome} from "./interfaces";
 
 export const constractComposer = (contract) => {
@@ -188,13 +188,33 @@ export const scoreComposer = (contract: contract,outcome:outcome,vol:boolean) =>
     if(contract.number>=6&&contract.number<=6){
         score+=vol?1000:500;
     }
-    // if(
-    //     contract.number>=5
-    //     // &&contract.number<=5
-    //     &&(contract.suit==suit.clubs||contract.suit==suit.diamonds)){
-    //     score+=vol?500:300;
-    // }
     score+=fairytail
 
     return score;
+}
+export const duplicateBoardsComposer = (board:number) => {
+    let val:Vulnerability;
+    let dealer:wind;
+    if(board%16==1||board%16==8||board%16==11||board%16==14){
+        val=Vulnerability.NONE;
+    }else if(board%16==2||board%16==5||board%16==12||board%16==15){
+        val=Vulnerability.NS;
+    }else if(board%16==3||board%16==6||board%16==9||board%16==0){
+        val=Vulnerability.EW;
+    }else if(board%16==4||board%16==7||board%16==10||board%16==13){
+        val=Vulnerability.BOTH;
+    }
+    if(board%4==1){
+        dealer=wind.N;
+    }else if(board%4==2){
+        dealer=wind.E;
+    }else if(board%4==3){
+        dealer=wind.S;
+    } else{
+        dealer=wind.W;
+    }
+    return {dealer:dealer,vulnerability:val,board:Math.floor(board/16)}
+
+
+
 }

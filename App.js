@@ -5,7 +5,7 @@ import React, { useRef, useState} from "react";
 import {ScreenSetter} from "./components/ScreenSetter";
 import {BridgeScreen} from "./components/board/BridgeScreen";
 import {appScreen, Boardsceen} from "./helpers/enumhelper";
-import { roundDefault} from "./helpers/defaultData";
+import {roundDefault} from "./helpers/defaultData";
 import {gameCource1} from "./helpers/ExampleCoursefor3";
 import {AppMenu} from "./components/menu/AppMenu";
 import {TabelkaScreen} from "./components/TabelkaScreen";
@@ -45,10 +45,6 @@ export default function App() {
     const [isTableka ,setIsTableka]=useState(false)
 
     const [course,setCourse]=useState({type:appScreen.menu})
-    // useEffect(()=>{
-    //     setLoading(false)
-    //     loadCoursePremade()
-    // },[])
     const boardsHandler=(board)=>{
         setBoards([...board])
     }
@@ -105,8 +101,8 @@ export default function App() {
 }
 const styles = StyleSheet.create({
     safeArea: {
-        justifyContent:"center",
-        paddingTop:25,
+        // justifyContent:"center",
+
     },
     container: {
         width: '100%',

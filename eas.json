@@ -10,14 +10,12 @@
     },
     "preview": {
       "distribution": "internal",
-      "channel": "preview"
+      "channel": "preview",
+      "developmentClient": false
     },
     "production": {
       "channel": "production",
-      "developmentClient": false,
-      "android": {
-        "gradleCommand": ":app:assembleRelease"
-      }
+      "developmentClient": false
     }
   }
 }
