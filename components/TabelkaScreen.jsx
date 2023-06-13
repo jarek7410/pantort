@@ -31,6 +31,12 @@ export const TabelkaScreen = () => {
     setDealer(duplicate.dealer)
   },[boardNumber])
 
+  useEffect(()=>{
+    if(parseInt(points)>40||parseInt(points)<0){
+      setPoints("20")
+    }
+  },[points])
+
   const onsubmit = () => {
     /**
      * kolor done
