@@ -20,7 +20,7 @@ export const TabelkaScreen = () => {
   const [player,setPlayer] = React.useState(wind.N)
   const [dealer,setDealer] = React.useState(wind.N)
   const [points,setPoints] = React.useState(20);
-  const [setDuplicateBoards] = React.useState(1)
+  const [DuplicateBoards,setDuplicateBoards] = React.useState(1)
 
   const [score,setScore] = React.useState(0);
   const [histry,setHistry] = React.useState([])
@@ -105,6 +105,7 @@ export const TabelkaScreen = () => {
           <TextInput style={styles.textInput}
                      onChangeText={setBoardNumber}
                      value={boardNumber}
+                     autoFocus={true}
                      placeholder="##"
                      keyboardType="numeric"
           />
@@ -215,7 +216,7 @@ export const TabelkaScreen = () => {
         <HorizontalLine/>
         <Text style={styles.text}>Kontrakt:</Text>
         <View style={[styles.row]}>
-          <Text style={styles.text}>wysokość:{contractHeight}</Text>
+          <Text style={styles.text}>wysokość:</Text>
           {/*<TextInput style={styles.textInput}*/}
           {/*           onChangeText={setContractHeight}*/}
           {/*           value={contractHeight}*/}
@@ -225,7 +226,7 @@ export const TabelkaScreen = () => {
           <View>
             <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
-                text={""}
+                text={contractHeight}
                 isChecked={false}
                 onPress={()=>{
                   if(contractHeight<7){
