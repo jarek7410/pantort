@@ -7,7 +7,7 @@ export const ImpPopup = ({history,setHistry}) => {
     const [localhistory,setLocalHistory]=useState(history)
     useEffect(()=>{
         setLocalHistory(history)
-    },[])
+    },[history])
     const deleteElementOfHistry = (id) => {
         history.splice(id,1)
         localhistory.splice(id,1)
@@ -29,10 +29,10 @@ export const ImpPopup = ({history,setHistry}) => {
             {localhistory.map((item,id)=>{
                 return(
                     <View style={[styles.popupItem,styles.row]} key={id}>
-                        <Text style={styles.popupText}>{id} </Text>
-                        <Text style={styles.popupText}>{item.number}. </Text>
+                        <Text style={styles.popupText}>{id+1} </Text>
+                        <Text style={styles.popupText}>{item.contract.number}. </Text>
                         <Text style={styles.popupText}>imp: {item.imp}</Text>
-                        <Text style={styles.popupText}>kontract: {constractComposer(item.contract)} {windConposer(item.contract)} {outcomeComposer(item.outcome)}</Text>
+                        <Text style={styles.popupText}>kontract: {windConposer(item.contract)}{constractComposer(item.contract)}  {outcomeComposer(item.outcome)}</Text>
                         {/*<Text style={styles.popupText}>wynik: {outcomeComposer(item.outcome)}</Text>*/}
                         <Button title={"usuń"} color={"crimson"} onPress={()=>{
 
@@ -48,7 +48,10 @@ export const ImpPopup = ({history,setHistry}) => {
                 justifyContent:"center",
                 alignItems:"center",
             }}>
-                <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                <Pressable onPress={() => {
+                    // console.log("histyr",history[0])
+                    setModalVisible(!modalVisible)
+                }}>
                     <Text style={{fontSize:21}}>zamknij</Text>
                 </Pressable>
             </View>
