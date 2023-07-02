@@ -1,14 +1,14 @@
-import {Button, ScrollView, StyleSheet, View} from 'react-native';
+import React, { useRef, useState} from "react";
+import {ScrollView, StyleSheet, View} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import React, { useRef, useState} from "react";
 import {ScreenSetter} from "./components/ScreenSetter";
 import {BridgeScreen} from "./components/board/BridgeScreen";
 import {appScreen, Boardsceen} from "./helpers/enumhelper";
 import {roundDefault} from "./helpers/defaultData";
 import {gameCource1} from "./helpers/ExampleCoursefor3";
 import {AppMenu} from "./components/menu/AppMenu";
-import {TabelkaScreen} from "./components/TabelkaScreen";
+import {TabelkaScreen} from "./components/tabelka/TabelkaScreen";
 
 
 const boardSchema={
@@ -85,13 +85,13 @@ export default function App() {
             }}>
             <View key={"2"}>
                 {boards.length >=6 &&
-                <View>
+                    (<View>
                     {boards.map((item)=>{
                         if(item) {
                             return <BridgeScreen logContext={"app"} key={item.number} board={JSON.parse(JSON.stringify(item))} focus={Boardsceen.BACK} round={roundDefault}/>
                         }
                     })}
-                </View>
+                </View>)
                 }
             </View>
             </ScrollView>

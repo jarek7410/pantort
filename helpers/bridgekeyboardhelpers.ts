@@ -7,21 +7,21 @@ export const decodeAction = (eventId:number) => {
     if(eventId===1){
         return {
             type: [type.number],
-            number: eventId
+            level: eventId
         }
     }
     if(eventId<10){
         return {
             type:[type.number,type.vals],
-            number:eventId,
-            vals:eventId,
+            level:eventId,
+            val:eventId,
         }
     }
     if(eventId===10){
         return {
             type:[type.number,type.vals],
-            number:0,
-            vals:eventId,
+            level:0,
+            val:eventId,
         }
     }
     if(eventId===11){
@@ -61,28 +61,28 @@ export const decodeAction = (eventId:number) => {
     if(eventId===17){
         return {
             type:[type.bid,type.vals],
-            vals:vals.K,
-            bid:bid.pass
+            val:vals.K,
+            bid:bid.none
         }
     }
     if(eventId===18){
         return {
             type:[type.result,type.vals],
-            vals:vals.A,
+            val:vals.A,
             result:result.fair
         }
     }
     if(eventId===19){
         return {
             type:[type.result,type.vals],
-            vals:vals.J,
+            val:vals.J,
             result:result.over
         }
     }
     if(eventId===20){
         return {
             type:[type.result,type.vals],
-            vals:vals.Q,
+            val:vals.Q,
             result:result.under
         }
     }
@@ -90,19 +90,19 @@ export const decodeAction = (eventId:number) => {
         let output={type:[type.suit], suit: undefined}
         switch (eventId){
             case 21:
-                output.suit=suit.spades
+                output.suit=suit.SPADES
                 break;
             case 22:
-                output.suit=suit.hearts
+                output.suit=suit.HEARTS
                 break;
             case 23:
-                output.suit=suit.diamonds
+                output.suit=suit.DIAMONDS
                 break;
             case 24:
-                output.suit=suit.clubs
+                output.suit=suit.CLUBS
                 break;
             case 25:
-                output.suit=suit.nt
+                output.suit=suit.NT
                 break;
         }
         return output;

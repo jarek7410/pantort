@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, Pressable} from "react-native";
+import {View, Text, StyleSheet} from "react-native";
 import {ChousePairPremade} from "./ChousePairPremade";
 import {
     gameCource1,
@@ -10,6 +10,8 @@ import {
     gameCource6
 } from "../../helpers/ExampleCoursefor3";
 import {MenuOption} from "./MenuOption";
+import {sendData} from "../../helpers/dataHandling";
+import {boardExample} from "../../helpers/exampleData";
 
 
 
@@ -80,7 +82,11 @@ const HomeScreen = ({premade3,tabelka}) => {
             <View style={[styles.menu]}>
                 <MenuOption style={{backgroundColor: "grey"}} text="Dołacz do Turnieju" handler={()=> {}}/>
                 <MenuOption text="domyślny na 3" handler={premade3}/>
-                <MenuOption style={{backgroundColor: "grey"}} text="mecz" handler={()=> {}}/>
+                <MenuOption text="test" handler={()=>{
+                    sendData("http://192.168.33.104:3000/api/prev/board",boardExample)
+                        ;
+                }
+                    }/>
                 <MenuOption text="na tabelke" handler={tabelka}/>
             </View>
         </>

@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, View} from "react-native";
+import { StyleSheet, View} from "react-native";
 import {SquerButton} from "./SquerButton";
 import React from "react";
 

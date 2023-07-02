@@ -1,19 +1,19 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Modal, Text, Pressable, StyleSheet, View, ScrollView, Button} from "react-native";
-import {constractComposer, outcomeComposer} from "../helpers/composerhelper";
+import {constractComposer, outcomeComposer, windConposer} from "../../helpers/composerhelper";
 
 export const ImpPopup = ({history,setHistry}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [localhistory,setLocalHistory]=useState(history)
-    const deleteElementOfHistry = (id) => {
-
-        console.log("history 1",history.length)
-        history.splice(id,1)
-        console.log("history 2",history.length)
-        setHistry(history)
+    useEffect(()=>{
         setLocalHistory(history)
+    },[])
+    const deleteElementOfHistry = (id) => {
+        history.splice(id,1)
+        localhistory.splice(id,1)
+        setHistry(history)
+        setLocalHistory(localhistory)
         setModalVisible(false)
-
     }
     return (
         <>
@@ -26,13 +26,13 @@ export const ImpPopup = ({history,setHistry}) => {
             }}>
         <View style={styles.popup}>
             <ScrollView>
-            {history.map((item,id)=>{
+            {localhistory.map((item,id)=>{
                 return(
                     <View style={[styles.popupItem,styles.row]} key={id}>
                         <Text style={styles.popupText}>{id} </Text>
                         <Text style={styles.popupText}>{item.number}. </Text>
                         <Text style={styles.popupText}>imp: {item.imp}</Text>
-                        <Text style={styles.popupText}>kontract: {constractComposer(item.contract)} {outcomeComposer(item.outcome)}</Text>
+                        <Text style={styles.popupText}>kontract: {constractComposer(item.contract)} {windConposer(item.contract)} {outcomeComposer(item.outcome)}</Text>
                         {/*<Text style={styles.popupText}>wynik: {outcomeComposer(item.outcome)}</Text>*/}
                         <Button title={"usuń"} color={"crimson"} onPress={()=>{
 
@@ -54,11 +54,11 @@ export const ImpPopup = ({history,setHistry}) => {
             </View>
         </View>
         </Modal>
-            <View style={{backgroundColor:"darkgreen"}}>
-                <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                    <Text>historia</Text>
-                </Pressable>
-            </View>
+        <View style={{borderRadius:5,height:30,width:70,backgroundColor:"darkgreen",justifyContent:"center",alignItems:"center"}}>
+            <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                <Text>historia</Text>
+            </Pressable>
+        </View>
         </>
     )
 }

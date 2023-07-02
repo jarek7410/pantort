@@ -30,6 +30,7 @@ export const SquerButton=({onChange,onClick,name,icon="",color="black",alt="text
 }
 const styles =StyleSheet.create({
     button:{
+        borderRadius:5,
         backgroundColor:"gray",
         height:50,
         width:50,

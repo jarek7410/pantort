@@ -10,11 +10,11 @@ export enum type{
 
 }
 export enum suit{
-    spades,
-    hearts,
-    diamonds,
-    clubs,
-    nt,
+    SPADES='spades',
+    HEARTS='hearts',
+    DIAMONDS='diamonds',
+    CLUBS='clubs',
+    NT='nt',
 }
 export enum wind{
     NS="NS",
@@ -25,9 +25,9 @@ export enum wind{
     S="S",
 }
 export enum bid{
-    pass,
-    x,
-    xx
+    none="none",
+    x='x',
+    xx='xx',
 }
 export enum vals{
     two=2,
@@ -68,8 +68,8 @@ export enum appScreen{
 
 }
 export enum Vulnerability{
-    NONE,
-    NS,
-    EW,
-    BOTH,
+    NONE='none',
+    NS='ns',
+    EW= 'ew',
+    BOTH='both',
 }

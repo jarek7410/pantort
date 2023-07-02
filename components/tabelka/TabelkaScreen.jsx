@@ -1,26 +1,26 @@
-import {KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
-import {color} from "../styles/colors";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {color} from "../../styles/colors";
 import * as React from "react";
-import {bid, result, suit, Vulnerability, wind} from "../helpers/enumhelper";
-import {duplicateBoardsComposer, outcomeComposer, scoreComposer} from "../helpers/composerhelper";
-import {expectablePointsTableka, impTable} from "../helpers/brydzHalpers";
+import {bid, result, suit, Vulnerability, wind} from "../../helpers/enumhelper";
+import {duplicateBoardsComposer, outcomeComposer, scoreComposer} from "../../helpers/composerhelper";
+import {expectablePointsTableka, impTable} from "../../helpers/brydzHalpers";
 import {ImpPopup} from "./ImpPopup";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useEffect} from "react";
+import {ButtonNinus, ButtonPlus, MyCheckbox} from "./Buttons";
 
 export const TabelkaScreen = () => {
   const [boardNumber,setBoardNumber] = React.useState("1");
-  const [isKontra,setIsKontra] = React.useState(bid.pass);
+  const [isKontra,setIsKontra] = React.useState(bid.none);
   const [contractHeight,setContractHeight] = React.useState("1");
-  const [playedSuit,setPlayedSuit] = React.useState(suit.nt);
+  const [playedSuit,setPlayedSuit] = React.useState(suit.NT);
   const [outcome,setOutcome] = React.useState(result.fair)
   const [takes,setTakes] = React.useState("0");
   const [volnable,setVolnable] = React.useState(Vulnerability.NONE);
   const [player,setPlayer] = React.useState(wind.N)
   const [dealer,setDealer] = React.useState(wind.N)
-  const [points,setPoints] = React.useState("20");
-  const [duplicateBoards,setDuplicateBoards] = React.useState(1)
+  const [points,setPoints] = React.useState(20);
+  const [setDuplicateBoards] = React.useState(1)
 
   const [score,setScore] = React.useState(0);
   const [histry,setHistry] = React.useState([])
@@ -78,14 +78,28 @@ export const TabelkaScreen = () => {
       imp:imp,
       contract:contract,
       outcome:outcom,
-      number:boardNumber}])
+      level:boardNumber}])
     setBoardNumber((parseInt(boardNumber)+1).toString())
   }
 
+  const increasePoints = (number) => {
+        if(points+number>40){
+          setPoints(40)
+        }else{
+          setPoints(points+number)
+        }
+
+  };
+  const decreasePoints = (number) => {
+        if(points-number<0){
+          setPoints(0)
+        }else{
+          setPoints(points-number)
+        }
+  };
   return(
       <View style={[styles.menu]}>
         <SafeAreaView>
-        <ImpPopup history={histry} setHistry={setHistry}/>
         <View style={[styles.row]}>
           <Text style={styles.text}>rozdanie nr:</Text>
           <TextInput style={styles.textInput}
@@ -94,15 +108,23 @@ export const TabelkaScreen = () => {
                      placeholder="##"
                      keyboardType="numeric"
           />
-          <Text style={styles.text}>punkty na lini:</Text>
-          <TextInput style={styles.textInput}
-                     onChangeText={setPoints}
-                     value={points}
-                     placeholder="##"
-                     keyboardType="numeric"
-          />
+          <View style={{marginLeft:10}}>
+            <Text style={styles.text}>Deler: {dealer}</Text>
+            <ImpPopup history={histry} setHistry={setHistry}/>
+          </View>
         </View>
-          <Text style={styles.text}>Deler: {dealer}</Text>
+          <View style={{alignItems:"center"}}>
+          <Text style={styles.text}>punkty na lini:</Text>
+          <View style={styles.rowOnly}>
+            <ButtonNinus text={"-5"} onPress={()=>{decreasePoints(5)}}/>
+            <ButtonNinus text={"-"} onPress={()=>{decreasePoints(1)}}/>
+            <Text style={[styles.text,{width:35,height:30}]}>
+              [{points}]
+            </Text>
+            <ButtonPlus text={"+"} onPress={()=>increasePoints(1)}/>
+            <ButtonPlus text={"+5"} onPress={()=>increasePoints(5)}/>
+          </View>
+        </View>
         </SafeAreaView>
         <View style={[styles.row]}>
           <View>
@@ -112,7 +134,7 @@ export const TabelkaScreen = () => {
           </View>
           <View>
             <Text style={styles.text}>NS:</Text>
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={""}
                 isChecked={volnable===Vulnerability.NONE||volnable===Vulnerability.EW}
@@ -120,7 +142,7 @@ export const TabelkaScreen = () => {
                 fillColor={"yellowgreen"}
                 unfillColor={color.yellow}
             />
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={""}
                 isChecked={volnable===Vulnerability.BOTH||volnable===Vulnerability.NS}
@@ -131,7 +153,7 @@ export const TabelkaScreen = () => {
           </View>
           <View>
             <Text style={styles.text}>EW:</Text>
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={""}
                 isChecked={volnable===Vulnerability.NONE||volnable===Vulnerability.NS}
@@ -139,7 +161,7 @@ export const TabelkaScreen = () => {
                 fillColor={"yellowgreen"}
                 unfillColor={color.yellow}
             />
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={""}
                 isChecked={volnable===Vulnerability.BOTH||volnable===Vulnerability.EW}
@@ -150,7 +172,7 @@ export const TabelkaScreen = () => {
           </View>
           <Text style={styles.text}>Rozgrywa:</Text>
           <View>
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={"N"}
                 isChecked={player===wind.NS||player===wind.N}
@@ -159,7 +181,7 @@ export const TabelkaScreen = () => {
                 fillColor={"darkgreen"}
                 unfillColor={color.green}
             />
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={"E"}
                 isChecked={player===wind.EW||player===wind.E}
@@ -170,7 +192,7 @@ export const TabelkaScreen = () => {
             />
           </View>
           <View>
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={"S"}
                 isChecked={player===wind.NS||player===wind.S}
@@ -179,7 +201,7 @@ export const TabelkaScreen = () => {
                 fillColor={"darkgreen"}
                 unfillColor={color.green}
             />
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={"W"}
                 isChecked={player===wind.EW||player===wind.W}
@@ -201,7 +223,7 @@ export const TabelkaScreen = () => {
           {/*           keyboardType="numeric"*/}
           {/*/>*/}
           <View>
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={""}
                 isChecked={false}
@@ -218,25 +240,25 @@ export const TabelkaScreen = () => {
           </View>
           <View style={{borderRightWidth:1,height:"100%",marginHorizontal:5}}/>
           <View >
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={"kontra"}
                 isChecked={isKontra===bid.x}
                 onPress={()=>{
                   if(isKontra===bid.x){
-                    setIsKontra(bid.pass)
+                    setIsKontra(bid.none)
                   }else{setIsKontra(bid.x)}}}
                 disableBuiltInState
                 fillColor={color.orange}
                 unfillColor={color.yellow}
             />
-            <BouncyCheckbox
+            <MyCheckbox
                 textStyle={[styles.text, styles.textNoDecoration]}
                 text={"rekontra"}
                 isChecked={isKontra===bid.xx}
                 onPress={()=>{
                   if(isKontra===bid.xx){
-                    setIsKontra(bid.pass)
+                    setIsKontra(bid.none)
                   }else{setIsKontra(bid.xx)}}}
                 disableBuiltInState
                 fillColor={color.orange}
@@ -248,47 +270,47 @@ export const TabelkaScreen = () => {
         <View style={[styles.row,{marginTop:10}]}>
           <Text style={styles.text}>kolor:</Text>
           <View>
-          <BouncyCheckbox
+          <MyCheckbox
               textStyle={[styles.text, styles.textNoDecoration]}
               text={"NT"}
-              isChecked={playedSuit===suit.nt}
-              onPress={()=>{setPlayedSuit(suit.nt)}}
+              isChecked={playedSuit===suit.NT}
+              onPress={()=>{setPlayedSuit(suit.NT)}}
               disableBuiltInState
               fillColor={color.blue}
               unfillColor={color.green}
           />
-          <BouncyCheckbox
+          <MyCheckbox
               textStyle={[styles.text, styles.textNoDecoration]}
               text={"S"}
-              isChecked={playedSuit===suit.spades}
-              onPress={()=>{setPlayedSuit(suit.spades)}}
+              isChecked={playedSuit===suit.SPADES}
+              onPress={()=>{setPlayedSuit(suit.SPADES)}}
               disableBuiltInState
               fillColor={color.black}
               unfillColor={color.yellow}
           />
-          <BouncyCheckbox
+          <MyCheckbox
               textStyle={[styles.text, styles.textNoDecoration]}
               text={"H"}
-              isChecked={playedSuit===suit.hearts}
-              onPress={()=>{setPlayedSuit(suit.hearts)}}
+              isChecked={playedSuit===suit.HEARTS}
+              onPress={()=>{setPlayedSuit(suit.HEARTS)}}
               disableBuiltInState
               fillColor={color.red}
               unfillColor={color.yellow}
           />
-          <BouncyCheckbox
+          <MyCheckbox
               textStyle={[styles.text, styles.textNoDecoration]}
               text={"D"}
-              isChecked={playedSuit===suit.diamonds}
-              onPress={()=>{setPlayedSuit(suit.diamonds)}}
+              isChecked={playedSuit===suit.DIAMONDS}
+              onPress={()=>{setPlayedSuit(suit.DIAMONDS)}}
               disableBuiltInState
               fillColor={color.red}
               unfillColor={color.yellow}
           />
-          <BouncyCheckbox
+          <MyCheckbox
               textStyle={[styles.text, styles.textNoDecoration]}
               text={"C"}
-              isChecked={playedSuit===suit.clubs}
-              onPress={()=>{setPlayedSuit(suit.clubs)}}
+              isChecked={playedSuit===suit.CLUBS}
+              onPress={()=>{setPlayedSuit(suit.CLUBS)}}
               disableBuiltInState
               fillColor={color.black}
               unfillColor={color.yellow}
@@ -297,7 +319,7 @@ export const TabelkaScreen = () => {
           <View style={{borderRightWidth:1,height:"100%",marginHorizontal:5}}/>
             <View>
               <Text style={styles.text}>wynik: {outcomeComposer({tricks: takes,result:outcome})}</Text>
-                  <BouncyCheckbox
+                  <MyCheckbox
                       textStyle={[styles.text, styles.textNoDecoration]}
                       text={"+"}
                       isChecked={outcome===result.over}
@@ -309,7 +331,7 @@ export const TabelkaScreen = () => {
                       fillColor={color.black}
                       unfillColor={"grey"}
                   />
-                  <BouncyCheckbox
+                  <MyCheckbox
                       textStyle={[styles.text, styles.textNoDecoration]}
                       text={"="}
                       isChecked={outcome===result.fair}
@@ -321,7 +343,7 @@ export const TabelkaScreen = () => {
                       fillColor={"yellowgreen"}
                       unfillColor={color.yellow}
                   />
-                  <BouncyCheckbox
+                  <MyCheckbox
                       textStyle={[styles.text, styles.textNoDecoration]}
                       text={"-"}
                       isChecked={outcome===result.under}
@@ -341,9 +363,8 @@ export const TabelkaScreen = () => {
 
         <View style={[styles.row,{marginTop:5}]}>
         </View>
-        <HorizontalLine/>
         <TouchableOpacity onPress={onsubmit}>
-          <View style={[styles.item]}>
+          <View style={[styles.item,{borderRadius:5}]}>
             <Text style={[styles.text,{color:"dark"}]}>zatwierdz</Text>
           </View>
         </TouchableOpacity>
@@ -361,14 +382,8 @@ const HorizontalLine = () => {
 //   neongreen:"#00FF19",
 // }
 const styles = StyleSheet.create({
-  button:{
-    width:30,
-    height:30,
-    backgroundColor:"bisque",
-    alignItems:"center",
-    justifyContent:"center",
-  },
   menu:{
+    borderRadius:3,
     backgroundColor:"green",
     margin:20,
     padding:10,
@@ -396,12 +411,29 @@ const styles = StyleSheet.create({
     borderColor:"black",
     color:"black",
     marginBottom:5,
+    borderRadius:3,
+  },
+  rowOnly:{
+    flexDirection:"row",
   },
   row:{
     flexDirection:"row",
     justifyContent:"space-between",
     alignItems:"center",
     width:"100%"
+  },
+  button:{
+    width:30,
+    height:30,
+    backgroundColor:"grey",
+    alignItems:"center",
+    justifyContent:"center",
+  },
+  buttonPlus:{
+    backgroundColor:"darkgreen",
+  },
+  buttonMinus:{
+    backgroundColor:"darkred",
   },
   buttonText: {
     fontSize: 20,

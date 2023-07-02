@@ -1,7 +1,7 @@
 import React from "react";
 import {View, Text, StyleSheet, TouchableOpacity, TouchableHighlight} from "react-native";
 import {BridgeScreenRound} from "../BridgeScreenRound";
-import {constractComposer, leadComposeer, outcomeComposer} from "../../helpers/composerhelper";
+import {constractComposer, leadComposeer, outcomeComposer, windConposer} from "../../helpers/composerhelper";
 import {Boardsceen} from "../../helpers/enumhelper";
 
 export const BridgeScreen =({logContext,round,board,focus})=>{
@@ -16,7 +16,7 @@ export const BridgeScreen =({logContext,round,board,focus})=>{
     if(board===undefined){
         console.error(logContext+" board: ",board)
     }
-    const contract=constractComposer(board.contract);
+    const contract=constractComposer(board.contract)+" "+windConposer(board.contract);
     const lead=leadComposeer(board.lead);
     const outcome=outcomeComposer(board.outcome);
 
