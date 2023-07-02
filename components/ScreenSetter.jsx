@@ -4,6 +4,7 @@ import {Movement} from "./Movement";
 import {BoardHendler} from "./board/BoardHendler";
 import {TournamentEndScreen} from "./TournamentEndScreen";
 import {TournamentMessageScreen} from "./TournamentMessageScreen";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 export const ScreenSetter = ({course,boardsHandler}) => {
     const playedBoard = useRef([])
@@ -17,6 +18,7 @@ export const ScreenSetter = ({course,boardsHandler}) => {
     useEffect(()=>{
         console.log("current played board: ",currentPart.round)
         let courseCurentLocal=course[coursePointer]
+        console.log(courseCurentLocal)
 
         setCurrentPart(courseCurentLocal)
         setScreen(courseCurentLocal.type)
@@ -39,7 +41,7 @@ export const ScreenSetter = ({course,boardsHandler}) => {
         setCoursePointer(coursePointer+1)
     }
     return(
-        <>
+        <SafeAreaView>
             {appScreen.board === screen &&
                 <BoardHendler endHandler={boardEndHandler} round={currentPart}/>
             }
@@ -52,6 +54,6 @@ export const ScreenSetter = ({course,boardsHandler}) => {
             {appScreen.message === screen &&
                 <TournamentMessageScreen message={currentPart} endHandler={movementEndHandler}/>
             }
-        </>
+        </SafeAreaView>
     )
 }

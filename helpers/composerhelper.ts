@@ -1,55 +1,69 @@
 import {bid, result, suit, vals, Vulnerability, wind} from "./enumhelper";
 import {contract, outcome} from "./interfaces";
 
-export const constractComposer = (contract) => {
+const isContractGood=(contract):boolean=>{
     if(!contract){
-        return "";
+        return null;
+    }
+    if(contract.number>7||contract.number<0) {
+        throw new Error('Parameter is not a good!');
+    }
+    return true
+
+}
+export const constractComposer = (contract) => {
+    if(!isContractGood(contract)){
+        return ""
     }
     let composed:string="";
-    if(contract.number>7||contract.number<0) {
-        throw new Error('Parameter is not a number!');
-    }
+
     if(!isNaN(contract.number)){
         composed+=contract.number;
     }
-        switch (contract.suit){
-            case suit.nt:
-                composed+="NT"
-                break;
-            case suit.hearts:
-                composed+="H"
-                break;
-            case suit.spades:
-                composed+="S"
-                break;
-            case suit.clubs:
-                composed+="C"
-                break
-            case suit.diamonds:
-                composed+="D"
-                break
-            default:
-                break;
-        }
-    switch (contract.double){
-        case bid.xx:
-            composed+="XX "
+    composed+=" ";
+    switch (contract.suit){
+        case suit.NT:
+            composed+="NT"
+            break;
+        case suit.HEARTS:
+            composed+="H"
+            break;
+        case suit.SPADES:
+            composed+="S"
+            break;
+        case suit.CLUBS:
+            composed+="C"
             break
-        case bid.x:
-            composed+="X  "
+        case suit.DIAMONDS:
+            composed+="D"
             break
         default:
-            composed+="   "
+            break;
+    }
+    switch (contract.double){
+        case bid.xx:
+            composed+=" x"
+            break
+        case bid.x:
+            composed+=" x"
+            break
+        default:
+            composed+=""
             break
     }
-    switch (contract.wind){
-        case wind.E:
-        case wind.N:
-        case wind.S:
-        case wind.W:
-            composed += contract.wind;
-    }
+
     return composed;
+}
+export const windConposer=(contract)=>{
+        switch (contract.wind){
+            case wind.E:
+            case wind.N:
+            case wind.S:
+            case wind.W:
+                return contract.wind;
+            default:
+                return "";
+    }
 }
 export const leadComposeer = (lead) => {
     if(!lead){
@@ -57,19 +71,19 @@ export const leadComposeer = (lead) => {
     }
     let composed:string;
     switch (lead.suit){
-        case suit.nt:
+        case suit.NT:
             composed="NT"
             break;
-        case suit.hearts:
+        case suit.HEARTS:
             composed="H"
             break;
-        case suit.spades:
+        case suit.SPADES:
             composed="S"
             break;
-        case suit.clubs:
+        case suit.CLUBS:
             composed="C"
             break
-        case suit.diamonds:
+        case suit.DIAMONDS:
             composed="D"
             break
         default:
@@ -122,6 +136,7 @@ export const outcomeComposer = (outcome) => {
             return composed
         default:
             composed=""
+            return composed
     }
     if(!isNaN(outcome.tricks)&&outcome.result) {
         composed += outcome.tricks
@@ -144,7 +159,7 @@ export const scoreComposer = (contract: contract,outcome:outcome,vol:boolean) =>
         return score
     }else if(outcome.result===result.over){
         let trik:number=30;
-        if(contract.suit==suit.diamonds||contract.suit==suit.clubs){
+        if(contract.suit==suit.DIAMONDS ||contract.suit==suit.CLUBS){
             trik=20;
         }
         if(contract.double==bid.x){
@@ -157,13 +172,13 @@ export const scoreComposer = (contract: contract,outcome:outcome,vol:boolean) =>
 
     }
     let fairytail:number=0;
-    if(contract.suit==suit.nt){
+    if(contract.suit==suit.NT){
         fairytail+=contract.number*30+10;
     }
-    if(contract.suit==suit.hearts||contract.suit==suit.spades){
+    if(contract.suit==suit.HEARTS ||contract.suit==suit.SPADES){
         fairytail+=contract.number*30;
     }
-    if(contract.suit==suit.clubs||contract.suit==suit.diamonds){
+    if(contract.suit==suit.CLUBS ||contract.suit==suit.DIAMONDS){
         fairytail+=contract.number*20;
     }
 

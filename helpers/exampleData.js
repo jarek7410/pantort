@@ -9,13 +9,13 @@ export const movementExample={
 export const boardExample={
     number:4, //1 to 32
     contract:{
-        suit:suit.nt,
+        suit:suit.NT,
         number:1,
         double:bid.xx,
         wind:wind.N,
     },
     lead:{
-        suit:suit.diamonds,
+        suit:suit.DIAMONDS,
         vals:vals.A,
     },
     outcome:{

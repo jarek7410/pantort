@@ -9,13 +9,13 @@ export const boardEmpty={
     number:"",
     contract:{
         suit:"",
-        number:"",
+        level:"",
         double:"",
         wind:"",
     },
     lead:{
         suit:"",
-        vals:"",
+        val:"",
     },
     outcome:{
         tricks:"",

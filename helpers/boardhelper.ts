@@ -50,7 +50,7 @@ const resultHandler = (board, action) => {
 const leadHandler = (board, action) => {
     if(action.type.includes(type.suit)){
         board.lead.suit=action.suit;
-        if(action.suit===suit.nt){
+        if(action.suit===suit.NT){
             board.lead.suit="";
         }
     }
@@ -96,7 +96,7 @@ const contractHenler = (board,action) => {
         if(action.bid===bid.x){
             board.contract.double=bid.x;
         }
-        if(action.bid===bid.pass) {
+        if(action.bid===bid.none) {
             board.contract.double = "";
         }
         if(action.bid===bid.xx){
