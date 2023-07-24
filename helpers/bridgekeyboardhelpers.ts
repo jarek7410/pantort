@@ -7,12 +7,14 @@ export const decodeAction = (eventId:number) => {
     if(eventId===1){
         return {
             type: [type.number],
-            level: eventId
+            number: eventId
+
         }
     }
     if(eventId<10){
         return {
             type:[type.number,type.vals],
+            number:eventId,
             level:eventId,
             val:eventId,
         }
@@ -20,7 +22,8 @@ export const decodeAction = (eventId:number) => {
     if(eventId===10){
         return {
             type:[type.number,type.vals],
-            level:0,
+            number:0,
+            level: eventId,
             val:eventId,
         }
     }

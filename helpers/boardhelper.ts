@@ -55,7 +55,7 @@ const leadHandler = (board, action) => {
         }
     }
     if(action.type.includes(type.vals)){
-        board.lead.vals=action.vals;
+        board.lead.vals=action.val;
     }
     return board;
 };
