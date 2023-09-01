@@ -9,6 +9,7 @@ import {roundDefault} from "./helpers/defaultData";
 import {gameCource1} from "./helpers/ExampleCoursefor3";
 import {AppMenu} from "./components/menu/AppMenu";
 import {TabelkaScreen} from "./components/tabelka/TabelkaScreen";
+import {MeczControler} from "./components/mecz/MeczControler";
 
 
 const boardSchema={
@@ -43,6 +44,13 @@ export default function App() {
     const [isMenu ,setIsMenu]=useState(true)
     const [isBoard ,setIsBoard]=useState(false)
     const [isTableka ,setIsTableka]=useState(false)
+    const screens={
+        menu:0,
+        board:1,
+        tableka:2,
+        mecz:3,
+    }
+    const [Screen ,setScreen]=useState(screens.menu)
 
     const [course,setCourse]=useState({type:appScreen.menu})
     const boardsHandler=(board)=>{
@@ -50,17 +58,31 @@ export default function App() {
     }
     const loadCoursePremade=()=> {
         setCourse(gameCource1);
+        setScreen(screens.board)
+
+        //TODO: disable this
         setIsMenu(false)
         setIsBoard(true)
     }
     const loadCourse=(course)=> {
         if(course===0){
-            console.log("loadCoursePremade")
+            console.log("loadTableka")
+            setScreen(screens.tableka)
+
+            //TODO: disable this
             setIsTableka(true)
             setIsMenu(false)
             return
         }
+        if(course===1){
+            console.log("loadmecz")
+            setScreen(screens.mecz)
+            return
+        }
         setCourse(course);
+        setScreen(screens.board)
+
+        //TODO: disable this
         setIsMenu(false)
         setIsBoard(true)
     }
@@ -70,15 +92,14 @@ export default function App() {
         <SafeAreaProvider style={styles.safeArea}>
             <View style={[styles.container]} key="main main">
             <View key={"1"}>
-                {isBoard && <ScreenSetter
+                {screens.board===Screen && <ScreenSetter
                     course={course}
                     boardsHandler={boardsHandler}
                     pairNumber={pairNumber}
                 />}
-                {isMenu && <AppMenu setCourse={loadCourse}/>}
-                {isTableka&&<TabelkaScreen
-                />}
-
+                {screens.menu===Screen && <AppMenu setCourse={loadCourse}/>}
+                {screens.tableka===Screen&&<TabelkaScreen/>}
+                {screens.mecz===Screen&&<MeczControler/>}
             </View>
             <ScrollView style={{
                 marginHorizontal:20,

@@ -2,14 +2,14 @@ import {Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native"
 import * as React from "react";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 
-export const ButtonPlus=({text,onPress,style})=>{
+export const ButtonPlus=({text,onPress,style={}})=>{
     return(
         <Button style={[styles.buttonPlus, style]} onPress={onPress}>
             <Text style={styles.buttonText}>{text}</Text>
         </Button>
     )
 }
-export const ButtonNinus=({text,onPress,style})=>{
+export const ButtonNinus=({text,onPress,style={}})=>{
     return(
         <Button style={[styles.buttonMinus,style]} onPress={onPress}>
             <Text style={styles.buttonText}>{text}</Text>
@@ -20,7 +20,7 @@ export const MyCheckbox = ({
                                textStyle,
                                text,
                                isChecked,
-                               onPress,
+                               onPress=undefined,
                                disableBuiltInState,
                                fillColor,
                                unfillColor})=>{
@@ -44,6 +44,8 @@ export const MyCheckbox = ({
 </Pressable>
     )
 }
+
+//TODO: refactor Button to basicComponents
 const Button=({style,onPress,children})=>{
     return(
         <TouchableOpacity onPress={onPress} style={[styles.button,style]}>
