@@ -33,7 +33,7 @@ export const getPlays =async (mechID)=> {
         // console.log("response",response)
         // const data = await response.json();
         // console.log("data", data)
-        return data
+        return response.json()
     } catch (e) {
         console.log("e", e)
     }
