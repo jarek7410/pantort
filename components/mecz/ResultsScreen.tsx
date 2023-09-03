@@ -1,20 +1,26 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, ScrollView} from "react-native";
-import {getPlays} from "../../helpers/fetchHelper";
+import {getPlays, getResult} from "../../helpers/fetchHelper";
 import {transw2W} from "../../helpers/cought_them_all.dto";
 import {Button} from "../basicComponents/Buttons";
 
-export const ResultsScreen = ({setPlay}) => {
+export const ResultsScreen = ({setPlay,meczId}) => {
     const [plays, setPlays] = useState([])
+    const [imp, setImp] = useState(0)
 
     useEffect(() => {
         const fetch = async () => {
-            const data = await getPlays(3)
-            console.log("1",data)
+            const data = await getPlays(meczId)
+            console.log(meczId,data)
             setPlays(data.plays)
+            const {imp,ended} = await getResult(meczId)
+            setImp(imp)
         }
         fetch()
     },[])
+    const eracePlays = (playId) => {
+
+    }
     return (
         <View>
         <ScrollView style={{
@@ -35,12 +41,15 @@ export const ResultsScreen = ({setPlay}) => {
             </View>
         </View>
         </ScrollView>
-            <Button
-                style={{borderRadius:5,height:30,width:90,backgroundColor:"darkgreen",justifyContent:"center",alignItems:"center"}}
-                onPress={setPlay}
+            <View style={styles.row}>
+                <Button
+                    style={{borderRadius:5,height:30,width:90,backgroundColor:"darkgreen",justifyContent:"center",alignItems:"center"}}
+                    onPress={setPlay}
                 >
-                <Text style={{fontSize:20,color:"white"}}>Powrót</Text>
-            </Button>
+                    <Text style={{fontSize:20,color:"white"}}>Powrót</Text>
+                </Button>
+                <Text style={{fontSize:20,color:"white"}}>Imp:{imp}(NS otwarte,EW zamkniete)</Text>
+            </View>
         </View>
     )
 }

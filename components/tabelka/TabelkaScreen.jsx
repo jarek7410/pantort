@@ -105,7 +105,7 @@ export const TabelkaScreen = () => {
           <TextInput style={styles.textInput}
                      onChangeText={setBoardNumber}
                      value={boardNumber}
-                     autoFocus={true}
+                     autoFocus={false}
                      placeholder="##"
                      keyboardType="numeric"
           />

@@ -4,9 +4,9 @@ import {styles} from "./styles";
 import {Button} from "../basicComponents/Buttons";
 import {codePretty} from "./hendler";
 
-export const JoinScreen = ({action}) => {
-    const [code, setCode] = useState('P81F99C')
-    const [codeText, setCodeText] = useState('P81F99C')
+export const JoinScreen = ({action,create}) => {
+    const [code, setCode] = useState('')
+    const [codeText, setCodeText] = useState('')
     useEffect(() => {
         setCodeText(codePretty(code))
         setCode(code.replace(/\s+/g, ''))
@@ -33,7 +33,7 @@ export const JoinScreen = ({action}) => {
             <Button onPress={submit} style={{paddingHorizontal:20}}>
                 <Text>Dołacz</Text>
             </Button>
-            <Button onPress={submit} style={{paddingHorizontal:20}}>
+            <Button onPress={create} style={{paddingHorizontal:20}}>
                 <Text>Utwórz</Text>
             </Button>
         </View>

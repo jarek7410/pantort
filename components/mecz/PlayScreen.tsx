@@ -2,16 +2,16 @@ import React, {useEffect} from "react";
 import {View, Text, TextInput, TouchableOpacity, StyleSheet} from "react-native";
 import {bid, result, suit, Vulnerability, wind} from "../../helpers/enumhelper";
 import {constractComposer, duplicateBoardsComposer, outcomeComposer, scoreComposer} from "../../helpers/composerhelper";
-import {expectablePointsTableka, impTable} from "../../helpers/brydzHalpers";
+import {impTable} from "../../helpers/brydzHalpers";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {ImpPopup} from "../tabelka/ImpPopup";
-import {ButtonNinus, ButtonPlus, MyCheckbox} from "../tabelka/Buttons";
+
+import {MyCheckbox} from "../tabelka/Buttons";
 import {color} from "../../styles/colors";
 import {Button} from "../basicComponents/Buttons";
 import {codePretty} from "./hendler";
-import {transW2w, Wind} from "../../helpers/cought_them_all.dto";
+import {transW2w} from "../../helpers/cought_them_all.dto";
 
-export const PlayScreen=({code,showHistry,setPlay})=> {
+export const PlayScreen=({code,showHistry,setPlay,title})=> {
     const [boardNumber,setBoardNumber] = React.useState("1");
     const [isKontra,setIsKontra] = React.useState(bid.none);
     const [contractHeight,setContractHeight] = React.useState(1);
@@ -21,7 +21,6 @@ export const PlayScreen=({code,showHistry,setPlay})=> {
     const [volnable,setVolnable] = React.useState(Vulnerability.NONE);
     const [player,setPlayer] = React.useState(wind.N)
     const [dealer,setDealer] = React.useState(wind.N)
-    const [points,setPoints] = React.useState(20);
     const [DuplicateBoards,setDuplicateBoards] = React.useState(1)
     const [isOpen,setIsOpen] = React.useState(false)
 
@@ -33,11 +32,7 @@ export const PlayScreen=({code,showHistry,setPlay})=> {
         setDealer(duplicate.dealer)
     },[boardNumber])
 
-    useEffect(()=>{
-        if(points>40||points<0){
-            setPoints(20)
-        }
-    },[points])
+
 
     const onsubmit = () => {
         /**
@@ -69,10 +64,9 @@ export const PlayScreen=({code,showHistry,setPlay})=> {
             vol = true
         }
         let scoreLocal = scoreComposer(contract,outcom,vol)
-        let estimate = expectablePointsTableka( points,vol)
-        const imp = impTable(scoreLocal-estimate)
+        const imp = impTable(scoreLocal)
         console.log("score: ",scoreLocal)
-        console.log("estimate: ",estimate)
+        // console.log("estimate: ",estimate)
         console.log("imp: ",imp)
         console.log("boardNumber: ",(parseInt(boardNumber)+1))
         setScore(imp+score)
@@ -90,24 +84,13 @@ export const PlayScreen=({code,showHistry,setPlay})=> {
         setBoardNumber((parseInt(boardNumber)+1).toString())
     }
 
-    const increasePoints = (number) => {
-        if(points+number>40){
-            setPoints(40)
-        }else{
-            setPoints(points+number)
-        }
 
-    };
-    const decreasePoints = (number) => {
-        if(points-number<0){
-            setPoints(0)
-        }else{
-            setPoints(points-number)
-        }
-    };
     return(
         <View style={[styles.menu]}>
             <SafeAreaView>
+                <Text>
+                    {title}
+                </Text>
                 <View style={styles.row}>
                     <Text style={{
                         fontSize: 24,
@@ -129,7 +112,7 @@ export const PlayScreen=({code,showHistry,setPlay})=> {
                     <TextInput style={styles.textInput}
                                onChangeText={setBoardNumber}
                                value={boardNumber}
-                               autoFocus={true}
+                               autoFocus={false}
                                placeholder="##"
                                keyboardType="numeric"
                     />
@@ -141,18 +124,6 @@ export const PlayScreen=({code,showHistry,setPlay})=> {
                         >
                             <Text style={styles.text}>historia</Text>
                         </Button>
-                    </View>
-                </View>
-                <View style={{alignItems:"center"}}>
-                    <Text style={styles.text}>punkty na lini:</Text>
-                    <View style={styles.rowOnly}>
-                        <ButtonNinus text={"-5"} onPress={()=>{decreasePoints(5)}}/>
-                        <ButtonNinus text={"-"} onPress={()=>{decreasePoints(1)}}/>
-                        <Text style={[styles.text,{width:35,height:30}]}>
-                            [{points}]
-                        </Text>
-                        <ButtonPlus text={"+"} onPress={()=>increasePoints(1)}/>
-                        <ButtonPlus text={"+5"} onPress={()=>increasePoints(5)}/>
                     </View>
                 </View>
             </SafeAreaView>
