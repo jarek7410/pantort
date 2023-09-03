@@ -1,25 +1,39 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, ScrollView} from "react-native";
-import {getPlays, getResult} from "../../helpers/fetchHelper";
+import {deletePlay, getPlays, getResult} from "../../helpers/fetchHelper";
 import {transw2W} from "../../helpers/cought_them_all.dto";
 import {Button} from "../basicComponents/Buttons";
 
-export const ResultsScreen = ({setPlay,meczId}) => {
+export const ResultsScreen = ({showResults,setPlay,meczId}) => {
     const [plays, setPlays] = useState([])
     const [imp, setImp] = useState(0)
 
     useEffect(() => {
-        const fetch = async () => {
-            const data = await getPlays(meczId)
-            console.log(meczId,data)
-            setPlays(data.plays)
-            const {imp,ended} = await getResult(meczId)
-            setImp(imp)
-        }
         fetch()
     },[])
-    const eracePlays = (playId) => {
-
+        const fetch = async () => {
+        const data = await getPlays(meczId)
+        console.log(meczId,data)
+        setPlays(data.plays)
+        const {imp,ended} = await getResult(meczId)
+        setImp(imp)
+    }
+    const eracePlays =async (playId) => {
+        await deletePlay(meczId, playId)
+        await fetch()
+    }
+    const sortPlaysRender = (open) => {
+        return plays.sort((a,b)=>{
+            if(a.erased===true) {
+                return 1
+            }
+            if(b.erased===true) {
+                return -1
+            }
+            return a.Round-b.Round//a >b => a>0
+        }).map((play) => {
+            if(play.Open===open) return(<Play erace={eracePlays} key={play.id} play={play}/>)
+        })
     }
     return (
         <View>
@@ -29,15 +43,11 @@ export const ResultsScreen = ({setPlay,meczId}) => {
         <View style={[styles.row,]}>
             <View >
                 <Text style={styles.text}>Otwarte</Text>
-                {plays.sort((a,b)=>a.Round-b.Round).map((play) => {
-                    if(play.Open) return(<Play key={play.id} play={play}/>)
-                })}
+                {sortPlaysRender(true)}
             </View>
             <View>
                 <Text style={styles.text}>Zamkniete</Text>
-                {plays.map((play) => {
-                    if(!play.Open) return(<Play key={play.id} play={play}/>)
-                })}
+                {sortPlaysRender(false)}
             </View>
         </View>
         </ScrollView>
@@ -53,7 +63,10 @@ export const ResultsScreen = ({setPlay,meczId}) => {
         </View>
     )
 }
-const Play = ({play}) => {
+const Play = ({play,erace}) => {
+    let eraceThis = () => {
+        erace(play.id)
+    }
     return (
         <View style={[styles.item,{
         }]}>
@@ -65,6 +78,11 @@ const Play = ({play}) => {
                 <Text style={styles.text}>{play.result}  </Text>
                 <Text style={styles.text}>Imp:{play.imp}</Text>
             </View>
+            {play.erased ||
+                <Button onPress={eraceThis}>
+                    <Text>Usuń</Text>
+                </Button>
+            }
         </View>
     )
 }

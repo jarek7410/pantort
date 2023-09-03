@@ -63,7 +63,7 @@ export const MeczControler = () => {
                     <PlayScreen title={title} code={code} showHistry={showHistry} setPlay={setPlay}/>
             }
             {screen===scmech.histry &&
-                    <ResultsScreen setPlay={showPlay} meczId={mechID}/>
+                    <ResultsScreen showResults={showHistry} setPlay={showPlay} meczId={mechID}/>
             }
             {screen===scmech.create &&
                     <CreateScreen  create={createMecz} join={showJoin}/>

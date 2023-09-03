@@ -82,10 +82,10 @@ const HomeScreen = ({premade3,tabelka,mecz}) => {
     return (
         <>
             <View style={[styles.menu]}>
-                <MenuOption style={{backgroundColor: "grey"}} text="Dołacz do Turnieju" handler={()=> {}}/>
-                <MenuOption text="domyślny na 3" handler={premade3}/>
                 <MenuOption text="mecz" handler={mecz}/>
                 <MenuOption text="na tabelke" handler={tabelka}/>
+                {/*<MenuOption style={{backgroundColor: "grey"}} text="Dołacz do Turnieju" handler={()=> {}}/>*/}
+                {/*<MenuOption style={{backgroundColor: "grey"}} text="domyślny na 3" handler={premade3}/>*/}
             </View>
         </>
     );

@@ -17,9 +17,6 @@ export const JoinScreen = ({action,create}) => {
         if(code.length === 7) {
             action(code)
         }
-        if(code.length === 0) {
-            action('')
-        }
     }
 
     return(

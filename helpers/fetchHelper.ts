@@ -143,10 +143,11 @@ export const deletePlay =async (mechID,playId)=> {
             console.log("some error:", response)
             throw new Error('Network response was not ok');
         }
-        // console.log("response",response)
-        const data = await response.json();
+        console.log("delete play",mechID,"/",playId)
+         console.log("response",response)
+        // const data = await response.json();
         // console.log("data", data)
-        return {imp:data.imp,ended:data.ended}
+        // return {imp:data.imp,ended:data.ended}
     } catch (e) {
         console.log("e", e)
     }
