@@ -4,14 +4,14 @@ import {bid, result, suit, Vulnerability, wind} from "../../../helpers/enumhelpe
 import {constractComposer, duplicateBoardsComposer, outcomeComposer, scoreComposer} from "../../../helpers/composerhelper";
 import {impTable} from "../../../helpers/brydzHalpers";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {MyCheckbox} from "../../tabelka/Buttons";
 import {color} from "../../../styles/colors";
-import {Button} from "../../basicComponents/Buttons";
+import {Button} from "../../basicComponents/Button";
 import {codePretty} from "../hendler";
 import {transW2w} from "../../../helpers/cought_them_all.dto";
 import * as Clipboard from 'expo-clipboard';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from "../styles/play.styles";
+import {MyCheckbox} from "../../basicComponents/CheckBox";
 
 export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
     const [boardNumber,setBoardNumber] = React.useState("1");

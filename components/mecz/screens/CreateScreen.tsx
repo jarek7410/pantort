@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import {View, Text, StyleSheet, TextInput} from "react-native";
-import {Button} from "../../basicComponents/Buttons";
-import {MyCheckbox} from "../../tabelka/Buttons";
+import {View, Text,  TextInput} from "react-native";
+import {Button} from "../../basicComponents/Button";
 import {color} from "../../../styles/colors";
 import styles from "../styles/create.styles";
+import {MyCheckbox} from "../../basicComponents/CheckBox";
 
 export const CreateScreen = ({create,join}) => {
     const [name, setName] = useState('')

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, ScrollView} from "react-native";
 import {deletePlay, getPlays, getResult} from "../../../helpers/fetchHelper";
 import {transw2W} from "../../../helpers/cought_them_all.dto";
-import {Button} from "../../basicComponents/Buttons";
+import {Button} from "../../basicComponents/Button";
 import styles from "../styles/play.styles";
 
 export const ResultsScreen = ({setPlay,meczId,isOpen}) => {
