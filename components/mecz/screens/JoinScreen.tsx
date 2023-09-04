@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Text, TextInput, View} from "react-native";
-import {styles} from "../styles";
+import {joinStyles} from "../styles/join.styles";
 import {Button} from "../../basicComponents/Buttons";
 import {codePretty} from "../hendler";
 
@@ -20,8 +20,8 @@ export const JoinScreen = ({action,create}) => {
     }
 
     return(
-        <View style={styles.menu}>
-            <TextInput style={styles.textInput}
+        <View style={joinStyles.menu}>
+            <TextInput style={joinStyles.textInput}
                        onChangeText={setCode}
                        value={codeText}
                        autoFocus={true}

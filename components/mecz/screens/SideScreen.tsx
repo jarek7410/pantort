@@ -1,6 +1,7 @@
 import React from "react";
 import {StyleSheet, Text, View} from "react-native";
-import {Button} from "../../basicComponents/Buttons";
+import {Button} from "../../basicComponents/Button";
+import styles from "../styles/create.styles";
 
 export const SideScreen = ({setIsOpne}) => {
     const setOpen = () => {
@@ -23,10 +24,3 @@ export const SideScreen = ({setIsOpne}) => {
         </>
     )
 }
-const styles = StyleSheet.create({
-    button: {
-        width: 70,
-        marginHorizontal: 30,
-        marginVertical: 20,
-    }
-})

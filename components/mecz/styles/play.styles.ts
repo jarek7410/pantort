@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     menu:{
         borderRadius:3,
         backgroundColor:"green",
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     textInput:{
         fontSize:25,
         height: 60,
-        width: 150,
+        width: 60,
         borderWidth: 1,
         padding: 10,
         borderColor:"black",
@@ -59,3 +59,5 @@ export const styles = StyleSheet.create({
     }
 
 })
+
+export default styles;

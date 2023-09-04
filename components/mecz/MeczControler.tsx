@@ -1,6 +1,6 @@
 import {View} from "react-native";
 import {useState} from "react";
-import {styles} from "./styles";
+import {joinStyles} from "./styles/join.styles";
 import {JoinScreen} from "./screens/JoinScreen";
 import {PlayScreen} from "./screens/PlayScreen";
 import {getMeczID, postGuestMecz, postMeczPlay} from "../../helpers/fetchHelper";
@@ -80,7 +80,7 @@ export const MeczControler = () => {
         return false
     };
     return(
-        <View style={styles.menu}>
+        <View style={joinStyles.menu}>
             {screen===scmech.join &&
                     <JoinScreen action={joinMecz} create={showCreate}/>
             }

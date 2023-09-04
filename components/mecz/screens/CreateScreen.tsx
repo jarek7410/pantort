@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, TextInput} from "react-native";
 import {Button} from "../../basicComponents/Buttons";
 import {MyCheckbox} from "../../tabelka/Buttons";
 import {color} from "../../../styles/colors";
+import styles from "../styles/create.styles";
 
 export const CreateScreen = ({create,join}) => {
     const [name, setName] = useState('')
@@ -46,22 +47,3 @@ export const CreateScreen = ({create,join}) => {
         </View>
     )
 }
-const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-    },
-    input: {
-        borderColor: 'black',
-        justifyContent: 'center',
-        borderWidth: 1,
-        padding: 10,
-        fontSize: 16,
-        borderRadius: 4,
-        minHeight: 30, // Minimum height for the input area
-    },
-    text:{
-        fontSize:20,
-        color:"black",
-    },
-    textNoDecoration: { textDecorationLine: "none" },
-});

@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, ScrollView} from "react-native";
 import {deletePlay, getPlays, getResult} from "../../../helpers/fetchHelper";
 import {transw2W} from "../../../helpers/cought_them_all.dto";
 import {Button} from "../../basicComponents/Buttons";
+import styles from "../styles/play.styles";
 
 export const ResultsScreen = ({setPlay,meczId,isOpen}) => {
     const [plays, setPlays] = useState([])
@@ -102,62 +103,3 @@ const Play = ({play,erace,simple=false}) => {
         </View>
     )
 }
-const styles = StyleSheet.create({
-    menu:{
-        borderRadius:3,
-        backgroundColor:"green",
-        margin:20,
-        padding:10,
-        alignItems:"center",
-        width:"70%"
-    },
-    item:{
-        backgroundColor:"darkgreen",
-        margin:10,
-        padding:10,
-        justifyContent:"flex-start",
-        alignItems:"flex-start",
-    },
-    text:{
-        fontSize:20,
-        color:"black",
-    },
-    textNoDecoration: { textDecorationLine: "none" },
-    textInput:{
-        fontSize:25,
-        height: 60,
-        width: 60,
-        borderWidth: 1,
-        padding: 10,
-        borderColor:"black",
-        color:"black",
-        marginBottom:5,
-        borderRadius:3,
-    },
-    rowOnly:{
-        flexDirection:"row",
-    },
-    row:{
-        flexDirection:"row",
-        justifyContent:"space-between",
-        // alignItems:"center",
-        width:"100%"
-    },
-    button:{
-        width:30,
-        height:30,
-        backgroundColor:"grey",
-        alignItems:"center",
-        justifyContent:"center",
-    },
-    buttonPlus:{
-        backgroundColor:"darkgreen",
-    },
-    buttonMinus:{
-        backgroundColor:"darkred",
-    },
-    buttonText: {
-        fontSize: 20,
-    }
-
-})

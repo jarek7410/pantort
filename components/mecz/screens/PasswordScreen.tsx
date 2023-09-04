@@ -1,6 +1,7 @@
 import {StyleSheet, Text, TextInput} from "react-native";
 import {Button} from "../../basicComponents/Buttons";
 import React, {useState} from "react";
+import styles from "../styles/create.styles";
 
 export const PasswordScreen = ({action, showJoin}) => {
     const [passward, setPassward] = useState('')
@@ -27,23 +28,3 @@ export const PasswordScreen = ({action, showJoin}) => {
     )
 
 }
-const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-    },
-    input: {
-        borderColor: 'black',
-        justifyContent: 'center',
-        borderWidth: 1,
-        padding: 10,
-        width:200,
-        fontSize: 16,
-        borderRadius: 4,
-        minHeight: 30, // Minimum height for the input area
-    },
-    text:{
-        fontSize:20,
-        color:"black",
-    },
-    textNoDecoration: { textDecorationLine: "none" },
-});
