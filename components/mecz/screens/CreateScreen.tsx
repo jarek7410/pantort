@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet, TextInput} from "react-native";
-import {Button} from "../../basicComponents/Buttons";
+import {Button} from "../../basicComponents/Button";
 import {MyCheckbox} from "../../tabelka/Buttons";
 import {color} from "../../../styles/colors";
 import styles from "../styles/create.styles";

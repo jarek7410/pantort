@@ -7,7 +7,8 @@ import {expectablePointsTableka, impTable} from "../../helpers/brydzHalpers";
 import {ImpPopup} from "./ImpPopup";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useEffect} from "react";
-import {ButtonNinus, ButtonPlus, MyCheckbox} from "./Buttons";
+import {ButtonNinus, ButtonPlus} from "./Buttons";
+import {MyCheckbox} from "../basicComponents/CheckBox";
 
 export const TabelkaScreen = () => {
   const [boardNumber,setBoardNumber] = React.useState("1");
