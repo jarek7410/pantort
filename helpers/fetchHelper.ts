@@ -14,7 +14,7 @@ export const getMeczID =async (code) => {
         // console.log("response",response)
         const data = await response.json();
         // console.log("data", data)
-        return {data,code,mechID:data.mecz.id,title:data.name}
+        return {data,code,mechID:data.mecz.id,title:data.name,pass:data.password}
     } catch (e) {
         console.log("e", e)
     }
@@ -61,9 +61,9 @@ export const postMeczPlay =async (mechID:number,playDto:CreatePlayDto) => {
     }
     return false
 }
-export const postGuestMecz =async (name:string) => {
+export const postGuestMecz =async (name:string,passward="") => {
     const meczId= await postMecz(69,name)//69 variable from my imagination
-    const {code,title}= await postJoinMecz(meczId,name,"")
+    const {code,title}= await postJoinMecz(meczId,name,passward)
     return {meczId,code,title}
 }
 export const postMecz =async (userId:number,name:string):Promise<number> => {
@@ -143,8 +143,8 @@ export const deletePlay =async (mechID,playId)=> {
             console.log("some error:", response)
             throw new Error('Network response was not ok');
         }
-        console.log("delete play",mechID,"/",playId)
-         console.log("response",response)
+        // console.log("delete play",mechID,"/",playId)
+        //  console.log("response",response)
         // const data = await response.json();
         // console.log("data", data)
         // return {imp:data.imp,ended:data.ended}

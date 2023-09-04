@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, ScrollView} from "react-native";
-import {deletePlay, getPlays, getResult} from "../../helpers/fetchHelper";
-import {transw2W} from "../../helpers/cought_them_all.dto";
-import {Button} from "../basicComponents/Buttons";
+import {deletePlay, getPlays, getResult} from "../../../helpers/fetchHelper";
+import {transw2W} from "../../../helpers/cought_them_all.dto";
+import {Button} from "../../basicComponents/Buttons";
 
-export const ResultsScreen = ({showResults,setPlay,meczId}) => {
+export const ResultsScreen = ({setPlay,meczId,isOpen}) => {
     const [plays, setPlays] = useState([])
     const [imp, setImp] = useState(0)
 
     useEffect(() => {
         fetch()
     },[])
-        const fetch = async () => {
+    const fetch = async () => {
         const data = await getPlays(meczId)
-        console.log(meczId,data)
+        // console.log(meczId,data)
         setPlays(data.plays)
         const {imp,ended} = await getResult(meczId)
         setImp(imp)
@@ -32,7 +32,14 @@ export const ResultsScreen = ({showResults,setPlay,meczId}) => {
             }
             return a.Round-b.Round//a >b => a>0
         }).map((play) => {
-            if(play.Open===open) return(<Play erace={eracePlays} key={play.id} play={play}/>)
+            if(play.Open===open) {
+                if(open===isOpen){
+                    return(<Play erace={eracePlays} key={play.id} play={play}/>)
+                }else{
+                    return(<Play erace={()=>{}} key={play.id} play={play} simple={true}/>)
+                }
+
+            }
         })
     }
     return (
@@ -63,22 +70,31 @@ export const ResultsScreen = ({showResults,setPlay,meczId}) => {
         </View>
     )
 }
-const Play = ({play,erace}) => {
+const Play = ({play,erace,simple=false}) => {
     let eraceThis = () => {
         erace(play.id)
     }
     return (
         <View style={[styles.item,{
+            backgroundColor: play.erased ? "grey" : "darkgreen",
         }]}>
+
+            {simple && play.erased &&
+                <Text style={styles.text}>Usunięte</Text>
+            }
                 <Text style={styles.text}>Runda: {play.Round}</Text>
                 <Text style={styles.text}>Rozdanie:{play.board}</Text>
+            {simple ||
+            <>
                 <Text style={styles.text}>Kontrakt:{play.contract}</Text>
                 <Text style={styles.text}>Rozgrywa:{transw2W(play.declarerWind)}</Text>
-            <View style={[styles.row,{justifyContent: "flex-start"}]}>
-                <Text style={styles.text}>{play.result}  </Text>
-                <Text style={styles.text}>Imp:{play.imp}</Text>
-            </View>
-            {play.erased ||
+                <View style={[styles.row,{justifyContent: "flex-start"}]}>
+                    <Text style={styles.text}>{play.result}  </Text>
+                    <Text style={styles.text}>Imp:{play.imp}</Text>
+                </View>
+            </>
+            }
+            {play.erased || simple ||
                 <Button onPress={eraceThis}>
                     <Text>Usuń</Text>
                 </Button>

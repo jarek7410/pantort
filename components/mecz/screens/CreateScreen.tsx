@@ -1,15 +1,15 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet, TextInput} from "react-native";
-import {Button} from "../basicComponents/Buttons";
-import {MyCheckbox} from "../tabelka/Buttons";
-import {color} from "../../styles/colors";
+import {Button} from "../../basicComponents/Buttons";
+import {MyCheckbox} from "../../tabelka/Buttons";
+import {color} from "../../../styles/colors";
 
 export const CreateScreen = ({create,join}) => {
     const [name, setName] = useState('')
     const [passward, setPassward] = useState('')
     const [isPassward, setIsPassward] = useState(false)
     let createMecz = () => {
-        create(name)
+        create(name,passward)
     };
     return (
         <View style={{width:200}}>
@@ -36,8 +36,8 @@ export const CreateScreen = ({create,join}) => {
                 style={styles.input}
                 placeholder="hasło"
                 onChangeText={(text) => setPassward(text)}
-                // value={passward}
-                value={"haslo nie działa"}
+                value={passward}
+                // value={"haslo nie działa"}
                 multiline={false} // Specifies the number of visible lines
             />}
             <Button onPress={createMecz} style={{marginTop:50}}>

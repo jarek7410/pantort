@@ -1,19 +1,23 @@
 import {View} from "react-native";
 import {useState} from "react";
 import {styles} from "./styles";
-import {JoinScreen} from "./JoinScreen";
-import {PlayScreen} from "./PlayScreen";
+import {JoinScreen} from "./screens/JoinScreen";
+import {PlayScreen} from "./screens/PlayScreen";
 import {getMeczID, postGuestMecz, postMeczPlay} from "../../helpers/fetchHelper";
 import {CreatePlayDto} from "../../helpers/cought_them_all.dto";
-import {ResultsScreen} from "./ResultsScreen";
-import {CreateScreen} from "./CreateScreen";
+import {ResultsScreen} from "./screens/ResultsScreen";
+import {CreateScreen} from "./screens/CreateScreen";
+import {SideScreen} from "./screens/SideScreen";
+import {PasswordScreen} from "./screens/PasswordScreen";
 enum scmech {
     join ,
     create,
     list,
     chouse,
-    game,
-    histry
+    play,
+    results,
+    side,
+    password,
 
 }
 
@@ -22,20 +26,27 @@ export const MeczControler = () => {
     const [code, setCode] = useState('')
     const [mechID, setMechID] = useState(-1)
     const [title, setTitle] = useState('')
+    const [isOpen, setIsOpen] = useState(false)
+    const [password, setPassword] = useState('')
     const  joinMecz = async (code) => {
-        const {mechID,title}={...await getMeczID(code)}
-
+        const {mechID,title,pass}={...await getMeczID(code)}
         setMechID(mechID)
         setCode(code)
         setTitle(title)
-        setScreen(scmech.game)
+        console.log("pass",pass)
+        if(pass==="") {
+            setScreen(scmech.side)
+        }else {
+            setPassword(pass)
+            setScreen(scmech.password)
+        }
     }
-    const createMecz = async (name) => {
-        const {code,meczId,title} = await postGuestMecz(name)
+    const createMecz = async (name,passward="") => {
+        const {code,meczId,title} = await postGuestMecz(name,passward)
         setMechID(meczId)
         setCode(code)
         setTitle(title)
-        setScreen(scmech.game)
+        setScreen(scmech.side)
         console.log("create mecz",code,meczId)
     }
     const showCreate = () => {
@@ -45,28 +56,55 @@ export const MeczControler = () => {
         setScreen(scmech.join)
     }
     const showPlay = () => {
-        setScreen(scmech.game)
+        setScreen(scmech.play)
     }
     const showHistry = () => {
-        setScreen(scmech.histry)
+        setScreen(scmech.results)
     }
-    const setPlay = (playDto:CreatePlayDto) => {
+    const showSide = () => {
+        setScreen(scmech.side)
+    }
+    const postPlay = (playDto:CreatePlayDto) => {
         postMeczPlay(mechID,playDto)
     }
 
+    const setSide = (isOpen:boolean) => {
+        setIsOpen(isOpen)
+        setScreen(scmech.play)
+    };
+    const joinProtect = (word:string) => {
+        if(word===password) {
+            setScreen(scmech.side)
+            return true
+        }
+        return false
+    };
     return(
         <View style={styles.menu}>
             {screen===scmech.join &&
-                <JoinScreen action={joinMecz} create={showCreate}/>
+                    <JoinScreen action={joinMecz} create={showCreate}/>
             }
-            {screen===scmech.game &&
-                    <PlayScreen title={title} code={code} showHistry={showHistry} setPlay={setPlay}/>
+            {screen===scmech.play &&
+                    <PlayScreen
+                        title={title}
+                        code={code}
+                        showHistry={showHistry}
+                        setPlay={postPlay}
+                        Open={isOpen}
+                        password={password}
+                    />
             }
-            {screen===scmech.histry &&
-                    <ResultsScreen showResults={showHistry} setPlay={showPlay} meczId={mechID}/>
+            {screen===scmech.results &&
+                    <ResultsScreen setPlay={showPlay} meczId={mechID} isOpen={isOpen}/>
             }
             {screen===scmech.create &&
-                    <CreateScreen  create={createMecz} join={showJoin}/>
+                    <CreateScreen  create={createMecz} join={showJoin} />
+            }
+            {screen===scmech.side &&
+                    <SideScreen setIsOpne={setSide}/>
+            }
+            {screen===scmech.password &&
+                    <PasswordScreen action={joinProtect} showJoin={showJoin}/>
             }
 
         </View>

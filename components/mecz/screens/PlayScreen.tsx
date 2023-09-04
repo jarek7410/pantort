@@ -1,17 +1,18 @@
 import React, {useEffect} from "react";
 import {View, Text, TextInput, TouchableOpacity, StyleSheet} from "react-native";
-import {bid, result, suit, Vulnerability, wind} from "../../helpers/enumhelper";
-import {constractComposer, duplicateBoardsComposer, outcomeComposer, scoreComposer} from "../../helpers/composerhelper";
-import {impTable} from "../../helpers/brydzHalpers";
+import {bid, result, suit, Vulnerability, wind} from "../../../helpers/enumhelper";
+import {constractComposer, duplicateBoardsComposer, outcomeComposer, scoreComposer} from "../../../helpers/composerhelper";
+import {impTable} from "../../../helpers/brydzHalpers";
 import {SafeAreaView} from "react-native-safe-area-context";
+import {MyCheckbox} from "../../tabelka/Buttons";
+import {color} from "../../../styles/colors";
+import {Button} from "../../basicComponents/Buttons";
+import {codePretty} from "../hendler";
+import {transW2w} from "../../../helpers/cought_them_all.dto";
+import * as Clipboard from 'expo-clipboard';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import {MyCheckbox} from "../tabelka/Buttons";
-import {color} from "../../styles/colors";
-import {Button} from "../basicComponents/Buttons";
-import {codePretty} from "./hendler";
-import {transW2w} from "../../helpers/cought_them_all.dto";
-
-export const PlayScreen=({code,showHistry,setPlay,title})=> {
+export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
     const [boardNumber,setBoardNumber] = React.useState("1");
     const [isKontra,setIsKontra] = React.useState(bid.none);
     const [contractHeight,setContractHeight] = React.useState(1);
@@ -21,13 +22,13 @@ export const PlayScreen=({code,showHistry,setPlay,title})=> {
     const [volnable,setVolnable] = React.useState(Vulnerability.NONE);
     const [player,setPlayer] = React.useState(wind.N)
     const [dealer,setDealer] = React.useState(wind.N)
-    const [DuplicateBoards,setDuplicateBoards] = React.useState(1)
-    const [isOpen,setIsOpen] = React.useState(false)
-
+    // const [DuplicateBoards,setDuplicateBoards] = React.useState(1)
+    // const [isOpen,setIsOpen] = React.useState(Open)
+    const isOpen = Open //TODO: refactor unnecessary complication
     const [score,setScore] = React.useState(0);
     useEffect(()=>{
         const duplicate = duplicateBoardsComposer(parseInt(boardNumber))
-        setDuplicateBoards(duplicate.board)
+        // setDuplicateBoards(duplicate.board)
         setVolnable(duplicate.vulnerability)
         setDealer(duplicate.dealer)
     },[boardNumber])
@@ -88,23 +89,38 @@ export const PlayScreen=({code,showHistry,setPlay,title})=> {
     return(
         <View style={[styles.menu]}>
             <SafeAreaView>
-                <Text>
-                    {title}
-                </Text>
-                <View style={styles.row}>
-                    <Text style={{
-                        fontSize: 24,
-                        color: color.black, // You can set your preferred color
-                        fontWeight: 'bold',
-                    }
-                    }>
-                        {codePretty(code)}
+                <View style={[styles.row,{marginBottom:10}]}>
+                    <Text>
+                        {title}
                     </Text>
+                </View>
+                <View style={styles.row}>
+                    <TouchableOpacity onPress={() => {
+                        Clipboard.setStringAsync(code);
+                    }}>
+                        <Text style={{
+                            fontSize: 24,
+                            color: color.black, // You can set your preferred color
+                            fontWeight: 'bold',
+                        }
+                        }>
+                            {codePretty(code)}
+                        </Text>
+                    </TouchableOpacity>
+
                     <Button
                         style={{borderRadius:5,height:30,width:90,backgroundColor:"darkgreen",justifyContent:"center",alignItems:"center"}}
-                        onPress={()=>{setIsOpen(!isOpen)}}>
+                        // onPress={()=>{setIsOpen(!isOpen)}}>
+                        onPress={()=>{}}>
                         <Text style={styles.text}>{isOpen?"otwarte":"zamknięte"}</Text>
                     </Button>
+
+                    {password===""||
+                        <TouchableOpacity onPress={() => {
+                            Clipboard.setStringAsync(password);
+                        }} style={{marginLeft: 20}}>
+                            <MaterialCommunityIcons name="key" size={30} color="black"/>
+                        </TouchableOpacity>}
                 </View>
 
                 <View style={[styles.row]}>
@@ -119,7 +135,7 @@ export const PlayScreen=({code,showHistry,setPlay,title})=> {
                     <View style={{marginLeft:10}}>
                         <Text style={styles.text}>Deler: {dealer}</Text>
                         <Button
-                            style={{borderRadius:5,height:30,width:70,backgroundColor:"darkgreen",justifyContent:"center",alignItems:"center"}}
+                            style={{borderRadius:5,height:30,width:75,backgroundColor:"darkgreen",justifyContent:"center",alignItems:"center"}}
                             onPress={showHistry}
                         >
                             <Text style={styles.text}>historia</Text>

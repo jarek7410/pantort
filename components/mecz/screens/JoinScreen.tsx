@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Text, TextInput, View} from "react-native";
-import {styles} from "./styles";
-import {Button} from "../basicComponents/Buttons";
-import {codePretty} from "./hendler";
+import {styles} from "../styles";
+import {Button} from "../../basicComponents/Buttons";
+import {codePretty} from "../hendler";
 
 export const JoinScreen = ({action,create}) => {
     const [code, setCode] = useState('')
