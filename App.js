@@ -2,7 +2,7 @@ import React, { useRef, useState} from "react";
 import {ScrollView, StyleSheet, View} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import {ScreenSetter} from "./components/ScreenSetter";
+import {ScreenSetter} from "./components/turnament/ScreenSetter";
 import {BridgeScreen} from "./components/board/BridgeScreen";
 import {appScreen, Boardsceen} from "./helpers/enumhelper";
 import {roundDefault} from "./helpers/defaultData";
@@ -86,6 +86,9 @@ export default function App() {
         setIsMenu(false)
         setIsBoard(true)
     }
+    const loadMenu=()=>{
+        setScreen(screens.menu)
+    }
 
 
     return (
@@ -99,7 +102,7 @@ export default function App() {
                 />}
                 {screens.menu===Screen && <AppMenu setCourse={loadCourse}/>}
                 {screens.tableka===Screen&&<TabelkaScreen/>}
-                {screens.mecz===Screen&&<MeczControler/>}
+                {screens.mecz===Screen&&<MeczControler back={loadMenu}/>}
             </View>
             <ScrollView style={{
                 marginHorizontal:20,

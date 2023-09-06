@@ -1,6 +1,6 @@
 import {View} from "react-native";
 import {useState} from "react";
-import {joinStyles} from "./styles/join.styles";
+import {styles} from "./styles/styles";
 import {JoinScreen} from "./screens/JoinScreen";
 import {PlayScreen} from "./screens/PlayScreen";
 import {getMeczID, postGuestMecz, postMeczPlay} from "../../helpers/fetchHelper";
@@ -9,6 +9,7 @@ import {ResultsScreen} from "./screens/ResultsScreen";
 import {CreateScreen} from "./screens/CreateScreen";
 import {SideScreen} from "./screens/SideScreen";
 import {PasswordScreen} from "./screens/PasswordScreen";
+import {ChouseScreen} from "./screens/ChouseScreen";
 enum scmech {
     join ,
     create,
@@ -21,8 +22,8 @@ enum scmech {
 
 }
 
-export const MeczControler = () => {
-    const [screen, setScreen] = useState(scmech.join);
+export const MeczControler = ({back}) => {
+    const [screen, setScreen] = useState(scmech.chouse);
     const [code, setCode] = useState('')
     const [mechID, setMechID] = useState(-1)
     const [title, setTitle] = useState('')
@@ -79,10 +80,17 @@ export const MeczControler = () => {
         }
         return false
     };
+    const showChoose = () => {
+        setScreen(scmech.chouse)
+    }
     return(
-        <View style={joinStyles.menu}>
+        <View style={styles.menu}>
+        {/*<View>*/}
+            {screen===scmech.chouse &&
+                    <ChouseScreen showJoin={showJoin} showCreate={showCreate} back={back}/>
+            }
             {screen===scmech.join &&
-                    <JoinScreen action={joinMecz} create={showCreate}/>
+                    <JoinScreen back={showChoose} action={joinMecz} />
             }
             {screen===scmech.play &&
                     <PlayScreen
@@ -98,7 +106,7 @@ export const MeczControler = () => {
                     <ResultsScreen setPlay={showPlay} meczId={mechID} isOpen={isOpen}/>
             }
             {screen===scmech.create &&
-                    <CreateScreen  create={createMecz} join={showJoin} />
+                    <CreateScreen  create={createMecz} join={showChoose} />
             }
             {screen===scmech.side &&
                     <SideScreen setIsOpne={setSide}/>

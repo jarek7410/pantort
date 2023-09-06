@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet, TouchableOpacity, TouchableHighlight} from "react-native";
-import {BridgeScreenRound} from "../BridgeScreenRound";
+import {BridgeScreenRound} from "../turnament/BridgeScreenRound";
 import {constractComposer, leadComposeer, outcomeComposer, windConposer} from "../../helpers/composerhelper";
 import {Boardsceen} from "../../helpers/enumhelper";
 

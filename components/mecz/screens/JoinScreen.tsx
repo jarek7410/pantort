@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Text, TextInput, View} from "react-native";
-import {joinStyles} from "../styles/join.styles";
+import {styles} from "../styles/styles";
 import {Button} from "../../basicComponents/Button";
 import {codePretty} from "../hendler";
 
-export const JoinScreen = ({action,create}) => {
+export const JoinScreen = ({action,back}) => {
     const [code, setCode] = useState('')
     const [codeText, setCodeText] = useState('')
     useEffect(() => {
@@ -20,8 +20,11 @@ export const JoinScreen = ({action,create}) => {
     }
 
     return(
-        <View style={joinStyles.menu}>
-            <TextInput style={joinStyles.textInput}
+        <View style={styles.menu}>
+            <Button onPress={back} style={{width:50,marginBottom:20}}>
+                <Text>Cofnij</Text>
+            </Button>
+            <TextInput style={styles.textInput}
                        onChangeText={setCode}
                        value={codeText}
                        autoFocus={true}
@@ -30,9 +33,9 @@ export const JoinScreen = ({action,create}) => {
             <Button onPress={submit} style={{paddingHorizontal:20}}>
                 <Text>Dołacz</Text>
             </Button>
-            <Button onPress={create} style={{paddingHorizontal:20}}>
-                <Text>Utwórz</Text>
-            </Button>
+            {/*<Button onPress={create} style={{paddingHorizontal:20}}>*/}
+            {/*    <Text>Utwórz</Text>*/}
+            {/*</Button>*/}
         </View>
     )
 }

@@ -1,6 +1,11 @@
 import {StyleSheet} from "react-native";
 
-export const joinStyles = StyleSheet.create({
+export const styles = StyleSheet.create({
+    backButton:{
+      backgroundColor:"grey",
+        width:50,
+        height:30,
+    },
     menu:{
         borderRadius:3,
         backgroundColor:"green",

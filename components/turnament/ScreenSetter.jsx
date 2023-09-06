@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
-import {appScreen} from "../helpers/enumhelper";
+import {appScreen} from "../../helpers/enumhelper";
 import {Movement} from "./Movement";
-import {BoardHendler} from "./board/BoardHendler";
+import {BoardHendler} from "../board/BoardHendler";
 import {TournamentEndScreen} from "./TournamentEndScreen";
 import {TournamentMessageScreen} from "./TournamentMessageScreen";
 import {SafeAreaView} from "react-native-safe-area-context";

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {View, Text, TextInput, TouchableOpacity, StyleSheet} from "react-native";
+import {View, Text, TextInput, TouchableOpacity} from "react-native";
 import {bid, result, suit, Vulnerability, wind} from "../../../helpers/enumhelper";
 import {constractComposer, duplicateBoardsComposer, outcomeComposer, scoreComposer} from "../../../helpers/composerhelper";
 import {impTable} from "../../../helpers/brydzHalpers";
@@ -11,7 +11,7 @@ import {transW2w} from "../../../helpers/cought_them_all.dto";
 import * as Clipboard from 'expo-clipboard';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from "../styles/play.styles";
-import {MyCheckbox} from "../../basicComponents/CheckBox";
+import {HeightButton, MyCheckbox, RadioButton,CheckBox} from "../../basicComponents/CheckBox";
 
 export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
     const [boardNumber,setBoardNumber] = React.useState("1");
@@ -156,17 +156,17 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         textStyle={[styles.text, styles.textNoDecoration]}
                         text={""}
                         isChecked={volnable===Vulnerability.NONE||volnable===Vulnerability.EW}
-                        disableBuiltInState
                         fillColor={"yellowgreen"}
                         unfillColor={color.yellow}
+                        fill={<></>}
                     />
                     <MyCheckbox
                         textStyle={[styles.text, styles.textNoDecoration]}
                         text={""}
                         isChecked={volnable===Vulnerability.BOTH||volnable===Vulnerability.NS}
-                        disableBuiltInState
                         fillColor={"firebrick"}
-                        unfillColor={color.red}
+                        unfillColor={color.yellow}
+                        fill={<></>}
                     />
                 </View>
                 <View>
@@ -175,56 +175,70 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         textStyle={[styles.text, styles.textNoDecoration]}
                         text={""}
                         isChecked={volnable===Vulnerability.NONE||volnable===Vulnerability.NS}
-                        disableBuiltInState
                         fillColor={"yellowgreen"}
                         unfillColor={color.yellow}
+                        fill={<></>}
                     />
                     <MyCheckbox
                         textStyle={[styles.text, styles.textNoDecoration]}
                         text={""}
                         isChecked={volnable===Vulnerability.BOTH||volnable===Vulnerability.EW}
-                        disableBuiltInState
                         fillColor={"firebrick"}
-                        unfillColor={color.red}
+                        unfillColor={color.yellow}
+                        fill={<></>}
                     />
                 </View>
+                <View style={{borderRightWidth:1,height:"100%",marginRight:5}}/>
                 <Text style={styles.text}>Rozgrywa:</Text>
                 <View>
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
+                    <RadioButton
+                        textStyle={[
+                            styles.text,
+                            styles.textNoDecoration,
+                        ]}
+                        // IconChecked={"checkbox-blank-circle"}
+                        borderRadius={14}
                         text={"N"}
                         isChecked={player===wind.NS||player===wind.N}
                         onPress={()=>{setPlayer(wind.N)}}
-                        disableBuiltInState
                         fillColor={"darkgreen"}
                         unfillColor={color.green}
                     />
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
+                    <RadioButton
+                        textStyle={[
+                            styles.text,
+                            styles.textNoDecoration,
+                        ]}
+                        borderRadius={14}
                         text={"E"}
                         isChecked={player===wind.EW||player===wind.E}
                         onPress={()=>{setPlayer(wind.E)}}
-                        disableBuiltInState
                         fillColor={"darkgreen"}
                         unfillColor={color.green}
                     />
                 </View>
                 <View>
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
+                    <RadioButton
+                        textStyle={[
+                            styles.text,
+                            styles.textNoDecoration,
+                        ]}
+                        borderRadius={14}
                         text={"S"}
                         isChecked={player===wind.NS||player===wind.S}
                         onPress={()=>{setPlayer(wind.S)}}
-                        disableBuiltInState
                         fillColor={"darkgreen"}
                         unfillColor={color.green}
                     />
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
+                    <RadioButton
+                        textStyle={[
+                            styles.text,
+                            styles.textNoDecoration,
+                        ]}
+                        borderRadius={14}
                         text={"W"}
                         isChecked={player===wind.EW||player===wind.W}
                         onPress={()=>{setPlayer(wind.W)}}
-                        disableBuiltInState
                         fillColor={"darkgreen"}
                         unfillColor={color.green}
                     />
@@ -233,125 +247,171 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
             <HorizontalLine/>
             <Text style={styles.text}>Kontrakt:</Text>
             <View style={[styles.row]}>
-                <Text style={styles.text}>wysokość:</Text>
-                {/*<TextInput style={styles.textInput}*/}
-                {/*           onChangeText={setContractHeight}*/}
-                {/*           value={contractHeight}*/}
-                {/*           placeholder="##"*/}
-                {/*           keyboardType="numeric"*/}
-                {/*/>*/}
-                <View>
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
-                        text={contractHeight}
-                        isChecked={false}
-                        onPress={()=>{
-                            if(contractHeight<7){
-                                setContractHeight((contractHeight+1))
-                            }else{
-                                setContractHeight(1)
-                            }
-                        }}
-                        disableBuiltInState
-                        fillColor={color.orange}
-                        unfillColor={color.orange}/>
+                <View >
+                    <HeightButton
+                        height={1}
+                        contractHeight={contractHeight}
+                        setContractHeight={setContractHeight}
+                    />
+                    <HeightButton
+                        height={4}
+                        contractHeight={contractHeight}
+                        setContractHeight={setContractHeight}
+                    />
+                </View>
+                <View >
+                    <HeightButton
+                        height={2}
+                        contractHeight={contractHeight}
+                        setContractHeight={setContractHeight}
+                    />
+                    <HeightButton
+                        height={5}
+                        contractHeight={contractHeight}
+                        setContractHeight={setContractHeight}
+                    />
+                </View>
+                <View >
+                    <HeightButton
+                        height={3}
+                        contractHeight={contractHeight}
+                        setContractHeight={setContractHeight}
+                    />
+                    <HeightButton
+                        height={6}
+                        contractHeight={contractHeight}
+                        setContractHeight={setContractHeight}
+                    />
+                </View>
+                <View >
+                    <View style={{height:30,width:30,margin:2}}/>
+                    <HeightButton
+                        height={7}
+                        contractHeight={contractHeight}
+                        setContractHeight={setContractHeight}
+                    />
                 </View>
                 <View style={{borderRightWidth:1,height:"100%",marginHorizontal:5}}/>
                 <View >
                     <MyCheckbox
                         textStyle={[styles.text, styles.textNoDecoration]}
-                        text={"kontra"}
                         isChecked={isKontra===bid.x}
                         onPress={()=>{
                             if(isKontra===bid.x){
                                 setIsKontra(bid.none)
                             }else{setIsKontra(bid.x)}}}
-                        disableBuiltInState
                         fillColor={color.orange}
                         unfillColor={color.yellow}
+                        fill={
+                            <Text style={styles.text}>
+                                X
+                            </Text>
+                        }
+                        unfill={
+                            <Text style={styles.text}>
+                                X
+                            </Text>
+                        }
                     />
                     <MyCheckbox
                         textStyle={[styles.text, styles.textNoDecoration]}
-                        text={"rekontra"}
                         isChecked={isKontra===bid.xx}
                         onPress={()=>{
                             if(isKontra===bid.xx){
                                 setIsKontra(bid.none)
                             }else{setIsKontra(bid.xx)}}}
-                        disableBuiltInState
                         fillColor={color.orange}
                         unfillColor={color.yellow}
+                        fill={
+                            <Text style={styles.text}>
+                                XX
+                            </Text>
+                        }
+                        unfill={
+                            <Text style={styles.text}>
+                                XX
+                            </Text>
+                        }
                     />
                 </View>
             </View>
             <HorizontalLine/>
             <View style={[styles.row,{marginTop:10}]}>
-                <Text style={styles.text}>kolor:</Text>
                 <View>
-                    <MyCheckbox
+                    <CheckBox
                         textStyle={[styles.text, styles.textNoDecoration]}
-                        text={"NT"}
                         isChecked={playedSuit===suit.NT}
                         onPress={()=>{setPlayedSuit(suit.NT)}}
                         disableBuiltInState
                         fillColor={color.blue}
                         unfillColor={color.green}
-                    />
-                    <MyCheckbox
+                    >
+                        <Text style={[styles.text,{color: "blue",fontWeight: "bold"}]}>
+                            NT
+                        </Text>
+                    </CheckBox>
+                    <View style={{height:30,width:30,margin:2}}/>
+                </View>
+                <View>
+                    <CheckBox
                         textStyle={[styles.text, styles.textNoDecoration]}
-                        text={"S"}
                         isChecked={playedSuit===suit.SPADES}
                         onPress={()=>{setPlayedSuit(suit.SPADES)}}
                         disableBuiltInState
-                        fillColor={color.black}
+                        fillColor={"grey"}
                         unfillColor={color.yellow}
-                    />
-                    <MyCheckbox
+                    >
+                        <MaterialCommunityIcons name="cards-spade" size={24} color="black" />
+                    </CheckBox>
+                    <CheckBox
                         textStyle={[styles.text, styles.textNoDecoration]}
-                        text={"H"}
                         isChecked={playedSuit===suit.HEARTS}
                         onPress={()=>{setPlayedSuit(suit.HEARTS)}}
                         disableBuiltInState
                         fillColor={color.red}
                         unfillColor={color.yellow}
-                    />
-                    <MyCheckbox
+                    >
+                        <MaterialCommunityIcons name="cards-heart" size={24} color="black" />
+                    </CheckBox>
+                </View>
+                <View>
+                    <CheckBox
                         textStyle={[styles.text, styles.textNoDecoration]}
-                        text={"D"}
                         isChecked={playedSuit===suit.DIAMONDS}
                         onPress={()=>{setPlayedSuit(suit.DIAMONDS)}}
                         disableBuiltInState
                         fillColor={color.red}
                         unfillColor={color.yellow}
-                    />
-                    <MyCheckbox
+                    >
+                        <MaterialCommunityIcons name="cards-diamond" size={24} color="black" />
+                    </CheckBox>
+                    <CheckBox
                         textStyle={[styles.text, styles.textNoDecoration]}
-                        text={"C"}
                         isChecked={playedSuit===suit.CLUBS}
                         onPress={()=>{setPlayedSuit(suit.CLUBS)}}
                         disableBuiltInState
-                        fillColor={color.black}
+                        fillColor={"grey"}
                         unfillColor={color.yellow}
-                    />
+                    >
+                        <MaterialCommunityIcons name="cards-club" size={24} color="black" />
+                    </CheckBox>
                 </View>
                 <View style={{borderRightWidth:1,height:"100%",marginHorizontal:5}}/>
                 <View>
-                    <Text style={styles.text}>wynik: {outcomeComposer({tricks: takes,result:outcome})}</Text>
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
-                        text={"+"}
+                    <CheckBox
                         isChecked={outcome===result.over}
                         onPress={()=>{
                             setOutcome(result.over)
                             takes>=0?setTakes(takes+1):setTakes(1);
                         }}
                         disableBuiltInState
-                        fillColor={color.black}
+                        fillColor={"dimgray"}
                         unfillColor={"grey"}
-                    />
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
-                        text={"="}
+                    >
+                        <MaterialCommunityIcons name="plus-thick" size={24} color="black" />
+                    </CheckBox>
+                    <CheckBox
+                        visible={outcome!=result.fair}
                         isChecked={outcome===result.fair}
                         onPress={()=>{
                             setOutcome(result.fair)
@@ -360,10 +420,10 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         disableBuiltInState
                         fillColor={"yellowgreen"}
                         unfillColor={color.yellow}
-                    />
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
-                        text={"-"}
+                    >
+                        <MaterialCommunityIcons name="equal" size={24} color="black" />
+                    </CheckBox>
+                    <CheckBox
                         isChecked={outcome===result.under}
                         onPress={()=>{
                             setOutcome(result.under)
@@ -372,9 +432,40 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         disableBuiltInState
                         fillColor={"firebrick"}
                         unfillColor={color.red}
-                    />
+                    >
+                        <MaterialCommunityIcons name="minus-thick" size={24} color="black" />
+                    </CheckBox>
                 </View>
-
+                <View>
+                    <CheckBox
+                        visible={outcome===result.over}
+                        isChecked={outcome===result.over}
+                        onPress={()=>{
+                            setOutcome(result.over)
+                            takes>=0?setTakes(takes+1):setTakes(1);
+                        }}
+                        disableBuiltInState
+                        fillColor={"dimgray"}
+                        unfillColor={"grey"}
+                    >
+                        <MaterialCommunityIcons name="plus-thick" size={24} color="black" />
+                    </CheckBox>
+                    <Text style={[styles.text,{width:50,height:30,marginVertical:2}]}>{outcomeComposer({tricks: takes,result:outcome})}</Text>
+                    <CheckBox
+                        visible={outcome===result.under}
+                        isChecked={outcome===result.under}
+                        onPress={()=>{
+                            setOutcome(result.under)
+                            takes<=0?setTakes(takes-1):setTakes(-1);
+                        }}
+                        disableBuiltInState
+                        fillColor={"firebrick"}
+                        unfillColor={color.red}
+                    >
+                        <MaterialCommunityIcons name="minus-thick" size={24} color="black" />
+                    </CheckBox>
+                </View>
+                <Text style={[styles.text,{width:50}]}>{outcomeComposer({tricks: takes,result:outcome})}</Text>
             </View>
             <HorizontalLine/>
 
