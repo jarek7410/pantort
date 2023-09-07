@@ -2,7 +2,7 @@
   "expo": {
     "name": "panTort",
     "slug": "pantort",
-    "version": "0.4.0",
+    "version": "0.5.2",
     "orientation": "portrait",
     "icon": "./assets/piernik.png",
     "userInterfaceStyle": "light",
@@ -19,7 +19,7 @@
       "buildNumber": "2"
     },
     "android": {
-      "versionCode": 5,
+      "versionCode": 8,
       "adaptiveIcon": {
         "foregroundImage": "./assets/piernik.png",
         "backgroundColor": "#ffffff"

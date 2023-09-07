@@ -25,7 +25,7 @@ export const JoinScreen = ({action,back}) => {
                 <Text>Cofnij</Text>
             </Button>
             <TextInput style={styles.textInput}
-                       onChangeText={setCode}
+                       onChangeText={(text)=>setCode(text.toUpperCase())}
                        value={codeText}
                        autoFocus={true}
                        placeholder="### ####"

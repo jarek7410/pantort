@@ -3,7 +3,7 @@ import {View, Text, TextInput, TouchableOpacity} from "react-native";
 import {bid, result, suit, Vulnerability, wind} from "../../../helpers/enumhelper";
 import {constractComposer, duplicateBoardsComposer, outcomeComposer, scoreComposer} from "../../../helpers/composerhelper";
 import {impTable} from "../../../helpers/brydzHalpers";
-import {SafeAreaView} from "react-native-safe-area-context";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {color} from "../../../styles/colors";
 import {Button} from "../../basicComponents/Button";
 import {codePretty} from "../hendler";
@@ -13,22 +13,47 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from "../styles/play.styles";
 import {HeightButton, MyCheckbox, RadioButton,CheckBox} from "../../basicComponents/CheckBox";
 
-export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
-    const [boardNumber,setBoardNumber] = React.useState("1");
+export const PlayScreen=({
+                             code,
+                             showHistry,
+                             setPlay,
+                             title,
+                             Open=true,
+                             password,
+                             round,setRound,
+                             boardNumber,setBoardNumber
+
+
+})=> {
     const [isKontra,setIsKontra] = React.useState(bid.none);
-    const [contractHeight,setContractHeight] = React.useState(1);
+    const [contractHeight,setContractHeight] = React.useState(3);
     const [playedSuit,setPlayedSuit] = React.useState(suit.NT);
     const [outcome,setOutcome] = React.useState(result.fair)
     const [takes,setTakes] = React.useState(0);
     const [volnable,setVolnable] = React.useState(Vulnerability.NONE);
-    const [player,setPlayer] = React.useState(wind.N)
+    const [player,setPlayer] = React.useState(wind.S)
     const [dealer,setDealer] = React.useState(wind.N)
     // const [DuplicateBoards,setDuplicateBoards] = React.useState(1)
     // const [isOpen,setIsOpen] = React.useState(Open)
     const isOpen = Open //TODO: refactor unnecessary complication
     const [score,setScore] = React.useState(0);
+
+    const size=50
+
+
+    const insets = useSafeAreaInsets();
+
     useEffect(()=>{
-        const duplicate = duplicateBoardsComposer(parseInt(boardNumber))
+        let number=boardNumber
+        if(boardNumber>16){
+            setBoardNumber(1)
+            number=1
+        }
+        if(boardNumber<1){
+            setBoardNumber(16)
+            number=16
+        }
+        const duplicate = duplicateBoardsComposer(number)
         // setDuplicateBoards(duplicate.board)
         setVolnable(duplicate.vulnerability)
         setDealer(duplicate.dealer)
@@ -70,12 +95,12 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
         console.log("score: ",scoreLocal)
         // console.log("estimate: ",estimate)
         console.log("imp: ",imp)
-        console.log("boardNumber: ",(parseInt(boardNumber)+1))
+        console.log("boardNumber: ",(parseInt(round)+1))
         setScore(imp+score)
         setPlay({
             Open: isOpen,
-            Round: parseInt(boardNumber),
-            board: parseInt(boardNumber)%16,
+            Round: parseInt(round),
+            board: boardNumber,
             declarer: 0,
             declarerWind: transW2w(player),
             contract: constractComposer({number: contractHeight,suit: playedSuit,double: isKontra,wind: player}),
@@ -83,18 +108,51 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
             lead: "",
             imp: imp
         })
-        setBoardNumber((parseInt(boardNumber)+1).toString())
+        setRound((parseInt(round)+1).toString())
+        setBoardNumber(boardNumber+1)
     }
 
 
     return(
-        <View style={[styles.menu]}>
-            <SafeAreaView>
-                <View style={[styles.row,{marginBottom:10}]}>
-                    <Text>
+        <View style={[styles.menu,{paddingBottom:insets.bottom,marginTop:0,paddingTop:0}]}>
+            <View style={[styles.rowOnly,{backgroundColor:"yellowgreen"}]}>
+                <View style={{
+                    // margin:1,
+                    // borderRadius:5,
+                    marginTop:0,
+                    paddingTop:0,
+                    paddingBottom:10,
+                    height:100,
+                    width:180,
+                    backgroundColor:
+                        volnable===Vulnerability.NONE||volnable===Vulnerability.EW
+                            ?"yellowgreen":"firebrick",
+                    justifyContent:"flex-end",
+                    alignItems:"center"
+                }}>
+                    <Text style={[styles.text,{fontSize:29}]}>NS</Text>
+                </View>
+                <View style={{
+                    // margin:1,
+                    // borderRadius:5,
+                    marginTop:0,
+                    paddingTop:0,
+                    paddingBottom:10,
+                    height:100,
+                    width:180,
+                    backgroundColor:
+                        volnable===Vulnerability.NONE||volnable===Vulnerability.NS
+                            ?"yellowgreen":"firebrick",
+                    justifyContent:"flex-end",
+                    alignItems:"center"
+                }}>
+                    <Text style={[styles.text,{fontSize:29}]}>EW</Text>
+                </View>
+            </View>
+            <View style={{marginTop:0}}>
+                    <Text style={{width:300}}>
                         {title}
                     </Text>
-                </View>
                 <View style={styles.row}>
                     <TouchableOpacity onPress={() => {
                         Clipboard.setStringAsync(code);
@@ -109,14 +167,14 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         </Text>
                     </TouchableOpacity>
 
-                    <Button
-                        style={{borderRadius:5,height:30,width:90,backgroundColor:"darkgreen",justifyContent:"center",alignItems:"center"}}
+                    <View
+                        style={{borderRadius:5,height:30,width:100,borderWidth:1, justifyContent:"center",alignItems:"center"}}
                         // onPress={()=>{setIsOpen(!isOpen)}}>
-                        onPress={()=>{}}>
+                        >
                         <Text style={styles.text}>{isOpen?"otwarte":"zamknięte"}</Text>
-                    </Button>
+                    </View>
 
-                    {password===""||
+                    {password&&
                         <TouchableOpacity onPress={() => {
                             Clipboard.setStringAsync(password);
                         }} style={{marginLeft: 20}}>
@@ -124,73 +182,69 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         </TouchableOpacity>}
                 </View>
 
-                <View style={[styles.row]}>
-                    <Text style={styles.text}>rozdanie nr:</Text>
-                    <TextInput style={styles.textInput}
-                               onChangeText={setBoardNumber}
-                               value={boardNumber}
-                               autoFocus={false}
-                               placeholder="##"
-                               keyboardType="numeric"
-                    />
-                    <View style={{marginLeft:10}}>
-                        <Text style={styles.text}>Deler: {dealer}</Text>
-                        <Button
-                            style={{borderRadius:5,height:30,width:75,backgroundColor:"darkgreen",justifyContent:"center",alignItems:"center"}}
-                            onPress={showHistry}
-                        >
-                            <Text style={styles.text}>historia</Text>
-                        </Button>
+                <View style={[styles.rowOnly,styles.center]}>
+                    <View>
+                        <Text style={styles.text}>runda</Text>
+                        <TextInput style={styles.textInput}
+                                   onChangeText={setRound}
+                                   value={round}
+                                   autoFocus={false}
+                                   placeholder="##"
+                                   keyboardType="numeric"
+                        />
                     </View>
+                    <View style={{justifyContent:"center",alignItems:"center"}}>
+                        <Text style={[styles.text]}>rozdanie</Text>
+                        <View style={[styles.rowOnly]}>
+                            <CheckBox
+                                isChecked={false}
+                                fillColor={"dimgray"}
+                                unfillColor={"grey"}
+                                disableBuiltInState
+                                height={size}
+                                width={size}
+                                onPress={()=>{setBoardNumber(boardNumber-1)}}
+                            >
+                                <MaterialCommunityIcons name="minus-thick" size={24} color="black" />
+                            </CheckBox>
+                            <View style={{borderRadius:5,margin:2, width:size,height:size,borderWidth:1, justifyContent:"center",alignItems:"center"}}
+                            >
+                                <Text style={[styles.text,{fontSize:29}]}>{boardNumber}</Text>
+                            </View>
+                            <CheckBox
+                                isChecked={false}
+                                fillColor={"dimgray"}
+                                unfillColor={"grey"}
+                                disableBuiltInState
+                                height={size}
+                                width={size}
+                                onPress={()=>{setBoardNumber(boardNumber+1)}}
+                            >
+                                <MaterialCommunityIcons name="plus-thick" size={24} color="black" />
+                            </CheckBox>
+                        </View>
+                    </View>
+
                 </View>
-            </SafeAreaView>
+            </View>
             <View style={[styles.row]}>
                 <View>
-                    <Text style={styles.text}></Text>
-                    <Text style={styles.text}>przed:</Text>
-                    <Text style={styles.text}>po:</Text>
-                </View>
-                <View>
-                    <Text style={styles.text}>NS:</Text>
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
-                        text={""}
-                        isChecked={volnable===Vulnerability.NONE||volnable===Vulnerability.EW}
-                        fillColor={"yellowgreen"}
-                        unfillColor={color.yellow}
-                        fill={<></>}
-                    />
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
-                        text={""}
-                        isChecked={volnable===Vulnerability.BOTH||volnable===Vulnerability.NS}
-                        fillColor={"firebrick"}
-                        unfillColor={color.yellow}
-                        fill={<></>}
-                    />
-                </View>
-                <View>
-                    <Text style={styles.text}>EW:</Text>
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
-                        text={""}
-                        isChecked={volnable===Vulnerability.NONE||volnable===Vulnerability.NS}
-                        fillColor={"yellowgreen"}
-                        unfillColor={color.yellow}
-                        fill={<></>}
-                    />
-                    <MyCheckbox
-                        textStyle={[styles.text, styles.textNoDecoration]}
-                        text={""}
-                        isChecked={volnable===Vulnerability.BOTH||volnable===Vulnerability.EW}
-                        fillColor={"firebrick"}
-                        unfillColor={color.yellow}
-                        fill={<></>}
-                    />
+                    <View
+                        style={{marginLeft:1,borderRadius:5,height:30,width:90,borderWidth:1, justifyContent:"center",alignItems:"center"}}>
+                        <Text style={styles.text}>Deler: {dealer}</Text>
+                    </View>
+                    <Button
+                        style={{borderRadius:5,height:30,width:90,backgroundColor:"darkgreen",justifyContent:"center",alignItems:"center"}}
+                        onPress={showHistry}
+                    >
+                        <Text style={styles.text}>historia</Text>
+                    </Button>
                 </View>
                 <View style={{borderRightWidth:1,height:"100%",marginRight:5}}/>
-                <Text style={styles.text}>Rozgrywa:</Text>
                 <View>
+                    <Text style={styles.text}>Rozgrywa:</Text>
+                    <View style={styles.rowOnly}>
+                    <View>
                     <RadioButton
                         textStyle={[
                             styles.text,
@@ -243,57 +297,75 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         unfillColor={color.green}
                     />
                 </View>
+                </View>
+                </View>
             </View>
             <HorizontalLine/>
             <Text style={styles.text}>Kontrakt:</Text>
             <View style={[styles.row]}>
                 <View >
                     <HeightButton
-                        height={1}
+                        size={size}
+                        chosenHeight={1}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
                     <HeightButton
-                        height={4}
+                        size={size}
+                        chosenHeight={4}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
                 </View>
                 <View >
                     <HeightButton
-                        height={2}
+                        size={size}
+                        chosenHeight={2}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
                     <HeightButton
-                        height={5}
+                        size={size}
+                        chosenHeight={5}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
                 </View>
                 <View >
                     <HeightButton
-                        height={3}
+                        size={size}
+                        chosenHeight={3}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
                     <HeightButton
-                        height={6}
+                        size={size}
+                        chosenHeight={6}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
                 </View>
-                <View >
-                    <View style={{height:30,width:30,margin:2}}/>
+                <View>
                     <HeightButton
-                        height={7}
+                        size={size}
+                        chosenHeight={7}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
+                    <HeightButton
+                        visible={false}
+                        size={size}
+                        chosenHeight={7}
+                        contractHeight={contractHeight}
+                        setContractHeight={setContractHeight}
+                    />
+                    {/*<View style={{height:size,width:size,margin:2}}/>*/}
                 </View>
                 <View style={{borderRightWidth:1,height:"100%",marginHorizontal:5}}/>
                 <View >
                     <MyCheckbox
+                        width={size}
+                        height={size}
                         textStyle={[styles.text, styles.textNoDecoration]}
                         isChecked={isKontra===bid.x}
                         onPress={()=>{
@@ -314,6 +386,8 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         }
                     />
                     <MyCheckbox
+                        width={size}
+                        height={size}
                         textStyle={[styles.text, styles.textNoDecoration]}
                         isChecked={isKontra===bid.xx}
                         onPress={()=>{
@@ -339,6 +413,36 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
             <View style={[styles.row,{marginTop:10}]}>
                 <View>
                     <CheckBox
+                        height={size}
+                        width={size}
+                    textStyle={[styles.text, styles.textNoDecoration]}
+                    isChecked={playedSuit===suit.SPADES}
+                    onPress={()=>{setPlayedSuit(suit.SPADES)}}
+                    disableBuiltInState
+                    fillColor={"grey"}
+                    unfillColor={color.yellow}
+                >
+                    <MaterialCommunityIcons name="cards-spade" size={24} color="black" />
+                </CheckBox>
+                    <View style={{margin:2,width:size,height:size}}/>
+                    <CheckBox
+                        height={size}
+                        width={size}
+                        textStyle={[styles.text, styles.textNoDecoration]}
+                        isChecked={playedSuit===suit.DIAMONDS}
+                        onPress={()=>{setPlayedSuit(suit.DIAMONDS)}}
+                        disableBuiltInState
+                        fillColor={color.red}
+                        unfillColor={color.yellow}
+                    >
+                        <MaterialCommunityIcons name="cards-diamond" size={24} color="black" />
+                    </CheckBox>
+                </View>
+                <View>
+                    <View style={{margin:2,width:size,height:size}}/>
+                    <CheckBox
+                        height={size}
+                        width={size}
                         textStyle={[styles.text, styles.textNoDecoration]}
                         isChecked={playedSuit===suit.NT}
                         onPress={()=>{setPlayedSuit(suit.NT)}}
@@ -350,20 +454,13 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                             NT
                         </Text>
                     </CheckBox>
-                    <View style={{height:30,width:30,margin:2}}/>
+                    <View style={{margin:2,width:size,height:size}}/>
                 </View>
                 <View>
+
                     <CheckBox
-                        textStyle={[styles.text, styles.textNoDecoration]}
-                        isChecked={playedSuit===suit.SPADES}
-                        onPress={()=>{setPlayedSuit(suit.SPADES)}}
-                        disableBuiltInState
-                        fillColor={"grey"}
-                        unfillColor={color.yellow}
-                    >
-                        <MaterialCommunityIcons name="cards-spade" size={24} color="black" />
-                    </CheckBox>
-                    <CheckBox
+                        height={size}
+                        width={size}
                         textStyle={[styles.text, styles.textNoDecoration]}
                         isChecked={playedSuit===suit.HEARTS}
                         onPress={()=>{setPlayedSuit(suit.HEARTS)}}
@@ -373,19 +470,10 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                     >
                         <MaterialCommunityIcons name="cards-heart" size={24} color="black" />
                     </CheckBox>
-                </View>
-                <View>
+                    <View style={{margin:2,width:size,height:size}}/>
                     <CheckBox
-                        textStyle={[styles.text, styles.textNoDecoration]}
-                        isChecked={playedSuit===suit.DIAMONDS}
-                        onPress={()=>{setPlayedSuit(suit.DIAMONDS)}}
-                        disableBuiltInState
-                        fillColor={color.red}
-                        unfillColor={color.yellow}
-                    >
-                        <MaterialCommunityIcons name="cards-diamond" size={24} color="black" />
-                    </CheckBox>
-                    <CheckBox
+                        height={size}
+                        width={size}
                         textStyle={[styles.text, styles.textNoDecoration]}
                         isChecked={playedSuit===suit.CLUBS}
                         onPress={()=>{setPlayedSuit(suit.CLUBS)}}
@@ -399,6 +487,8 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                 <View style={{borderRightWidth:1,height:"100%",marginHorizontal:5}}/>
                 <View>
                     <CheckBox
+                        height={size}
+                        width={size}
                         isChecked={outcome===result.over}
                         onPress={()=>{
                             setOutcome(result.over)
@@ -411,8 +501,10 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         <MaterialCommunityIcons name="plus-thick" size={24} color="black" />
                     </CheckBox>
                     <CheckBox
+                        height={size}
+                        width={size}
                         visible={outcome!=result.fair}
-                        isChecked={outcome===result.fair}
+                        isChecked={false}
                         onPress={()=>{
                             setOutcome(result.fair)
                             setTakes(0);
@@ -424,6 +516,8 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         <MaterialCommunityIcons name="equal" size={24} color="black" />
                     </CheckBox>
                     <CheckBox
+                        height={size}
+                        width={size}
                         isChecked={outcome===result.under}
                         onPress={()=>{
                             setOutcome(result.under)
@@ -438,8 +532,10 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                 </View>
                 <View>
                     <CheckBox
+                        height={size}
+                        width={size}
                         visible={outcome===result.over}
-                        isChecked={outcome===result.over}
+                        isChecked={false}
                         onPress={()=>{
                             setOutcome(result.over)
                             takes>=0?setTakes(takes+1):setTakes(1);
@@ -450,10 +546,17 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                     >
                         <MaterialCommunityIcons name="plus-thick" size={24} color="black" />
                     </CheckBox>
-                    <Text style={[styles.text,{width:50,height:30,marginVertical:2}]}>{outcomeComposer({tricks: takes,result:outcome})}</Text>
+                    <View style={{borderRadius:5,margin:2, width:size,height:size,borderWidth:1, justifyContent:"center",alignItems:"center"}}
+                    >
+                        <Text style={[styles.text,{fontSize:29}]}>
+                            {outcomeComposer({tricks: takes,result:outcome})}
+                        </Text>
+                    </View>
                     <CheckBox
+                        height={size}
+                        width={size}
                         visible={outcome===result.under}
-                        isChecked={outcome===result.under}
+                        isChecked={false}
                         onPress={()=>{
                             setOutcome(result.under)
                             takes<=0?setTakes(takes-1):setTakes(-1);
@@ -465,7 +568,7 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
                         <MaterialCommunityIcons name="minus-thick" size={24} color="black" />
                     </CheckBox>
                 </View>
-                <Text style={[styles.text,{width:50}]}>{outcomeComposer({tricks: takes,result:outcome})}</Text>
+                {/*<Text style={[styles.text,{width:50}]}>{outcomeComposer({tricks: takes,result:outcome})}</Text>*/}
             </View>
             <HorizontalLine/>
 
@@ -481,7 +584,7 @@ export const PlayScreen=({code,showHistry,setPlay,title,Open=true,password})=> {
             // albo jako dodatkowa karta miedzy rozgrywakami
             // trzeba bedzie przemigrować niektóre stany warstwe wyrzej
             }
-            <Text style={styles.text}>wynik na stole: {score}</Text>
+            <Text style={[styles.text,{width:200}]}>wynik na stole: {score}</Text>
         </View>
     )
 }

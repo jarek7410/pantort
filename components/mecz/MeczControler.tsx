@@ -1,5 +1,5 @@
 import {View} from "react-native";
-import {useState} from "react";
+import React, {useState} from "react";
 import {styles} from "./styles/styles";
 import {JoinScreen} from "./screens/JoinScreen";
 import {PlayScreen} from "./screens/PlayScreen";
@@ -23,6 +23,8 @@ enum scmech {
 }
 
 export const MeczControler = ({back}) => {
+    const [round,setRound] = React.useState("1");
+    const [boardNumber,setBoardNumber] = React.useState(1);
     const [screen, setScreen] = useState(scmech.chouse);
     const [code, setCode] = useState('')
     const [mechID, setMechID] = useState(-1)
@@ -47,6 +49,7 @@ export const MeczControler = ({back}) => {
         setMechID(meczId)
         setCode(code)
         setTitle(title)
+        setPassword(passward)
         setScreen(scmech.side)
         console.log("create mecz",code,meczId)
     }
@@ -94,6 +97,10 @@ export const MeczControler = ({back}) => {
             }
             {screen===scmech.play &&
                     <PlayScreen
+                        round={round}
+                        setRound={setRound}
+                        boardNumber={boardNumber}
+                        setBoardNumber={setBoardNumber}
                         title={title}
                         code={code}
                         showHistry={showHistry}

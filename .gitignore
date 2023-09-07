@@ -1,3 +1,5 @@
+#use production and change in android file for apk
+scripts/
 node_modules/
 .expo/
 dist/

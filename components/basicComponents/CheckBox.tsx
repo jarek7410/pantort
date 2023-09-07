@@ -4,20 +4,21 @@ import * as React from "react";
 import styles from "./checkbox.styles";
 import {color} from "../../styles/colors";
 export const CheckBox = ({
-                             textStyle={},
-                             text="",
-                             isChecked,
-                             onPress=undefined,
-                             disableBuiltInState,
-                             borderRadius=5,
-                             fillColor,
-                             unfillColor,
-                             children,
-                             visible=true,
+            textStyle={},
+            text="",
+            isChecked,
+            onPress=undefined,
+            disableBuiltInState,
+            borderRadius=5,
+            fillColor,
+            unfillColor,
+            children,
+            visible=true,
+            height=30,
+            width=30,
                          })=>{
     return(
-        <>
-        {visible &&
+
         <MyCheckbox
             textStyle={textStyle}
             text={text}
@@ -28,42 +29,50 @@ export const CheckBox = ({
             unfillColor={unfillColor}
             fill={children}
             unfill= {children}
+            width={width}
+            height={height}
+            visible={visible}
         />
-        ||
-        <View style={{height:30,width:30,margin:2}}/>
-        }
-        </>
         )
 }
 export const MyCheckbox = ({
-       textStyle={},
-       text="",
-       isChecked,
-       onPress=undefined,
-       borderRadius=5,
-       fillColor,
-       unfillColor,
-       fill= <MaterialCommunityIcons name="check" style={{color:"grey"}}/>,
-       unfill =<></>,
+        textStyle={},
+        text="",
+        isChecked,
+        onPress=undefined,
+        borderRadius=5,
+        fillColor,
+        unfillColor,
+        fill= <MaterialCommunityIcons name="check" style={{color:"grey"}}/>,
+        unfill =<></>,
+        width=30,
+        height=30,
+        visible=true
 })=>{
     return(
-        <Pressable onPress={onPress} style={{margin:2}}>
-            <View style={{flexDirection:"row",alignItems:"center"}}>
-                <View style={[{width:30,height:30,borderColor:fillColor,borderWidth:2,borderRadius:borderRadius}]}>
-                    {isChecked&&
-                        <View style={{borderRadius:borderRadius-2,backgroundColor:fillColor,height:"100%",width:"100%",justifyContent:"center",alignItems:"center"}}>
-                            {fill}
-                        </View>
-                    }
-                    {isChecked||
-                        <View style={{borderRadius:borderRadius-2,backgroundColor:unfillColor,height:"100%",width:"100%",justifyContent:"center",alignItems:"center"}}>
-                            {unfill}
-                        </View>
-                    }
+        <>
+            {visible &&
+            <Pressable onPress={onPress} >
+                <View style={{flexDirection:"row",alignItems:"center"}}>
+                    <View style={[{margin:2,width:width,height:height,borderColor:fillColor,borderWidth:2,borderRadius:borderRadius}]}>
+                        {isChecked&&
+                            <View style={{borderRadius:borderRadius-2,backgroundColor:fillColor,height:"100%",width:"100%",justifyContent:"center",alignItems:"center"}}>
+                                {fill}
+                            </View>
+                        }
+                        {isChecked||
+                            <View style={{borderRadius:borderRadius-2,backgroundColor:unfillColor,height:"100%",width:"100%",justifyContent:"center",alignItems:"center"}}>
+                                {unfill}
+                            </View>
+                        }
+                    </View>
+                    <Text style={[styles.buttonText,textStyle]}>{text&&" "+text}</Text>
                 </View>
-                <Text style={[styles.buttonText,textStyle]}>{text&&" "+text}</Text>
-            </View>
-        </Pressable>
+            </Pressable>
+            ||
+            <View style={{height:height,width:width,margin:2}}/>
+            }
+        </>
     )
 }
 export const RadioButton = ({
@@ -76,9 +85,9 @@ export const RadioButton = ({
        unfillColor
 })=>{
     return(
-        <Pressable onPress={onPress} style={{margin:2}}>
-            <View style={{flexDirection:"row",alignItems:"center"}}>
-                <View style={[{width:30,height:30,borderColor:fillColor,borderWidth:2,borderRadius:borderRadius}]}>
+        <Pressable onPress={onPress}>
+            <View style={{margin:2,flexDirection:"row",alignItems:"center"}}>
+                <View style={[{borderColor:fillColor,borderWidth:2,borderRadius:borderRadius,width:30,height:30}]}>
                     {isChecked&&
                         <View style={{borderRadius:borderRadius-2,backgroundColor:fillColor,height:"100%",width:"100%",justifyContent:"flex-end",alignItems:"flex-end"}}>
                             <MaterialCommunityIcons name="checkbox-blank-circle" style={{color:unfillColor}}/>
@@ -95,25 +104,34 @@ export const RadioButton = ({
         </Pressable>
     )
 }
-export const HeightButton = ({height,contractHeight,setContractHeight})=>{
+export const HeightButton = ({
+                                 chosenHeight,
+                                 contractHeight,
+                                 setContractHeight,
+                                 size,
+                                 visible=true
+})=>{
     return(
         <MyCheckbox
+            visible={visible}
             // textStyle={[styles.text, styles.textNoDecoration]}
             // text={contractHeight.toString()}
-            isChecked={contractHeight===height}
+            height={size}
+            width={size}
+            isChecked={contractHeight===chosenHeight}
             onPress={()=>{
-                setContractHeight(height)
+                setContractHeight(chosenHeight)
             }}
             fillColor={color.orange}
             unfillColor={color.yellow}
             fill={
                 <Text style={styles.text}>
-                    {height}
+                    {chosenHeight}
                 </Text>
             }
             unfill={
                 <Text style={styles.text}>
-                    {height}
+                    {chosenHeight}
                 </Text>
             }
         />

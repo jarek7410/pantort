@@ -1,11 +1,11 @@
 import React, { useRef, useState} from "react";
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import {ScreenSetter} from "./components/turnament/ScreenSetter";
-import {BridgeScreen} from "./components/board/BridgeScreen";
-import {appScreen, Boardsceen} from "./helpers/enumhelper";
-import {roundDefault} from "./helpers/defaultData";
+// import {BridgeScreen} from "./components/board/BridgeScreen";
+import {appScreen} from "./helpers/enumhelper";
+// import {roundDefault} from "./helpers/defaultData";
 import {gameCource1} from "./helpers/ExampleCoursefor3";
 import {AppMenu} from "./components/menu/AppMenu";
 import {TabelkaScreen} from "./components/tabelka/TabelkaScreen";
@@ -94,31 +94,32 @@ export default function App() {
     return (
         <SafeAreaProvider style={styles.safeArea}>
             <View style={[styles.container]} key="main main">
-            <View key={"1"}>
-                {screens.board===Screen && <ScreenSetter
-                    course={course}
-                    boardsHandler={boardsHandler}
-                    pairNumber={pairNumber}
-                />}
+            <View >
+                {screens.board===Screen &&
+                    <ScreenSetter
+                        course={course}
+                        boardsHandler={boardsHandler}
+                        pairNumber={pairNumber}/>
+                }
                 {screens.menu===Screen && <AppMenu setCourse={loadCourse}/>}
                 {screens.tableka===Screen&&<TabelkaScreen/>}
                 {screens.mecz===Screen&&<MeczControler back={loadMenu}/>}
             </View>
-            <ScrollView style={{
-                marginHorizontal:20,
-            }}>
-            <View key={"2"}>
-                {boards.length >=6 &&
-                    (<View>
-                    {boards.map((item)=>{
-                        if(item) {
-                            return <BridgeScreen logContext={"app"} key={item.number} board={JSON.parse(JSON.stringify(item))} focus={Boardsceen.BACK} round={roundDefault}/>
-                        }
-                    })}
-                </View>)
-                }
-            </View>
-            </ScrollView>
+            {/*<ScrollView style={{*/}
+            {/*    marginHorizontal:20,*/}
+            {/*}}>*/}
+            {/*<View key={"2"}>*/}
+            {/*    {boards.length >=6 &&*/}
+            {/*        (<View>*/}
+            {/*        {boards.map((item)=>{*/}
+            {/*            if(item) {*/}
+            {/*                return <BridgeScreen logContext={"app"} key={item.number} board={JSON.parse(JSON.stringify(item))} focus={Boardsceen.BACK} round={roundDefault}/>*/}
+            {/*            }*/}
+            {/*        })}*/}
+            {/*    </View>)*/}
+            {/*    }*/}
+            {/*</View>*/}
+            {/*</ScrollView>*/}
             </View>
         </SafeAreaProvider>
     );

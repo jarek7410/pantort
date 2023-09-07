@@ -9,13 +9,16 @@
       "channel": "development"
     },
     "preview": {
-      "distribution": "internal",
-      "channel": "preview",
-      "developmentClient": true
+      "android": {
+        "buildType": "apk"
+      },
+      "developmentClient": false
     },
     "production": {
       "channel": "production",
       "developmentClient": false
+    },
+    "preview2": {
     }
   }
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, StyleSheet, ScrollView} from "react-native";
+import {View, Text,  ScrollView, Pressable} from "react-native";
 import {deletePlay, getPlays, getResult} from "../../../helpers/fetchHelper";
 import {transw2W} from "../../../helpers/cought_them_all.dto";
 import {Button} from "../../basicComponents/Button";
@@ -46,16 +46,21 @@ export const ResultsScreen = ({setPlay,meczId,isOpen}) => {
     return (
         <View>
         <ScrollView style={{
-            width: 300,
+            width: 350,
         }}>
-        <View style={[styles.row,]}>
-            <View >
+        <View >
+            <View style={styles.row}>
                 <Text style={styles.text}>Otwarte</Text>
-                {sortPlaysRender(true)}
-            </View>
-            <View>
                 <Text style={styles.text}>Zamkniete</Text>
-                {sortPlaysRender(false)}
+            </View>
+            <View style={styles.rowOnly}>
+                <View style={{width:"50%"}}>
+                    {sortPlaysRender(true)}
+                </View>
+                <View style={{width:"50%"}}>
+                    {sortPlaysRender(false)}
+                </View>
+
             </View>
         </View>
         </ScrollView>
@@ -72,6 +77,9 @@ export const ResultsScreen = ({setPlay,meczId,isOpen}) => {
     )
 }
 const Play = ({play,erace,simple=false}) => {
+    const [show, setShow] = useState(false)
+
+
     let eraceThis = () => {
         erace(play.id)
     }
@@ -80,12 +88,16 @@ const Play = ({play,erace,simple=false}) => {
             backgroundColor: play.erased ? "grey" : "darkgreen",
         }]}>
 
-            {simple && play.erased &&
-                <Text style={styles.text}>Usunięte</Text>
-            }
+            {/*{simple && play.erased &&*/}
+            {/*    <Text style={styles.text}>Usunięte</Text>*/}
+            {/*}*/}
+
+            <Pressable onPress={()=>setShow(true)} onHoverOut={()=>setShow(false)}>
                 <Text style={styles.text}>Runda: {play.Round}</Text>
                 <Text style={styles.text}>Rozdanie:{play.board}</Text>
+
             {simple ||
+            show &&
             <>
                 <Text style={styles.text}>Kontrakt:{play.contract}</Text>
                 <Text style={styles.text}>Rozgrywa:{transw2W(play.declarerWind)}</Text>
@@ -95,11 +107,12 @@ const Play = ({play,erace,simple=false}) => {
                 </View>
             </>
             }
-            {play.erased || simple ||
+            {play.erased ||simple || show&&
                 <Button onPress={eraceThis}>
                     <Text>Usuń</Text>
                 </Button>
             }
+            </Pressable>
         </View>
     )
 }

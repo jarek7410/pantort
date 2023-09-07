@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, Text, StyleSheet, TextInput} from "react-native";
+import {View, Text, TextInput} from "react-native";
 import {Button} from "../../basicComponents/Button";
 import {color} from "../../../styles/colors";
 import styles from "../styles/create.styles";
@@ -29,7 +29,6 @@ export const CreateScreen = ({create,join}) => {
                         text={"wymagej hasła"}
                         isChecked={isPassward}
                         onPress={() => setIsPassward(!isPassward)}
-                        disableBuiltInState
                         fillColor={"yellowgreen"}
                         unfillColor={color.yellow}/>
             {isPassward &&

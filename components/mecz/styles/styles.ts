@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
     backButton:{
       backgroundColor:"grey",
         width:50,
-        height:30,
+        height:50,
     },
     menu:{
         borderRadius:3,
