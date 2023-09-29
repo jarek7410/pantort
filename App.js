@@ -1,5 +1,5 @@
 import React, { useRef, useState} from "react";
-import {StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import {ScreenSetter} from "./components/turnament/ScreenSetter";
@@ -10,6 +10,7 @@ import {gameCource1} from "./helpers/ExampleCoursefor3";
 import {AppMenu} from "./components/menu/AppMenu";
 import {TabelkaScreen} from "./components/tabelka/TabelkaScreen";
 import {MeczControler} from "./components/mecz/MeczControler";
+import {StatusBar} from "expo-status-bar";
 
 
 const boardSchema={
@@ -93,6 +94,11 @@ export default function App() {
 
     return (
         <SafeAreaProvider style={styles.safeArea}>
+            <StatusBar animated={true}
+                       // backgroundColor="#61dafb"
+                       // hidden={true}
+                       translucent={true}
+            />
             <View style={[styles.container]} key="main main">
             <View >
                 {screens.board===Screen &&
@@ -126,7 +132,9 @@ export default function App() {
 }
 const styles = StyleSheet.create({
     safeArea: {
-        // justifyContent:"center",
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#ECF0F1',
 
     },
     container: {
