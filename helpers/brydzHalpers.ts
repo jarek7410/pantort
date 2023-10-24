@@ -1,4 +1,3 @@
-import {log} from "expo-updates/build-cli/utils/log";
 
 export const expectablePointsTableka=(number:number,val:boolean)=>{
     const num:number=number>=20?number-20:20-number;
