@@ -1,4 +1,4 @@
-import {styles} from "../styles/styles";
+import {styles} from "../../../styles/styles";
 import {Button} from "../../basicComponents/Button";
 import {Text, View} from "react-native";
 import React from "react";

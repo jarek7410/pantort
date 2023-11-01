@@ -73,3 +73,25 @@ export enum Vulnerability{
     EW= 'ew',
     BOTH='both',
 }
+
+export const isWindVul=(windVar:wind,vul:Vulnerability)=>{
+    if(vul===Vulnerability.BOTH){
+        return true;
+    }
+    if(vul===Vulnerability.NONE){
+        return false;
+    }
+    if(vul===Vulnerability.NS){
+        if(windVar===wind.NS||windVar===wind.N||windVar===wind.S){
+            return true;
+        }
+        return false;
+    }
+    if(vul===Vulnerability.EW){
+        if(windVar===wind.EW||windVar===wind.E||windVar===wind.W){
+            return false;
+        }
+        return true;
+    }
+    return false;
+}

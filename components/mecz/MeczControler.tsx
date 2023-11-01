@@ -1,6 +1,6 @@
 import {View} from "react-native";
 import React, {useState} from "react";
-import {styles} from "./styles/styles";
+import {styles} from "../../styles/styles";
 import {JoinScreen} from "./screens/JoinScreen";
 import {PlayScreen} from "./screens/PlayScreen";
 import {getMeczID, postGuestMecz, postMeczPlay} from "../../helpers/fetchHelper";

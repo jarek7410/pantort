@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Text, TextInput, View} from "react-native";
-import {styles} from "../styles/styles";
+import {styles} from "../../../styles/styles";
 import {Button} from "../../basicComponents/Button";
 import {codePretty} from "../hendler";
 

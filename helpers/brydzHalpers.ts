@@ -3,7 +3,7 @@ export const expectablePointsTableka=(number:number,val:boolean)=>{
     const num:number=number>=20?number-20:20-number;
     const multiplier:number=number>=20?1:-1;
     if(num<=0){
-        return 0*multiplier;
+        return 0;
     }
     if(num<=1){
         return 50*multiplier;

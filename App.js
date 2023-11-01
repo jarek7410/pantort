@@ -11,6 +11,7 @@ import {AppMenu} from "./components/menu/AppMenu";
 import {TabelkaScreen} from "./components/tabelka/TabelkaScreen";
 import {MeczControler} from "./components/mecz/MeczControler";
 import {StatusBar} from "expo-status-bar";
+import {TabelkaControler} from "./components/tabelka2/TabelkaControler";
 
 
 const boardSchema={
@@ -50,6 +51,7 @@ export default function App() {
         board:1,
         tableka:2,
         mecz:3,
+        tabelka2:4,
     }
     const [Screen ,setScreen]=useState(screens.menu)
 
@@ -66,6 +68,11 @@ export default function App() {
         setIsBoard(true)
     }
     const loadCourse=(course)=> {
+        if(course===-1){
+            console.log("tabelka 2.0")
+            setScreen(screens.tabelka2)
+            return
+        }
         if(course===0){
             console.log("loadTableka")
             setScreen(screens.tableka)
@@ -101,15 +108,17 @@ export default function App() {
             />
             <View style={[styles.container]} key="main main">
             <View >
-                {screens.board===Screen &&
-                    <ScreenSetter
-                        course={course}
-                        boardsHandler={boardsHandler}
-                        pairNumber={pairNumber}/>
-                }
-                {screens.menu===Screen && <AppMenu setCourse={loadCourse}/>}
-                {screens.tableka===Screen&&<TabelkaScreen/>}
-                {screens.mecz===Screen&&<MeczControler back={loadMenu}/>}
+                {/*not in use, memery frendly comment :) */}
+                {/*{screens.board===Screen     &&*/}
+                {/*    <ScreenSetter*/}
+                {/*        course={course}*/}
+                {/*        boardsHandler={boardsHandler}*/}
+                {/*        pairNumber={pairNumber}/>*/}
+                {/*}*/}
+                {screens.menu===Screen      && <AppMenu setCourse={loadCourse}/>}
+                {screens.tableka===Screen   &&<TabelkaScreen/>}
+                {screens.tabelka2===Screen  &&<TabelkaControler/>}
+                {screens.mecz===Screen      &&<MeczControler back={loadMenu}/>}
             </View>
             {/*<ScrollView style={{*/}
             {/*    marginHorizontal:20,*/}

@@ -62,6 +62,9 @@ export const AppMenu = ({setCourse}) => {
     const setChooseTabelka= () => {
         setCourse(0);
     }
+    const setChooseTabelka2= () => {
+        setCourse(-1);
+    }
     const setChooseMecz = () => {
         setCourse(1);
     }
@@ -74,16 +77,17 @@ export const AppMenu = ({setCourse}) => {
                 {isPremadeCourse &&
                     <ChousePairPremade setPair={premadeActionHandler}/>}
                 {isHomescreen &&
-                  <HomeScreen premade3={setPremadeCourse} tabelka={setChooseTabelka} mecz={setChooseMecz} />}
+                  <HomeScreen tabelka2={setChooseTabelka2}premade3={setPremadeCourse} tabelka={setChooseTabelka} mecz={setChooseMecz} />}
       </View>
   )
 }
-const HomeScreen = ({premade3,tabelka,mecz}) => {
+const HomeScreen = ({premade3,tabelka,mecz,tabelka2}) => {
     return (
         <>
             <View style={[styles.menu]}>
                 <MenuOption text="mecz" handler={mecz}/>
                 <MenuOption text="na tabelke" handler={tabelka}/>
+                <MenuOption text="tabelka 2.0" handler={tabelka2}/>
                 {/*<MenuOption style={{backgroundColor: "grey"}} text="Dołacz do Turnieju" handler={()=> {}}/>*/}
                 {/*<MenuOption style={{backgroundColor: "grey"}} text="domyślny na 3" handler={premade3}/>*/}
             </View>
