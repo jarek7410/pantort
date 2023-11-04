@@ -1,42 +1,53 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import {Pressable, Text, View} from "react-native"
 import {styles} from "../../styles/styles";
 import {isWindVul, Vulnerability, wind as windE} from "../../../../helpers/enumhelper";
+import {position} from "../../interfaces";
 
-export const Compass = ({names,volnable,player,setPlayer,dealer}) => {
+export const Compass = ({
+                            names,
+                            volnable,
+                            player,
+                            setPlayer,
+                            dealer,
+                            boardNumber,
+                            contract,
+                            changeToContract,
+                        }) => {
     const squareSides = 100
-    const nsStyle = [{
-
-    }]
     return (
         <>
-            <Text>Compass</Text>
             <View style={[styles.row]}>
-                <PlayerSquer player={player} deler={dealer} volnable={volnable}
-                             wind1={windE.S} wind2={windE.W}
-                />
-                <NameTag name={names[0]} wind={windE.S} squareSides={squareSides}
-                         volnable={volnable} setPlayer={setPlayer} dealer={dealer}/>
-
                 <PlayerSquer player={player} deler={dealer} volnable={volnable}
                              wind1={windE.S} wind2={windE.E}
                 />
-            </View>
-            <View style={[styles.row]}>
-                <NameTag name={names[2]} wind={windE.W}  squareSides={squareSides}
+                <NameTag name={position(windE.S,boardNumber,names).name} wind={windE.S} squareSides={squareSides}
                          volnable={volnable} setPlayer={setPlayer} dealer={dealer}/>
-                <Center squareSides={squareSides}/>
-                <NameTag name={names[3]} wind={windE.E}  squareSides={squareSides}
-                         volnable={volnable} setPlayer={setPlayer} dealer={dealer}/>
-            </View>
-            <View style={[styles.row]}>
+
                 <PlayerSquer player={player} deler={dealer} volnable={volnable}
-                             wind1={windE.N} wind2={windE.W}
+                             wind1={windE.S} wind2={windE.W}
                 />
-                <NameTag name={names[1]} wind={windE.N}  squareSides={squareSides}
+            </View>
+            <View style={[styles.row]}>
+                <NameTag name={position(windE.E,boardNumber,names).name} wind={windE.E}  squareSides={squareSides}
+                         volnable={volnable} setPlayer={setPlayer} dealer={dealer}/>
+
+                <Pressable onPress={changeToContract}>
+                    <Center squareSides={squareSides} contract={contract}/>
+                </Pressable>
+
+
+                <NameTag name={position(windE.W,boardNumber,names).name} wind={windE.W}  squareSides={squareSides}
+                         volnable={volnable} setPlayer={setPlayer} dealer={dealer}/>
+            </View>
+            <View style={[styles.row]}>
+                <PlayerSquer player={player} deler={dealer} volnable={volnable}
+                             wind1={windE.N} wind2={windE.E}
+                />
+                <NameTag name={position(windE.N,boardNumber,names).name} wind={windE.N}  squareSides={squareSides}
                          volnable={volnable} setPlayer={setPlayer} dealer={dealer}/>
                 <PlayerSquer player={player} deler={dealer} volnable={volnable}
-                                wind1={windE.N} wind2={windE.E}
+                                wind1={windE.N} wind2={windE.W}
                 />
             </View>
         </>
@@ -47,7 +58,7 @@ const NameTag = ({name,wind,squareSides,volnable,setPlayer,dealer}) => {
         <Pressable onPress={()=>{setPlayer(wind)}}>
             <View style={[styles.squere,
                 {width: squareSides, transform: [{
-                    rotate: wind==="N"?"0deg":wind==="E"?"270deg":wind==="S"?"180deg":"90deg"
+                    rotate: wind==="N"?"0deg":wind==="E"?"90deg":wind==="S"?"180deg":"270deg"
                 }],
                     marginLeft: wind==="E"||wind==="W"?-squareSides/4:0,
                     marginRight: wind==="E"||wind==="W"?-squareSides/4:0,
@@ -85,7 +96,7 @@ const Squer=({wind,dealer,volnable})=>{
             }]}></View>
     )
 }
-const Center = ({squareSides}) => {
+const Center = ({squareSides,contract}) => {
     return (
         <View style={[{
             width: squareSides,

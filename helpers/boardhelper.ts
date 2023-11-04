@@ -1,7 +1,7 @@
 import {bid, Boardsceen, suit, type, wind} from "./enumhelper";
 
 
-
+//this is old code
 export const boardUpdate = (board, action,focus) => {
     if (action.type.includes( type.number)&&focus===Boardsceen.board) {
         if(typeof(board.number)==="string"){
@@ -21,8 +21,6 @@ export const boardUpdate = (board, action,focus) => {
     if(focus===Boardsceen.result){
         board=resultHandler(board,action);
     }
-
-
 
     if ((Boardsceen.DONE !== focus) && action.type.includes(200)) {
         focus+=1;

@@ -1,5 +1,5 @@
 import {bid, result, suit, vals, Vulnerability, wind} from "./enumhelper";
-import {contract, outcome} from "./interfaces";
+import {contract, lead, outcome} from "./interfaces";
 
 const isContractGood=(contract):boolean=>{
     if(!contract){
@@ -11,7 +11,7 @@ const isContractGood=(contract):boolean=>{
     return true
 
 }
-export const constractComposer = (contract) => {
+export const constractComposer = (contract:contract) => {
     if(!isContractGood(contract)){
         return ""
     }
@@ -54,7 +54,7 @@ export const constractComposer = (contract) => {
 
     return composed;
 }
-export const windConposer=(contract)=>{
+export const windConposer=(contract:contract)=>{
         switch (contract.wind){
             case wind.E:
             case wind.N:
@@ -65,7 +65,7 @@ export const windConposer=(contract)=>{
                 return "";
     }
 }
-export const leadComposeer = (lead) => {
+export const leadComposeer = (lead:lead) => {
     if(!lead){
         return "";
     }
@@ -118,7 +118,7 @@ export const leadComposeer = (lead) => {
     }
     return composed
 }
-export const outcomeComposer = (outcome) => {
+export const outcomeComposer = (outcome:outcome) => {
     if(!outcome){
         return "";
     }
@@ -229,7 +229,4 @@ export const duplicateBoardsComposer = (board:number) => {
         dealer=wind.W;
     }
     return {dealer:dealer,vulnerability:val,board:Math.floor(board/16)}
-
-
-
 }

@@ -1,6 +1,6 @@
 import {bid, result, suit, vals, wind} from "./enumhelper";
 export interface contract{
-    number:number,
+    number:number,//height
     suit:suit,
     double:bid,
     wind:wind

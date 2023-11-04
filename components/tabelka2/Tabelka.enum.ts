@@ -4,4 +4,5 @@ export enum TabelkaEnum {
     movement,
     history,
     input,
+    contract,
 }
