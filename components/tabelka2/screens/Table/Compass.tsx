@@ -3,6 +3,7 @@ import {Pressable, Text, View} from "react-native"
 import {styles} from "../../styles/styles";
 import {isWindVul, Vulnerability, wind as windE} from "../../../../helpers/enumhelper";
 import {position} from "../../interfaces";
+import {constractComposer} from "../../../../helpers/composerhelper";
 
 export const Compass = ({
                             names,
@@ -97,11 +98,26 @@ const Squer=({wind,dealer,volnable})=>{
     )
 }
 const Center = ({squareSides,contract}) => {
+    const [constract,setContract]=React.useState<string>()
+    useEffect(() => {
+        const contractString=constractComposer(contract)
+        console.log("contractString\"",contractString,"\"",typeof contractString,contractString.length)
+        if(contractString === ""||contractString === " "){
+            setContract("naciśnij by wybrania kontraktu")
+        }else{
+            setContract(contractString)
+        }
+        console.log("contract",contractString,typeof contractString)
+    }, []);
     return (
         <View style={[{
             width: squareSides,
             height: squareSides,
             backgroundColor: "pink",
-        }]}></View>
+            justifyContent: "center",
+            alignItems: "center",
+        }]}>
+            <Text>{constract}</Text>
+        </View>
     )
 }

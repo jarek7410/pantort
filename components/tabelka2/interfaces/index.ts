@@ -19,11 +19,6 @@ export interface Names {
             id:3,
         }
     ],
-    //     N: player,
-    //     ichi: player,
-    //     ni: player,
-    //     san: player,
-    // }
 }
 
 export interface player{

@@ -8,13 +8,13 @@ import {outcomeComposer} from "../../../helpers/composerhelper";
 import {Button} from "@rneui/themed";
 
 export const ContractScreen = ({contract,setContract,changeToTable}) => {
-    const [isKontra, setIsKontra] = React.useState(bid.none);
+    const [isKontra, setIsKontra] = React.useState<bid>(bid.none);
     const [contractHeight, setContractHeight] = React.useState(3);
-    const [playedSuit, setPlayedSuit] = React.useState(suit.NT);
+    const [playedSuit, setPlayedSuit] = React.useState<suit>(suit.NT);
     const size = 50
     useEffect(() => {
         if (contract) {
-            setIsKontra(contract.kontra)
+            setIsKontra(contract.double)
             setContractHeight(contract.number)
             setPlayedSuit(contract.suit)
         }
@@ -24,7 +24,7 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
             {...contract,
                 number:contractHeight,
                 suit:playedSuit,
-                kontra:isKontra}
+                double:isKontra}
         )
         changeToTable()
     };

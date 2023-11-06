@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {color} from "../../styles/colors";
 import * as React from "react";
-import {bid, result, suit, Vulnerability, wind} from "../../helpers/enumhelper";
+import {bid, isWindVul, result, suit, Vulnerability, wind} from "../../helpers/enumhelper";
 import {duplicateBoardsComposer, outcomeComposer, scoreComposer} from "../../helpers/composerhelper";
 import {expectablePointsTableka, impTable} from "../../helpers/brydzHalpers";
 import {ImpPopup} from "./ImpPopup";
@@ -59,18 +59,7 @@ export const TabelkaScreen = () => {
       tricks: takes,
       result: outcome,
     }
-    let vol=false
-    if (volnable===Vulnerability.BOTH){
-      vol=true
-    }
-    if (volnable===Vulnerability.NS
-        &&(player===wind.N||player===wind.S)){
-      vol=true
-    }
-    if (volnable===Vulnerability.EW
-        &&(player===wind.E||player===wind.W)) {
-      vol = true
-    }
+    const vol=isWindVul(player,volnable)
     let scoreLocal = scoreComposer(contract,outcom,vol)
     let estimate = expectablePointsTableka( points,vol)
     const who=player===wind.N||player===wind.S||player===wind.NS?1:-1

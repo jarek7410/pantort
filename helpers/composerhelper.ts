@@ -1,5 +1,6 @@
-import {bid, result, suit, vals, Vulnerability, wind} from "./enumhelper";
-import {contract, lead, outcome} from "./interfaces";
+import {bid, isWindVul, result, suit, vals, Vulnerability, wind} from "./enumhelper";
+import {board, contract, lead, outcome} from "./interfaces";
+import {expectablePointsTableka, impTable} from "./brydzHalpers";
 
 const isContractGood=(contract):boolean=>{
     if(!contract){
@@ -17,7 +18,7 @@ export const constractComposer = (contract:contract) => {
     }
     let composed:string="";
 
-    if(!isNaN(contract.number)){
+    if(!isNaN(contract.number)&&contract.number>0){
         composed+=contract.number;
     }
     composed+=" ";
@@ -42,10 +43,10 @@ export const constractComposer = (contract:contract) => {
     }
     switch (contract.double){
         case bid.xx:
-            composed+=" x"
+            composed+=" XX"
             break
         case bid.x:
-            composed+=" x"
+            composed+=" X"
             break
         default:
             composed+=""
@@ -142,6 +143,30 @@ export const outcomeComposer = (outcome:outcome) => {
         composed += outcome.tricks
     }
     return composed
+}
+export const simpleImpScoreComposer = (board:board,points:number) => {
+    const vul=duplicateBoardsComposer(board.number).vulnerability
+    const isVol=isWindVul(board.contract.wind,vul)
+    let scoreLocal = scoreComposer(
+        board.contract,
+        board.outcome,
+        isVol
+    )
+    let estimate = expectablePointsTableka( points,isVol)
+    const who=
+        board.contract.wind===wind.N||
+        board.contract.wind===wind.S||
+        board.contract.wind===wind.NS?1:-1
+    console.log(  impTable(scoreLocal-estimate)*who)
+    return  impTable(scoreLocal-estimate)*who
+}
+export const simpleScoreComposer = (board:board) => {
+    const vul=duplicateBoardsComposer(board.number).vulnerability
+    return scoreComposer(
+        board.contract,
+        board.outcome,
+        isWindVul(board.contract.wind,vul)
+    )
 }
 export const scoreComposer = (contract: contract,outcome:outcome,vol:boolean) => {
     let score:number=0;

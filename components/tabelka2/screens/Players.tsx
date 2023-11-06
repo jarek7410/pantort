@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ScrollView, Text} from "react-native"
 import {Card, Input,Button} from "@rneui/themed";
+import {getCountedScore} from "../historyHendler";
 export const Players=({names,setNames,changeToTable})=>{
     const changeName=(id:number,name:string)=>{
         console.log("changeName",id,name)
@@ -25,19 +26,27 @@ export const Players=({names,setNames,changeToTable})=>{
     )
 }
 const PlayerCard=({player,id,changeName})=>{
+    const [name,setName]=useState(player.name)
+    const [imps,setImps]=useState(player.imps)
+    useEffect(() => {
+        getCountedScore(id).then((imps)=>{
+            setImps(imps)
+        })
+    }, []);
     const save=()=>{
         console.log("save",id,name)
         changeName(id,name)
     }
-    const [name,setName]=useState(player.name)
     return(
         <Card>
             <Text>{id===0?"N":id}</Text>
+            <Text>imps:{imps}, pseudonim:{name} </Text>
             <Input onChangeText={setName} value={name}></Input>
-            <Text>name{name}</Text>
-            <Button onPress={save}>
-                Zapisz
-            </Button>
+            {player.name!==name &&
+                <Button onPress={save}>
+                    Zapisz
+                </Button>
+            }
         </Card>
     )
 

@@ -58,7 +58,7 @@ export const expectablePointsTableka=(number:number,val:boolean)=>{
     }
 }
 export const impTable=(difference:number)=>{
-    console.log("imptool",difference)
+    // console.log("imptool",difference)
     if(difference<=10){
         return 0;
     }

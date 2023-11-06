@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {duplicateBoardsComposer} from "../../helpers/composerhelper";
-import {suit, Vulnerability, wind} from "../../helpers/enumhelper";
+import {suit, vals, Vulnerability, wind} from "../../helpers/enumhelper";
 import {Table} from "./screens/Table";
 import {TabelkaEnum} from "./Tabelka.enum";
 import {Text} from "react-native";
 import {Players} from "./screens/Players";
 import {Names} from "./interfaces";
 import {ContractScreen} from "./screens/Contract";
-import {contract} from "../../helpers/interfaces";
+import {contract, lead, outcome} from "../../helpers/interfaces";
+import {DealInput} from "./screens/DealInput";
+import {loadFromHistory, restartHistory, saveToHistory} from "./historyHendler";
+import {DealsHistory} from "./screens/DealsHistory";
 
 export const TabelkaControler = () =>{
     const [screen,setScreen] = useState(TabelkaEnum.table)
@@ -24,16 +27,25 @@ export const TabelkaControler = () =>{
     const [dealer,setDealer] = useState<wind>(wind.E)
     // const [player,setPlayer] = useState<wind>(wind.N)
     const [contract,setContract] = useState<contract>({double: undefined, number: 0, suit: undefined, wind: undefined})
+    const [pointsOnPlayer,setPointsOnPlayer] = useState(0)
+    const [outcome,setOutcome] = useState<outcome>()
+    const [lead,setLead] = useState<lead>({suit:suit.DIAMONDS,vals:vals.seven})
     // start setup
     useEffect(() => {
-        setBoardNumber(2)
+        loadFromHistory().then((history)=>{
+            console.log("history",history)
+            if(history.history.length>0){
+                setBoardNumber(history.lastBoard+1)
+            }else{
+                setBoardNumber(1)
+            }
+        })
     }, []);
     useEffect(()=>{
         setForBoard(boardNumber)
     },[boardNumber])
-    const setForBoard = (round) => {
+    const setForBoard = (round:number) => {
         const duplicate = duplicateBoardsComposer(round)
-        // setDuplicateBoards(duplicate.board)
         setVolnable(duplicate.vulnerability)
         setDealer(duplicate.dealer)
     }
@@ -46,6 +58,35 @@ export const TabelkaControler = () =>{
     const changeToContract = () => {
         setScreen(TabelkaEnum.contract)
     }
+    const changeToDealInput = () => {
+        setScreen(TabelkaEnum.input)
+    }
+    const changeToHistory = () => {
+        setScreen(TabelkaEnum.history)
+    }
+    const  setDeal=  async (outcome:outcome,points:number)=>{
+        console.log("setDeal",outcome,points)
+        setOutcome(outcome)
+        setPointsOnPlayer(points)
+        await saveToHistory({
+            number:boardNumber,
+            contract:contract,
+            lead:lead,
+            outcome:outcome
+        },names,pointsOnPlayer)
+        const histry = await loadFromHistory()
+        console.log("histry",histry)
+
+        setBoardNumber(boardNumber+1)
+        setContract(undefined)
+        setPointsOnPlayer(0)
+        setOutcome(undefined)
+        // setLead({suit:suit.DIAMONDS,vals:vals.seven})
+
+        changeToTable()
+    };
+
+
     return(
         <>
             <Text>
@@ -60,9 +101,13 @@ export const TabelkaControler = () =>{
                     dealer={dealer}
                     changeToPlayers={changeToPlayers}
                     changeToContract={changeToContract}
+                    changeToDealInput={changeToDealInput}
+                    changeToHistory={changeToHistory}
                     boardNumber={boardNumber}
+                    setBoardNumber={setBoardNumber}
                     contract={contract}
                     setContract={setContract}
+
                 />
             }
             {TabelkaEnum.players===screen &&
@@ -78,6 +123,21 @@ export const TabelkaControler = () =>{
                     setContract={setContract}
                     contract={contract}
                     changeToTable={changeToTable}
+                />
+            }
+            {TabelkaEnum.input===screen &&
+                <DealInput
+                    setDeal={setDeal}
+                    changeToTable={changeToTable}
+                />
+            }
+            {TabelkaEnum.history===screen &&
+                <DealsHistory
+                    changeToTable={changeToTable}
+                    deleteHistory={async ()=>{
+                        await restartHistory(names)
+                        changeToTable()
+                    }}
                 />
             }
         </>
