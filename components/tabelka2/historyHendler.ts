@@ -64,7 +64,9 @@ export const getCountedScore = async (playerId: number) => {
     value.history.forEach((item)=>{
         const wind=moves(playerId,item.board.number)
         if(windIsWindy(item.board.contract.wind,wind)) {
-            score += item.score.score
+            score += item.score.imps
+        }else{
+            score -= item.score.imps
         }
     })
     return score;

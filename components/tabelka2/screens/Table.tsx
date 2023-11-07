@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Text, View} from "react-native"
 import {Compass} from "./Table/Compass";
-import {styles} from "../styles/styles";
+import {colors, styles} from "../styles/styles";
 import {Button} from "../../basicComponents/Button";
 import {wind as windE, wind} from "../../../helpers/enumhelper";
 import {ButtonNinus, ButtonPlus} from "../../tabelka/Buttons";
@@ -45,7 +45,7 @@ export const Table=({
     }
     return(
 
-        <View>
+        <View style={styles.centerContent}>
             {/*split view into 3 parts one for top, bottom and for compas in the midle*/}
             <View style={[styles.row]}>
                 <Button onPress={changeToPlayers}
@@ -57,18 +57,18 @@ export const Table=({
                     <Text>historia</Text>
                 </Button>
             </View>
-            <Text>boardNumber:{boardNumber}</Text>
-            <View style={styles.row}>
-                <View>
+            <View style={[styles.card]}>
+                <Text style={{fontSize:20}}>Numer pudełka: {boardNumber}</Text>
+                <View style={[styles.row,styles.centerContent]}>
                     <ButtonNinus text={"-4"} onPress={()=>{decreaseBoard(4)}}/>
                     <ButtonNinus text={"-"} onPress={()=>{decreaseBoard(1)}}/>
-                </View>
-                <View>
-                    <ButtonPlus text={"+4"} onPress={()=>increaseBoard(4)}/>
                     <ButtonPlus text={"+"} onPress={()=>increaseBoard(1)}/>
+                    <ButtonPlus text={"+4"} onPress={()=>increaseBoard(4)}/>
                 </View>
             </View>
+
             <Compass
+                style={{marginTop:20}}
                 names={names} volnable={volnable}
                 player={player} setPlayer={setPlayer}
                 dealer={dealer} boardNumber={boardNumber}

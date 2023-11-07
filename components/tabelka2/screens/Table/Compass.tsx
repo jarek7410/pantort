@@ -6,6 +6,7 @@ import {position} from "../../interfaces";
 import {constractComposer} from "../../../../helpers/composerhelper";
 
 export const Compass = ({
+                            style,
                             names,
                             volnable,
                             player,
@@ -24,7 +25,7 @@ export const Compass = ({
     //     console.log("compass W",position(windE.W,boardNumber,names).name)
     // }, [boardNumber]);
     return (
-        <>
+        <View style={style}>
             <View style={[styles.row]}>
                 <PlayerSquer player={player} deler={dealer} volnable={volnable}
                              wind1={windE.S} wind2={windE.E}
@@ -58,7 +59,7 @@ export const Compass = ({
                                 wind1={windE.N} wind2={windE.W}
                 />
             </View>
-        </>
+        </View>
     )
 }
 const NameTag = ({name,wind,squareSides,volnable,setPlayer,dealer}) => {

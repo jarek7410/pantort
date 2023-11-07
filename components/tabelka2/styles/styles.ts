@@ -28,7 +28,14 @@ export const styles = StyleSheet.create({
     blue:{
         backgroundColor:"deepskyblue ",
     },
-
-
+    centerContent:{
+        justifyContent:"center",
+        alignItems:"center",
+    },
+    card: {
+        padding: 5,
+        borderRadius:3,
+        backgroundColor: colors.secondary,
+    }
 
 });

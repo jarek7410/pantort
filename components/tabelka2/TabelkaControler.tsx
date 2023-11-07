@@ -73,7 +73,7 @@ export const TabelkaControler = () =>{
             contract:contract,
             lead:lead,
             outcome:outcome
-        },names,pointsOnPlayer)
+        },names,points)
         const histry = await loadFromHistory()
         console.log("histry",histry)
 
@@ -89,9 +89,9 @@ export const TabelkaControler = () =>{
 
     return(
         <>
-            <Text>
-                screen:{screen} boardNumber:{boardNumber} volnable:{volnable} dealer:{dealer}
-            </Text>
+            {/*<Text>*/}
+            {/*    screen:{screen} boardNumber:{boardNumber} volnable:{volnable} dealer:{dealer}*/}
+            {/*</Text>*/}
             {TabelkaEnum.table===screen &&
                 <Table
                     names={names}
