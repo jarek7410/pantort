@@ -78,7 +78,7 @@ export const TabelkaControler = () =>{
         console.log("histry",histry)
 
         setBoardNumber(boardNumber+1)
-        setContract(undefined)
+        setContract({double: undefined, number: 0, suit: undefined, wind: undefined})
         setPointsOnPlayer(0)
         setOutcome(undefined)
         // setLead({suit:suit.DIAMONDS,vals:vals.seven})

@@ -41,7 +41,8 @@ export const position = (windi:wind,BoardNumber:number,names:Names)=>{
     }
 }
 export const positionCount = (windi:wind,BoardNumber:number):number=>{
-    const BN= (Math.floor(BoardNumber / 4)%3 )+1;
+    const BN= (Math.floor((BoardNumber-1) / 4)%3 )+1;
+    console.log("positionCount",windi,BoardNumber,"BN",BN,"calc",Math.floor((BoardNumber-1) / 4))
     if(windi===wind.S){
         return BN;
     }

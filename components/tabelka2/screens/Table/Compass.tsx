@@ -14,8 +14,15 @@ export const Compass = ({
                             boardNumber,
                             contract,
                             changeToContract,
+                            // nameS,nameE,nameN,nameW,
                         }) => {
     const squareSides = 100
+    // useEffect(() => {
+    //     console.log("compass S",position(windE.S,boardNumber,names).name)
+    //     console.log("compass N",position(windE.N,boardNumber,names).name)
+    //     console.log("compass E",position(windE.E,boardNumber,names).name)
+    //     console.log("compass W",position(windE.W,boardNumber,names).name)
+    // }, [boardNumber]);
     return (
         <>
             <View style={[styles.row]}>

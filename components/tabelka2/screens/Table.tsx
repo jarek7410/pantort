@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Text, View} from "react-native"
 import {Compass} from "./Table/Compass";
 import {styles} from "../styles/styles";
 import {Button} from "../../basicComponents/Button";
-import {wind} from "../../../helpers/enumhelper";
+import {wind as windE, wind} from "../../../helpers/enumhelper";
 import {ButtonNinus, ButtonPlus} from "../../tabelka/Buttons";
+import {position} from "../interfaces";
 export const Table=({
                         boardNumber,
                         setBoardNumber,
@@ -21,6 +22,13 @@ export const Table=({
                         setContract
 })=>{
     const [player,setPlayerState]=React.useState<wind>(undefined)
+
+    // useEffect(() => {
+    //     console.log("Table S",position(windE.S,boardNumber,names).name)
+    //     console.log("Table N",position(windE.N,boardNumber,names).name)
+    //     console.log("Table E",position(windE.E,boardNumber,names).name)
+    //     console.log("Table W",position(windE.W,boardNumber,names).name)
+    // }, []);
     const setPlayer=(wind:wind)=>{
         // console.log("setPlayer",contract.wind,"->",wind)
         const newContract=contract
@@ -29,7 +37,8 @@ export const Table=({
         setPlayerState(wind)
     }
     const decreaseBoard = (number) => {
-        setBoardNumber(boardNumber-number)
+        const boNu=boardNumber-number
+        setBoardNumber(boNu>=1?boNu:1)
     }
     const increaseBoard = (number) => {
         setBoardNumber(boardNumber+number)
@@ -51,11 +60,11 @@ export const Table=({
             <Text>boardNumber:{boardNumber}</Text>
             <View style={styles.row}>
                 <View>
-                    <ButtonNinus text={"-5"} onPress={()=>{decreaseBoard(5)}}/>
+                    <ButtonNinus text={"-4"} onPress={()=>{decreaseBoard(4)}}/>
                     <ButtonNinus text={"-"} onPress={()=>{decreaseBoard(1)}}/>
                 </View>
                 <View>
-                    <ButtonPlus text={"+5"} onPress={()=>increaseBoard(5)}/>
+                    <ButtonPlus text={"+4"} onPress={()=>increaseBoard(4)}/>
                     <ButtonPlus text={"+"} onPress={()=>increaseBoard(1)}/>
                 </View>
             </View>
