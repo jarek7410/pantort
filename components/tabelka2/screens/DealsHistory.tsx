@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import {ScrollView, Text} from "react-native"
+import {BackHandler, ScrollView, Text, View} from "react-native"
 import {deleteFromHistory, historyList, loadFromHistory} from "../historyHendler";
 import {Button, Card} from "@rneui/themed";
-import {constractComposer, outcomeComposer} from "../../../helpers/composerhelper";
+import {constractComposer, outcomeComposer, windConposer} from "../../../helpers/composerhelper";
 export const DealsHistory=({changeToTable,deleteHistory})=>{
     const [historyList,setHistryList]=React.useState<historyList>(undefined)
     useEffect( () => {
@@ -10,6 +10,18 @@ export const DealsHistory=({changeToTable,deleteHistory})=>{
             setHistryList(history)
             console.log("history",history)
         })
+    }, []);
+    useEffect(() => {
+        const backAction = () => {
+            changeToTable()
+            return true;
+        };
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
     }, []);
     const load= async (): Promise<historyList> => {
         return await loadFromHistory()
@@ -24,11 +36,15 @@ export const DealsHistory=({changeToTable,deleteHistory})=>{
     if(historyList!=undefined){
     return(
        <>
-           <Button onPress={changeToTable}>
-               <Text>powrót</Text>
-          </Button>
+           <View>
+               <View style={[{flexDirection:"row",alignItems:"center"}]}>
+                   <Button onPress={changeToTable} size="lg" style={{}}>
+                       <Text>powrót</Text>
+                   </Button>
+                   <Text>Historia:</Text>
+                </View>
+           </View>
             <ScrollView>
-                <Text>Historia:</Text>
                 {historyList.history.map((history)=>{
                     return(
                         <HistoryCard history={history} deleteItem={deleteItem}/>
@@ -43,7 +59,13 @@ export const DealsHistory=({changeToTable,deleteHistory})=>{
     )}
     else{
         return(
-            <Text>loading</Text>
+            <>
+                <Button onPress={changeToTable}>
+                    <Text>powrót</Text>
+                </Button>
+
+                <Text>loading</Text>
+            </>
         )
     }
 }
@@ -55,11 +77,11 @@ const HistoryCard=({history,deleteItem})=>{
     return(
         <Card>
             <Text>{history.id} {history.time} </Text>
-            <Text>Imp:{history.score.imps}, punkty rozgrywającego:{history.score.pointsOnPlayer}, punkty za kontrakt:{history.score.score}</Text>
 
             <Text>rozdanie numer:{history.board.number}</Text>
-            <Text>konstract:{constractComposer(history.board.contract)}</Text>
-            <Text>wynik:{outcomeComposer(history.board.outcome)}</Text>
+            <Text>konstract:{constractComposer(history.board.contract)} {windConposer(history.board.contract)} {outcomeComposer(history.board.outcome)}</Text>
+            <Text>wynik:</Text>
+            <Text>Imp:{history.score.imps}, punkty rozgrywającego:{history.score.pointsOnPlayer}, punkty za kontrakt:{history.score.score}</Text>
             <Button onPress={deleteHistory}>
                 <Text>usuń</Text>
             </Button>

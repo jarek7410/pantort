@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {StyleSheet, Text, View} from "react-native";
+import {BackHandler, StyleSheet, Text, View} from "react-native";
 import {CheckBox, HeightButton, MyCheckbox} from "../../basicComponents/CheckBox";
 import {bid, result, suit} from "../../../helpers/enumhelper";
 import {color} from "../../../styles/colors";
@@ -18,6 +18,18 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
             setContractHeight(contract.number)
             setPlayedSuit(contract.suit)
         }
+    }, []);
+    useEffect(() => {
+        const backAction = () => {
+            changeToTable()
+            return true;
+        };
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
     }, []);
     const save=()=>{
         setContract(
@@ -226,12 +238,12 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
 
                 {/*<Text style={[styles.text,{width:50}]}>{outcomeComposer({tricks: takes,result:outcome})}</Text>*/}
             </View>
-            {contractHeight===undefined||playedSuit===undefined||
+            {contractHeight!==undefined&&playedSuit!==undefined&&
                 <Button onPress={save}>
                     <Text>Zapisz</Text>
                 </Button>
             }
-            {contractHeight===undefined||playedSuit===undefined&&
+            {(contractHeight===undefined||playedSuit===undefined)&&
                     <Text>Podaj kolor oraz wysokość kontraktu</Text>
             }
         </>
@@ -275,9 +287,9 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        // justifyContent: "space-between",
         alignItems: "center",
-        width: "100%"
+        // width: "100%"
     },
     button: {
         width: 30,

@@ -66,7 +66,7 @@ const NameTag = ({name,wind,squareSides,volnable,setPlayer,dealer}) => {
     return (
         <Pressable onPress={()=>{setPlayer(wind)}}>
             <View style={[styles.squere,
-                {width: squareSides, transform: [{
+                {width: squareSides,padding:5, transform: [{
                     rotate: wind==="N"?"0deg":wind==="E"?"90deg":wind==="S"?"180deg":"270deg"
                 }],
                     marginLeft: wind==="E"||wind==="W"?-squareSides/4:0,
@@ -124,6 +124,7 @@ const Center = ({squareSides,contract}) => {
             backgroundColor: "pink",
             justifyContent: "center",
             alignItems: "center",
+            padding: 5,
         }]}>
             <Text>{constract}</Text>
         </View>

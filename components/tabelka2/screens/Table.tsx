@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Text, View} from "react-native"
+import {Alert, BackHandler, Text, View} from "react-native"
 import {Compass} from "./Table/Compass";
 import {colors, styles} from "../styles/styles";
 import {Button} from "../../basicComponents/Button";
@@ -23,12 +23,26 @@ export const Table=({
 })=>{
     const [player,setPlayerState]=React.useState<wind>(undefined)
 
-    // useEffect(() => {
-    //     console.log("Table S",position(windE.S,boardNumber,names).name)
-    //     console.log("Table N",position(windE.N,boardNumber,names).name)
-    //     console.log("Table E",position(windE.E,boardNumber,names).name)
-    //     console.log("Table W",position(windE.W,boardNumber,names).name)
-    // }, []);
+    useEffect(() => {
+        const backAction = () => {
+            Alert.alert('Czekaj!', 'Na pewno chcesz wyjść?', [
+                {
+                    text: 'Nie',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                {text: 'Tak', onPress: () => BackHandler.exitApp()},
+            ]);
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
+    }, []);
     const setPlayer=(wind:wind)=>{
         // console.log("setPlayer",contract.wind,"->",wind)
         const newContract=contract

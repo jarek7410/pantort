@@ -11,6 +11,7 @@ import {contract, lead, outcome} from "../../helpers/interfaces";
 import {DealInput} from "./screens/DealInput";
 import {loadFromHistory, restartHistory, saveToHistory} from "./historyHendler";
 import {DealsHistory} from "./screens/DealsHistory";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 export const TabelkaControler = () =>{
     const [screen,setScreen] = useState(TabelkaEnum.table)
@@ -26,7 +27,7 @@ export const TabelkaControler = () =>{
     const [volnable,setVolnable] = useState(Vulnerability.NS)
     const [dealer,setDealer] = useState<wind>(wind.E)
     // const [player,setPlayer] = useState<wind>(wind.N)
-    const [contract,setContract] = useState<contract>({double: undefined, number: 0, suit: undefined, wind: undefined})
+    const [contract,setContract] = useState<contract>({double: undefined, number: undefined, suit: undefined, wind: undefined})
     const [pointsOnPlayer,setPointsOnPlayer] = useState(0)
     const [outcome,setOutcome] = useState<outcome>()
     const [lead,setLead] = useState<lead>({suit:suit.DIAMONDS,vals:vals.seven})
@@ -78,7 +79,7 @@ export const TabelkaControler = () =>{
         console.log("histry",histry)
 
         setBoardNumber(boardNumber+1)
-        setContract({double: undefined, number: 0, suit: undefined, wind: undefined})
+        setContract({double: undefined, number: undefined, suit: undefined, wind: undefined})
         setPointsOnPlayer(0)
         setOutcome(undefined)
         // setLead({suit:suit.DIAMONDS,vals:vals.seven})
@@ -88,10 +89,7 @@ export const TabelkaControler = () =>{
 
 
     return(
-        <>
-            {/*<Text>*/}
-            {/*    screen:{screen} boardNumber:{boardNumber} volnable:{volnable} dealer:{dealer}*/}
-            {/*</Text>*/}
+        <SafeAreaView>
             {TabelkaEnum.table===screen &&
                 <Table
                     names={names}
@@ -140,6 +138,6 @@ export const TabelkaControler = () =>{
                     }}
                 />
             }
-        </>
+        </SafeAreaView>
     )
 }

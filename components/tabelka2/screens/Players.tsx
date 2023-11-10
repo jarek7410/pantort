@@ -1,8 +1,21 @@
 import React, {useEffect, useState} from "react";
-import {ScrollView, Text} from "react-native"
+import {BackHandler, ScrollView, Text} from "react-native"
 import {Card, Input,Button} from "@rneui/themed";
 import {getCountedScore} from "../historyHendler";
 export const Players=({names,setNames,changeToTable})=>{
+
+    useEffect(() => {
+        const backAction = () => {
+            changeToTable()
+            return true;
+        };
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
+    }, []);
     const changeName=(id:number,name:string)=>{
         console.log("changeName",id,name)
         const newNames=names
