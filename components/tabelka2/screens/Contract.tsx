@@ -226,9 +226,14 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
 
                 {/*<Text style={[styles.text,{width:50}]}>{outcomeComposer({tricks: takes,result:outcome})}</Text>*/}
             </View>
-            <Button onPress={save}>
-                <Text>Zapisz</Text>
-            </Button>
+            {contractHeight===undefined||playedSuit===undefined||
+                <Button onPress={save}>
+                    <Text>Zapisz</Text>
+                </Button>
+            }
+            {contractHeight===undefined||playedSuit===undefined&&
+                    <Text>Podaj kolor oraz wysokość kontraktu</Text>
+            }
         </>
     )
 }

@@ -1,5 +1,5 @@
 import {wind} from "../../../helpers/enumhelper";
-import {Names} from "./Names";
+import {Names} from "./names";
 
 export const position = (windi:wind,BoardNumber:number,names:Names)=>{
     if(windi===wind.N){

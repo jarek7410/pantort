@@ -1,8 +1,8 @@
 import {wind} from "../../../helpers/enumhelper";
 
-import  {Names} from "./Names"
 import {player} from "./player"
 import {position,positionCount,moves} from "./helpers"
+import { Names } from "./names";
 
 
 export {Names,player,position,positionCount,moves}
