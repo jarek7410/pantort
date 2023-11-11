@@ -95,6 +95,12 @@ export const Table=({
                     <Text>Podlicz rozdanie</Text>
                 </Button>
             }
+            {contract.wind===undefined&&
+                <Text style={{color:"white"}}>Wybierz rozgrywającego</Text>
+            }
+            {contract.number===undefined&&contract.suit===undefined&&
+                <Text style={{color:"white"}}>Wybierz kontract</Text>
+            }
         </View>
     )
 }

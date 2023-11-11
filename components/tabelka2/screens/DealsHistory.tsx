@@ -8,7 +8,7 @@ export const DealsHistory=({changeToTable,deleteHistory})=>{
     useEffect( () => {
         load().then((history)=>{
             setHistryList(history)
-            console.log("history",history)
+            // console.log("history",history)
         })
     }, []);
     useEffect(() => {
@@ -30,7 +30,7 @@ export const DealsHistory=({changeToTable,deleteHistory})=>{
         await deleteFromHistory(id)
         load().then((history)=>{
             setHistryList(history)
-            console.log("history",history)
+            // console.log("history",history)
         })
     }
     if(historyList!=undefined){
@@ -47,7 +47,7 @@ export const DealsHistory=({changeToTable,deleteHistory})=>{
             <ScrollView>
                 {historyList.history.map((history)=>{
                     return(
-                        <HistoryCard history={history} deleteItem={deleteItem}/>
+                        <HistoryCard history={history} deleteItem={deleteItem} key={history.id}/>
                     )
                 })
                 }

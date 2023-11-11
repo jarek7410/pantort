@@ -1,9 +1,16 @@
 import {StyleSheet} from "react-native";
 
 export const colors = {
-    primary: "#f7287b",
-    secondary: "#c717fc",
-
+    light: "#edd7d8",
+    dark: "#17031a",
+    primary: "#850505",
+    secondary: "#3f58fa",
+    info: "#fd2778",
+    success: "#569806",
+    warning: "#ffbb58",
+    danger: "#ec0363",
+    Vulnerable: "yellowgreen",
+    NotVulnerable: "firebrick",
 }
 export const styles = StyleSheet.create({
     debug:{
@@ -35,7 +42,7 @@ export const styles = StyleSheet.create({
     card: {
         padding: 5,
         borderRadius:3,
-        backgroundColor: colors.secondary,
+        backgroundColor: "dark",
     }
 
 });

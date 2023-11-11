@@ -243,8 +243,11 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     <Text>Zapisz</Text>
                 </Button>
             }
-            {(contractHeight===undefined||playedSuit===undefined)&&
-                    <Text>Podaj kolor oraz wysokość kontraktu</Text>
+            {playedSuit===undefined&&
+                <Text style={{color:"white"}}>wybierz kolor kontraktu</Text>
+            }
+            {contractHeight===undefined&&
+                <Text style={{color:"white"}}>wybierz  wysokość kontraktu</Text>
             }
         </>
     )

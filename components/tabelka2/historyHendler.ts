@@ -49,7 +49,7 @@ export const deleteFromHistory = async (id:number) => {
         return
     }
     value.history=value.history.filter((item)=>item.id!==id)
-    console.log("deleteFromHistory",value,"id",id)
+    // console.log("deleteFromHistory",value,"id",id)
     try {
         const jsonValue = JSON.stringify(value);
         await AsyncStorage.setItem('my-key', jsonValue);
