@@ -59,20 +59,24 @@ export const Table=({
     }
     return(
 
-        <View style={styles.centerContent}>
+        <View style={[styles.centerContent,
+            {backgroundColor:colors.secondary,
+                width:"100%",
+                height:"100%",
+            }]}>
             {/*split view into 3 parts one for top, bottom and for compas in the midle*/}
             <View style={[styles.row]}>
                 <Button onPress={changeToPlayers}
-                        style={{width: 100}}>
-                    <Text>Gracze</Text>
+                        style={[styles.button,{width: 100}]}>
+                    <Text style={{color:colors.light}}>Gracze</Text>
                 </Button>
                 <Button onPress={changeToHistory}
-                        style={{width: 100}}>
-                    <Text>historia</Text>
+                        style={[styles.button,{width: 100}]}>
+                    <Text style={{color:colors.light}}>historia</Text>
                 </Button>
             </View>
             <View style={[styles.card]}>
-                <Text style={{fontSize:20}}>Numer pudełka: {boardNumber}</Text>
+                <Text style={{fontSize:20,color:colors.light}}>Numer pudełka: {boardNumber}</Text>
                 <View style={[styles.row,styles.centerContent]}>
                     <ButtonNinus text={"-4"} onPress={()=>{decreaseBoard(4)}}/>
                     <ButtonNinus text={"-"} onPress={()=>{decreaseBoard(1)}}/>
@@ -96,10 +100,10 @@ export const Table=({
                 </Button>
             }
             {contract.wind===undefined&&
-                <Text style={{color:"white"}}>Wybierz rozgrywającego</Text>
+                <Text style={{color:colors.warning}}>Wybierz rozgrywającego</Text>
             }
             {contract.number===undefined&&contract.suit===undefined&&
-                <Text style={{color:"white"}}>Wybierz kontract</Text>
+                <Text style={{color:colors.warning}}>Wybierz kontract</Text>
             }
         </View>
     )

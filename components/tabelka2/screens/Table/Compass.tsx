@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react";
 import {Pressable, Text, View} from "react-native"
-import {styles} from "../../styles/styles";
+import {colors, styles} from "../../styles/styles";
 import {isWindVul, Vulnerability, wind as windE} from "../../../../helpers/enumhelper";
 import {position} from "../../interfaces";
 import {constractComposer} from "../../../../helpers/composerhelper";
@@ -81,7 +81,8 @@ const NameTag = ({name,wind,squareSides,volnable,setPlayer,dealer}) => {
                     justifyContent:"center",
                 },
             ]}>
-                <Text style={{fontSize:24}}>{wind}</Text>
+                <Text style={{fontSize:24,
+                    color:colors.light}}>{wind}</Text>
                 <Text>{name}</Text>
             </View>
         </Pressable>
@@ -126,12 +127,12 @@ const Center = ({squareSides,contract}) => {
         <View style={[{
             width: squareSides,
             height: squareSides,
-            backgroundColor: "pink",
+            backgroundColor: colors.primary,
             justifyContent: "center",
             alignItems: "center",
             padding: 0,
         }]}>
-            <Text style={{fontSize:26}}>{constract}</Text>
+            <Text style={{fontSize:26,color:colors.light}}>{constract}</Text>
         </View>
     )
 }

@@ -6,6 +6,7 @@ import {color} from "../../../styles/colors";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {outcomeComposer} from "../../../helpers/composerhelper";
 import {Button} from "@rneui/themed";
+import {colors} from "../styles/styles";
 
 export const ContractScreen = ({contract,setContract,changeToTable}) => {
     const [isKontra, setIsKontra] = React.useState<bid>(bid.none);
@@ -115,8 +116,8 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                                 setIsKontra(bid.x)
                             }
                         }}
-                        fillColor={color.orange}
-                        unfillColor={color.yellow}
+                        fillColor={colors.dark}
+                        unfillColor={colors.secondary}
                         fill={
                             <Text style={styles.text}>
                                 X
@@ -140,8 +141,8 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                                 setIsKontra(bid.xx)
                             }
                         }}
-                        fillColor={color.orange}
-                        unfillColor={color.yellow}
+                        fillColor={colors.dark}
+                        unfillColor={colors.secondary}
                         fill={
                             <Text style={styles.text}>
                                 XX
@@ -244,10 +245,10 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                 </Button>
             }
             {playedSuit===undefined&&
-                <Text style={{color:"white"}}>wybierz kolor kontraktu</Text>
+                <Text style={{color:colors.warning}}>wybierz kolor kontraktu</Text>
             }
             {contractHeight===undefined&&
-                <Text style={{color:"white"}}>wybierz  wysokość kontraktu</Text>
+                <Text style={{color:colors.warning}}>wybierz  wysokość kontraktu</Text>
             }
         </>
     )
@@ -271,9 +272,9 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        color: "black",
+        color: colors.light,//TODO: why!
     },
-    textNoDecoration: {textDecorationLine: "none"},
+    textNoDecoration: {textDecorationLine: "none", color: colors.light},
     textInput: {
         fontSize: 25,
         height: 60,

@@ -12,6 +12,7 @@ import {TabelkaScreen} from "./components/tabelka/TabelkaScreen";
 import {MeczControler} from "./components/mecz/MeczControler";
 import {StatusBar} from "expo-status-bar";
 import {TabelkaControler} from "./components/tabelka2/TabelkaControler";
+import {colors} from "./components/tabelka2/styles/styles";
 
 
 const boardSchema={
@@ -103,11 +104,11 @@ export default function App() {
         <SafeAreaProvider style={styles.safeArea}>
             <StatusBar animated={true}
                        // backgroundColor="#61dafb"
-                       // hidden={true}
+                       hidden={true}
                        translucent={true}
             />
-            <View style={[styles.container]} key="main main">
-            <View >
+            <View style={[styles.container,{backgroundColor:screens.tabelka2===Screen?colors.secondary:"#454545"}]} key="main main">
+            {/*<View >*/}
                 {/*not in use, memery frendly comment :) */}
                 {/*{screens.board===Screen     &&*/}
                 {/*    <ScreenSetter*/}
@@ -115,11 +116,13 @@ export default function App() {
                 {/*        boardsHandler={boardsHandler}*/}
                 {/*        pairNumber={pairNumber}/>*/}
                 {/*}*/}
+                {/*<View style={{backgroundColor:"#454545",width:"100%"}}>*/}
                 {screens.menu===Screen      && <AppMenu setCourse={loadCourse}/>}
                 {screens.tableka===Screen   &&<TabelkaScreen/>}
-                {screens.tabelka2===Screen  &&<TabelkaControler/>}
                 {screens.mecz===Screen      &&<MeczControler back={loadMenu}/>}
-            </View>
+                {/*</View>*/}
+                {screens.tabelka2===Screen  &&<TabelkaControler/>}
+            {/*</View>*/}
             {/*<ScrollView style={{*/}
             {/*    marginHorizontal:20,*/}
             {/*}}>*/}
@@ -143,7 +146,7 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#ECF0F1',
+        // backgroundColor: '#ECF0F1',
 
     },
     container: {

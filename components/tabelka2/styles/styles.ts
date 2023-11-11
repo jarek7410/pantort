@@ -1,6 +1,6 @@
-import {StyleSheet} from "react-native";
+import {ColorValue, StyleSheet} from "react-native";
 
-export const colors = {
+export const colorsTest:Colors = {
     light: "#edd7d8",
     dark: "#17031a",
     primary: "#850505",
@@ -9,8 +9,34 @@ export const colors = {
     success: "#569806",
     warning: "#ffbb58",
     danger: "#ec0363",
-    Vulnerable: "yellowgreen",
-    NotVulnerable: "firebrick",
+    Vulnerable: "firebrick",
+    NotVulnerable: "yellowgreen",
+}
+export const hackerColors:Colors = {
+    light: "#00FF19",
+    secondary: "#000000",
+    dark: "#343a40",
+    primary: "#17031a",
+    info: "#fff",
+    success: "",
+    warning: "#850505",
+    danger: "",
+    Vulnerable: "firebrick",
+    NotVulnerable: "yellowgreen"
+}
+
+export const colors:Colors = hackerColors;
+export interface Colors{
+    light: ColorValue,
+    dark: ColorValue,
+    primary: ColorValue,
+    secondary: ColorValue,
+    info: ColorValue,
+    success: ColorValue,
+    warning: ColorValue,
+    danger: ColorValue,
+    Vulnerable: ColorValue,
+    NotVulnerable: ColorValue,
 }
 export const styles = StyleSheet.create({
     debug:{
@@ -36,13 +62,18 @@ export const styles = StyleSheet.create({
         backgroundColor:"deepskyblue ",
     },
     centerContent:{
+
         justifyContent:"center",
         alignItems:"center",
     },
     card: {
         padding: 5,
         borderRadius:3,
-        backgroundColor: "dark",
+        backgroundColor: colors.primary,
+    },
+    button: {
+        backgroundColor: colors.primary,
     }
+
 
 });
