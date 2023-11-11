@@ -16,7 +16,8 @@ export const hackerColors:Colors = {
     light: "#00FF19",
     secondary: "#000000",
     dark: "#343a40",
-    primary: "#17031a",
+    // primary: "#17031a",
+    primary:"#1b1c1c",
     info: "#fff",
     success: "",
     warning: "#850505",
@@ -39,6 +40,11 @@ export interface Colors{
     NotVulnerable: ColorValue,
 }
 export const styles = StyleSheet.create({
+
+    text: {
+        fontSize: 30,
+        color: colors.light,//TODO: why!
+    },
     debug:{
         borderWidth:1,
         borderColor:"black",
