@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Text, View} from "react-native"
+import {Alert, BackHandler, Text, View} from "react-native"
 import {Compass} from "./Table/Compass";
 import {colors, styles} from "../styles/styles";
 import {Button} from "../../basicComponents/Button";
@@ -23,12 +23,26 @@ export const Table=({
 })=>{
     const [player,setPlayerState]=React.useState<wind>(undefined)
 
-    // useEffect(() => {
-    //     console.log("Table S",position(windE.S,boardNumber,names).name)
-    //     console.log("Table N",position(windE.N,boardNumber,names).name)
-    //     console.log("Table E",position(windE.E,boardNumber,names).name)
-    //     console.log("Table W",position(windE.W,boardNumber,names).name)
-    // }, []);
+    useEffect(() => {
+        const backAction = () => {
+            Alert.alert('Czekaj!', 'Na pewno chcesz wyjść?', [
+                {
+                    text: 'Nie',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                {text: 'Tak', onPress: () => BackHandler.exitApp()},
+            ]);
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
+    }, []);
     const setPlayer=(wind:wind)=>{
         // console.log("setPlayer",contract.wind,"->",wind)
         const newContract=contract
@@ -45,20 +59,24 @@ export const Table=({
     }
     return(
 
-        <View style={styles.centerContent}>
+        <View style={[styles.centerContent,
+            {backgroundColor:colors.secondary,
+                width:"100%",
+                height:"100%",
+            }]}>
             {/*split view into 3 parts one for top, bottom and for compas in the midle*/}
             <View style={[styles.row]}>
                 <Button onPress={changeToPlayers}
-                        style={{width: 100}}>
-                    <Text>Gracze</Text>
+                        style={[styles.button,{width: 100}]}>
+                    <Text style={{color:colors.light}}>Gracze</Text>
                 </Button>
                 <Button onPress={changeToHistory}
-                        style={{width: 100}}>
-                    <Text>historia</Text>
+                        style={[styles.button,{width: 100}]}>
+                    <Text style={{color:colors.light}}>historia</Text>
                 </Button>
             </View>
             <View style={[styles.card]}>
-                <Text style={{fontSize:20}}>Numer pudełka: {boardNumber}</Text>
+                <Text style={{fontSize:20,color:colors.light}}>Numer pudełka: {boardNumber}</Text>
                 <View style={[styles.row,styles.centerContent]}>
                     <ButtonNinus text={"-4"} onPress={()=>{decreaseBoard(4)}}/>
                     <ButtonNinus text={"-"} onPress={()=>{decreaseBoard(1)}}/>
@@ -80,6 +98,12 @@ export const Table=({
                         style={{width: 100}}>
                     <Text>Podlicz rozdanie</Text>
                 </Button>
+            }
+            {contract.wind===undefined&&
+                <Text style={{color:colors.warning}}>Wybierz rozgrywającego</Text>
+            }
+            {contract.number===undefined&&contract.suit===undefined&&
+                <Text style={{color:colors.warning}}>Wybierz kontract</Text>
             }
         </View>
     )

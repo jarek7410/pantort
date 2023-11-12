@@ -1,11 +1,13 @@
 import React, {useEffect} from "react";
-import {StyleSheet, Text, View} from "react-native";
+import {BackHandler, StyleSheet, Text, View} from "react-native";
 import {CheckBox, HeightButton, MyCheckbox} from "../../basicComponents/CheckBox";
 import {bid, result, suit} from "../../../helpers/enumhelper";
 import {color} from "../../../styles/colors";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {outcomeComposer} from "../../../helpers/composerhelper";
 import {Button} from "@rneui/themed";
+import {colors} from "../styles/styles";
+import {HeightRadio} from "./Contract/HeightRadio";
 
 export const ContractScreen = ({contract,setContract,changeToTable}) => {
     const [isKontra, setIsKontra] = React.useState<bid>(bid.none);
@@ -18,6 +20,18 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
             setContractHeight(contract.number)
             setPlayedSuit(contract.suit)
         }
+    }, []);
+    useEffect(() => {
+        const backAction = () => {
+            changeToTable()
+            return true;
+        };
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
     }, []);
     const save=()=>{
         setContract(
@@ -32,13 +46,14 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
         <>
             <View style={[styles.row]}>
                 <View>
-                    <HeightButton
+
+                    <HeightRadio
                         size={size}
                         chosenHeight={1}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
-                    <HeightButton
+                    <HeightRadio
                         size={size}
                         chosenHeight={4}
                         contractHeight={contractHeight}
@@ -46,13 +61,13 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     />
                 </View>
                 <View>
-                    <HeightButton
+                    <HeightRadio
                         size={size}
                         chosenHeight={2}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
-                    <HeightButton
+                    <HeightRadio
                         size={size}
                         chosenHeight={5}
                         contractHeight={contractHeight}
@@ -60,13 +75,13 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     />
                 </View>
                 <View>
-                    <HeightButton
+                    <HeightRadio
                         size={size}
                         chosenHeight={3}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
-                    <HeightButton
+                    <HeightRadio
                         size={size}
                         chosenHeight={6}
                         contractHeight={contractHeight}
@@ -75,13 +90,13 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                 </View>
                 <View>
                     <HeightButton
+                        visible={false}
                         size={size}
                         chosenHeight={7}
                         contractHeight={contractHeight}
                         setContractHeight={setContractHeight}
                     />
-                    <HeightButton
-                        visible={false}
+                    <HeightRadio
                         size={size}
                         chosenHeight={7}
                         contractHeight={contractHeight}
@@ -103,8 +118,8 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                                 setIsKontra(bid.x)
                             }
                         }}
-                        fillColor={color.orange}
-                        unfillColor={color.yellow}
+                        fillColor={colors.dark}
+                        unfillColor={colors.secondary}
                         fill={
                             <Text style={styles.text}>
                                 X
@@ -128,8 +143,8 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                                 setIsKontra(bid.xx)
                             }
                         }}
-                        fillColor={color.orange}
-                        unfillColor={color.yellow}
+                        fillColor={colors.dark}
+                        unfillColor={colors.secondary}
                         fill={
                             <Text style={styles.text}>
                                 XX
@@ -156,9 +171,9 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     }}
                     disableBuiltInState
                     fillColor={"grey"}
-                    unfillColor={color.yellow}
+                    unfillColor={colors.secondary}
                 >
-                    <MaterialCommunityIcons name="cards-spade" size={24} color="black"/>
+                    <MaterialCommunityIcons name="cards-spade" size={45} color={colors.dark}/>
                 </CheckBox>
                 <CheckBox
                     height={size}
@@ -170,9 +185,9 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     }}
                     disableBuiltInState
                     fillColor={color.red}
-                    unfillColor={color.yellow}
+                    unfillColor={colors.secondary}
                 >
-                    <MaterialCommunityIcons name="cards-diamond" size={24} color="black"/>
+                    <MaterialCommunityIcons name="cards-diamond" size={45} color={colors.light}/>
                 </CheckBox>
 
                 <CheckBox
@@ -185,7 +200,7 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     }}
                     disableBuiltInState
                     fillColor={color.blue}
-                    unfillColor={color.yellow}
+                    unfillColor={colors.secondary}
                 >
                     <Text style={[styles.text, {color: "blue", fontWeight: "bold"}]}>
                         NT
@@ -203,9 +218,9 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     }}
                     disableBuiltInState
                     fillColor={color.red}
-                    unfillColor={color.yellow}
+                    unfillColor={colors.secondary}
                 >
-                    <MaterialCommunityIcons name="cards-heart" size={24} color="black"/>
+                    <MaterialCommunityIcons name="cards-heart" size={45} color={colors.light}/>
                 </CheckBox>
                 <CheckBox
                     height={size}
@@ -217,22 +232,25 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     }}
                     disableBuiltInState
                     fillColor={"grey"}
-                    unfillColor={color.yellow}
+                    unfillColor={colors.secondary}
                 >
-                    <MaterialCommunityIcons name="cards-club" size={24} color="black"/>
+                    <MaterialCommunityIcons name="cards-club" size={45} color={colors.dark}/>
                 </CheckBox>
 
                 {/*<View style={{borderRightWidth: 1, height: "100%", marginHorizontal: 5}}/>*/}
 
                 {/*<Text style={[styles.text,{width:50}]}>{outcomeComposer({tricks: takes,result:outcome})}</Text>*/}
             </View>
-            {contractHeight===undefined||playedSuit===undefined||
+            {contractHeight!==undefined&&playedSuit!==undefined&&
                 <Button onPress={save}>
                     <Text>Zapisz</Text>
                 </Button>
             }
-            {contractHeight===undefined||playedSuit===undefined&&
-                    <Text>Podaj kolor oraz wysokość kontraktu</Text>
+            {playedSuit===undefined&&
+                <Text style={{color:colors.warning}}>wybierz kolor kontraktu</Text>
+            }
+            {contractHeight===undefined&&
+                <Text style={{color:colors.warning}}>wybierz  wysokość kontraktu</Text>
             }
         </>
     )
@@ -255,10 +273,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     text: {
-        fontSize: 20,
-        color: "black",
+        fontSize: 30,
+        color: colors.light,//TODO: why!
     },
-    textNoDecoration: {textDecorationLine: "none"},
+    textNoDecoration: {textDecorationLine: "none", color: colors.light},
     textInput: {
         fontSize: 25,
         height: 60,
@@ -275,9 +293,9 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        // justifyContent: "space-between",
         alignItems: "center",
-        width: "100%"
+        // width: "100%"
     },
     button: {
         width: 30,

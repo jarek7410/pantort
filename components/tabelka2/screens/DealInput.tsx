@@ -1,5 +1,5 @@
-import React from "react";
-import {StyleSheet, Text, View} from "react-native"
+import React, {useEffect} from "react";
+import {BackHandler, StyleSheet, Text, View} from "react-native"
 import {ButtonNinus, ButtonPlus} from "../../tabelka/Buttons";
 import {result} from "../../../helpers/enumhelper";
 import {CheckBox} from "../../basicComponents/CheckBox";
@@ -13,6 +13,19 @@ export const DealInput=({setDeal,changeToTable})=>{
     const [points,setPoints] = React.useState(20);
 
     const size = 50
+
+    useEffect(() => {
+        const backAction = () => {
+            changeToTable()
+            return true;
+        };
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+
+        return () => backHandler.remove();
+    }, []);
     const increasePoints = (number) => {
         if(points+number>40){
             setPoints(40)
@@ -140,9 +153,12 @@ export const DealInput=({setDeal,changeToTable})=>{
         </View>
         {/*<Text style={[styles.text,{width:50}]}>{outcomeComposer({tricks: takes,result:outcome})}</Text>*/}
         </View>
-            <Button onPress={submit}>
-                <Text>zatwierdz</Text>
-            </Button>
+            {outcome!==undefined&&
+                <Button onPress={submit}
+                style={{marginTop:20}}>
+                    <Text>zatwierdz</Text>
+                </Button>
+            }
         </>
     )
 }

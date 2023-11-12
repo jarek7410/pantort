@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react";
 import {Pressable, Text, View} from "react-native"
-import {styles} from "../../styles/styles";
+import {colors, styles} from "../../styles/styles";
 import {isWindVul, Vulnerability, wind as windE} from "../../../../helpers/enumhelper";
 import {position} from "../../interfaces";
 import {constractComposer} from "../../../../helpers/composerhelper";
@@ -66,17 +66,23 @@ const NameTag = ({name,wind,squareSides,volnable,setPlayer,dealer}) => {
     return (
         <Pressable onPress={()=>{setPlayer(wind)}}>
             <View style={[styles.squere,
-                {width: squareSides, transform: [{
-                    rotate: wind==="N"?"0deg":wind==="E"?"90deg":wind==="S"?"180deg":"270deg"
-                }],
+                {
+                    width: squareSides,
+                    padding:5,
+                    transform: [{
+                        rotate: wind==="N"?"0deg":wind==="E"?"90deg":wind==="S"?"180deg":"270deg"
+                    }],
                     marginLeft: wind==="E"||wind==="W"?-squareSides/4:0,
                     marginRight: wind==="E"||wind==="W"?-squareSides/4:0,
                     marginTop: wind==="E"||wind==="W"?squareSides/4:0,
                     marginBottom: wind==="E"||wind==="W"?squareSides/4:0,
                     backgroundColor: dealer===wind?"lightskyblue":isWindVul(wind,volnable)?"firebrick":"yellowgreen",
-                }
+                    alignItems:"center",
+                    justifyContent:"center",
+                },
             ]}>
-                <Text>{wind}</Text>
+                <Text style={{fontSize:24,
+                    color:colors.light}}>{wind}</Text>
                 <Text>{name}</Text>
             </View>
         </Pressable>
@@ -111,7 +117,7 @@ const Center = ({squareSides,contract}) => {
         const contractString=constractComposer(contract)
         console.log("contractString\"",contractString,"\"",typeof contractString,contractString.length)
         if(contractString === ""||contractString === " "){
-            setContract("naciśnij by wybrania kontraktu")
+            setContract("naciśnij po kontrakt")
         }else{
             setContract(contractString)
         }
@@ -121,11 +127,12 @@ const Center = ({squareSides,contract}) => {
         <View style={[{
             width: squareSides,
             height: squareSides,
-            backgroundColor: "pink",
+            backgroundColor: colors.primary,
             justifyContent: "center",
             alignItems: "center",
+            padding: 0,
         }]}>
-            <Text>{constract}</Text>
+            <Text style={{fontSize:26,color:colors.light}}>{constract}</Text>
         </View>
     )
 }

@@ -19,7 +19,7 @@
       "buildNumber": "2"
     },
     "android": {
-      "versionCode": 8,
+      "versionCode": 9,
       "adaptiveIcon": {
         "foregroundImage": "./assets/piernik.png",
         "backgroundColor": "#ffffff"
