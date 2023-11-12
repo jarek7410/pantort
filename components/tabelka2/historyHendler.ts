@@ -1,15 +1,16 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { board } from "../../helpers/interfaces";
-import {moves, Names, player} from "./interfaces";
+import {board} from "../../helpers/interfaces";
+import {moves, Names} from "./interfaces";
 import {simpleImpScoreComposer, simpleScoreComposer} from "../../helpers/composerhelper";
 import {windIsWindy} from "../../helpers/enumhelper";
 
+export let historyKey:string = 'my-key';
 export const saveToHistory = async (board:board,players:Names,pointsOnPlayer) => {
     let value:historyList= await loadFromHistory();
     if(value === null){
         value ={
             history:[],
-            players:players,
+            players:undefined,
             lastBoard:0,
         }
     }
@@ -26,9 +27,10 @@ export const saveToHistory = async (board:board,players:Names,pointsOnPlayer) =>
     }
     value.history.push(historyItem)
     value.lastBoard=board.number;
+    value.players=players;
     try {
         const jsonValue = JSON.stringify(value);
-        await AsyncStorage.setItem('my-key', jsonValue);
+        await AsyncStorage.setItem(historyKey, jsonValue);
     } catch (e) {
         // saving error
     }
@@ -36,13 +38,14 @@ export const saveToHistory = async (board:board,players:Names,pointsOnPlayer) =>
 export const loadFromHistory = async () => {
     let value:historyList;
     try {
-        const jsonValue = await AsyncStorage.getItem('my-key');
+        const jsonValue = await AsyncStorage.getItem(historyKey);
         value = jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch (e) {
         return
     }
     return value;
 }
+
 export const deleteFromHistory = async (id:number) => {
     let value:historyList= await loadFromHistory();
     if(value === null){
@@ -52,7 +55,7 @@ export const deleteFromHistory = async (id:number) => {
     // console.log("deleteFromHistory",value,"id",id)
     try {
         const jsonValue = JSON.stringify(value);
-        await AsyncStorage.setItem('my-key', jsonValue);
+        await AsyncStorage.setItem(historyKey, jsonValue);
     } catch (e) {
         // saving error
     }
@@ -79,10 +82,13 @@ export const restartHistory = async (players:Names) => {
     }
     try {
         const jsonValue = JSON.stringify(value);
-        await AsyncStorage.setItem('my-key', jsonValue);
+        await AsyncStorage.setItem(historyKey, jsonValue);
     } catch (e) {
         // saving error
     }
+}
+const getHistoryEntris =  () => {
+    return AsyncStorage.getAllKeys();
 }
 export interface score{
     pointsOnPlayer:number,//0-40
@@ -100,5 +106,4 @@ export interface historyList{
     history:historyItem[],
     players:Names,
     lastBoard:number,
-
 }

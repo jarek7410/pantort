@@ -7,6 +7,7 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {color} from "../../../styles/colors";
 import {outcomeComposer} from "../../../helpers/composerhelper";
 import {Button} from "@rneui/themed";
+import {colors} from "../styles/styles";
 export const DealInput=({setDeal,changeToTable})=>{
     const [outcome,setOutcome] = React.useState<result>()
     const [takes,setTakes] = React.useState(0);
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize:20,
-        color:"black",
+        color:colors.light,
     },
     textNoDecoration: { textDecorationLine: "none" },
     textInput:{

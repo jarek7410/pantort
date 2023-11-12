@@ -40,6 +40,9 @@ export const TabelkaControler = () =>{
             }else{
                 setBoardNumber(1)
             }
+            if(history.players!==undefined){
+                setNames(history.players)
+            }
         })
     }, []);
     useEffect(()=>{
@@ -75,8 +78,8 @@ export const TabelkaControler = () =>{
             lead:lead,
             outcome:outcome
         },names,points)
-        const histry = await loadFromHistory()
-        console.log("histry",histry)
+        // const histry = await loadFromHistory()
+        // console.log("histry",histry)
 
         setBoardNumber(boardNumber+1)
         setContract({double: undefined, number: undefined, suit: undefined, wind: undefined})
