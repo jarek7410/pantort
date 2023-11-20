@@ -15,7 +15,8 @@ BridgeScoreKeeper is a mobile application developed in React Native that simplif
 
 ## Installation
 
-install it from play store
-or dowland relise file ane install it on your phone 
+install it from [play store](https://tinyurl.com/2eur8m7p)
+
+or downland Releases file ane install it on your phone 
 
 
