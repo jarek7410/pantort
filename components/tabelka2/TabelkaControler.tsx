@@ -12,6 +12,7 @@ import {DealInput} from "./screens/DealInput";
 import {loadFromHistory, restartHistory, saveToHistory} from "./historyHendler";
 import {DealsHistory} from "./screens/DealsHistory";
 import {SafeAreaView} from "react-native-safe-area-context";
+import {SaveLoad} from "./screens/SaveLoad";
 
 export const TabelkaControler = () =>{
     const [screen,setScreen] = useState(TabelkaEnum.table)
@@ -67,6 +68,9 @@ export const TabelkaControler = () =>{
     }
     const changeToHistory = () => {
         setScreen(TabelkaEnum.history)
+    }
+    const changeToSaveLoad = () => {
+        setScreen(TabelkaEnum.saveload)
     }
     const  setDeal=  async (outcome:outcome,points:number)=>{
         console.log("setDeal",outcome,points)
@@ -139,6 +143,13 @@ export const TabelkaControler = () =>{
                         await restartHistory(names)
                         changeToTable()
                     }}
+                    changeToSaveLoad={changeToSaveLoad}
+                />
+            }
+            {TabelkaEnum.saveload===screen &&
+                <SaveLoad
+                    changeTohistory={changeToHistory}
+                    changeToTable={changeToTable}
                 />
             }
         </SafeAreaView>

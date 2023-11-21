@@ -5,4 +5,5 @@ export enum TabelkaEnum {
     history,
     input,
     contract,
+    saveload,
 }

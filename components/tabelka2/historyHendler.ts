@@ -35,6 +35,10 @@ export const saveToHistory = async (board:board,players:Names,pointsOnPlayer) =>
         // saving error
     }
 }
+export const loadFromLongHistory=(key:string) => {
+    historyKey=key;
+    return loadFromHistory();
+}
 export const loadFromHistory = async () => {
     let value:historyList;
     try {
@@ -75,6 +79,7 @@ export const getCountedScore = async (playerId: number) => {
     return score;
 }
 export const restartHistory = async (players:Names) => {
+    historyKey='my-key';
     const value ={
         history:[],
         players:players,
@@ -87,8 +92,26 @@ export const restartHistory = async (players:Names) => {
         // saving error
     }
 }
-const getHistoryEntris =  () => {
+export const getHistoryEntries =  () => {
     return AsyncStorage.getAllKeys();
+}
+
+async function setHistory(history: historyList) {
+    try {
+        const jsonValue = JSON.stringify(history);
+        await AsyncStorage.setItem(historyKey, jsonValue);
+    } catch (e) {
+        // saving error
+    }
+}
+
+export const setLongSave = async (key:string)=>{
+    const current=await loadFromHistory()
+    if(current===undefined){
+        return undefined;
+    }
+    historyKey=key;
+    await setHistory(current)
 }
 export interface score{
     pointsOnPlayer:number,//0-40

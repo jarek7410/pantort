@@ -3,7 +3,7 @@ import {BackHandler, ScrollView, Text, View} from "react-native"
 import {deleteFromHistory, historyList, loadFromHistory} from "../historyHendler";
 import {Button, Card} from "@rneui/themed";
 import {constractComposer, outcomeComposer, windConposer} from "../../../helpers/composerhelper";
-export const DealsHistory=({changeToTable,deleteHistory})=>{
+export const DealsHistory=({changeToTable,deleteHistory,changeToSaveLoad})=>{
     const [historyList,setHistryList]=React.useState<historyList>(undefined)
     useEffect( () => {
         load().then((history)=>{
@@ -42,6 +42,9 @@ export const DealsHistory=({changeToTable,deleteHistory})=>{
                        <Text>powrót</Text>
                    </Button>
                    <Text>Historia:</Text>
+                   <Button onPress={changeToSaveLoad} size="lg" style={{}}>
+                       <Text>zapisz/wczytaj</Text>
+                   </Button>
                 </View>
            </View>
             <ScrollView>
