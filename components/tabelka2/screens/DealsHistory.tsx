@@ -1,10 +1,11 @@
 import React, {useEffect} from "react";
 import {BackHandler, ScrollView,  View} from "react-native"
 import {deleteFromHistory, historyList, loadFromHistory} from "../historyHendler";
-import {Button, Card} from "@rneui/themed";
-import {constractComposer, outcomeComposer, windConposer} from "../../../helpers/composerhelper";
-import {colors} from "../styles/styles";
+import {Button} from "@rneui/themed";
+import {outcomeComposer, windConposer} from "../../../helpers/composerhelper";
+import {colors, styles} from "../styles/styles";
 import {Text} from "../components/Text";
+import {SiutText} from "../components/SiutText";
 export const DealsHistory=({changeToTable,deleteHistory,changeToSaveLoad})=>{
     const [historyList,setHistryList]=React.useState<historyList>(undefined)
     useEffect( () => {
@@ -81,16 +82,27 @@ const HistoryCard=({history,deleteItem})=>{
     }
     return(
         <View style={{
-            backgroundColor:colors.background,
+            backgroundColor:colors.card,
             width:"100%",
-            height:"100%",
+            // height:"100%",
             padding:10,
+            margin:5,
         }}>
             <Text style={{color:colors.text}}>{history.id} {history.time} </Text>
 
             <Text style={{color:colors.text}}>rozdanie numer:{history.board.number}</Text>
-            <Text style={{color:colors.text}}>konstract:{constractComposer(history.board.contract)} {windConposer(history.board.contract)} {outcomeComposer(history.board.outcome)}</Text>
-            <Text style={{color:colors.text}}>wynik:</Text>
+            <View style={styles.row}>
+                <Text style={{color:colors.text}}>
+                    konstract:
+                </Text>
+                <SiutText contract={history.board.contract} size={25}/>
+                <Text style={{color:colors.text}}>
+                    {/*{constractComposer(history.board.contract)} */}
+                    {windConposer(history.board.contract)}
+                    {outcomeComposer(history.board.outcome)}
+                </Text>
+            </View>
+            {/*<Text style={{color:colors.text}}>wynik:</Text>*/}
             <Text style={{color:colors.text}}>Imp:{history.score.imps}, punkty rozgrywającego:{history.score.pointsOnPlayer}, punkty za kontrakt:{history.score.score}</Text>
             <Button onPress={deleteHistory}>
                 <Text style={{color:colors.text}}>usuń</Text>
