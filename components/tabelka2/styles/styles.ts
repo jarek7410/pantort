@@ -101,7 +101,7 @@ export const styles = StyleSheet.create({
     },
     card: {
         padding: 5,
-        borderRadius:3,
+        borderRadius:10,
         backgroundColor: colors.card,
     },
     button: {

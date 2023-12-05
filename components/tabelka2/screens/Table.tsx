@@ -4,8 +4,9 @@ import {Compass} from "./Table/Compass";
 import {colors, styles} from "../styles/styles";
 import {Button} from "../../basicComponents/Button";
 import {wind as windE, wind} from "../../../helpers/enumhelper";
-import {ButtonNinus, ButtonPlus} from "../../tabelka/Buttons";
+// import {ButtonNinus, ButtonPlus} from "../../tabelka/Buttons";
 import {Text} from "../components/Text";
+import {BoardNumberSelect} from "./Table/BoardNumberSelect";
 export const Table=({
                         boardNumber,
                         setBoardNumber,
@@ -57,7 +58,7 @@ export const Table=({
     const increaseBoard = (number) => {
         setBoardNumber(boardNumber+number)
     }
-    return(
+    return (
 
         <View style={[styles.centerContent,
             {backgroundColor:colors.background,
@@ -75,15 +76,20 @@ export const Table=({
                     <Text style={{color:colors.text}}>historia</Text>
                 </Button>
             </View>
-            <View style={[styles.card]}>
-                <Text style={{fontSize:20,color:colors.text}}>Numer pudełka: {boardNumber}</Text>
-                <View style={[styles.row,styles.centerContent]}>
-                    <ButtonNinus text={"-4"} onPress={()=>{decreaseBoard(4)}}/>
-                    <ButtonNinus text={"-"} onPress={()=>{decreaseBoard(1)}}/>
-                    <ButtonPlus text={"+"} onPress={()=>increaseBoard(1)}/>
-                    <ButtonPlus text={"+4"} onPress={()=>increaseBoard(4)}/>
-                </View>
-            </View>
+            {/*<View style={[styles.card]}>*/}
+            {/*    <Text style={{fontSize:20,color:colors.text}}>Numer pudełka: {boardNumber}</Text>*/}
+            {/*    <View style={[styles.row,styles.centerContent]}>*/}
+            {/*        <ButtonNinus text={"-4"} onPress={()=>{decreaseBoard(4)}}/>*/}
+            {/*        <ButtonNinus text={"-"} onPress={()=>{decreaseBoard(1)}}/>*/}
+            {/*        <ButtonPlus text={"+"} onPress={()=>increaseBoard(1)}/>*/}
+            {/*        <ButtonPlus text={"+4"} onPress={()=>increaseBoard(4)}/>*/}
+            {/*    </View>*/}
+            {/*</View>*/}
+            <BoardNumberSelect
+                boardNumber={boardNumber}
+                decreaseBoard={decreaseBoard}
+                increaseBoard={increaseBoard}
+            />
 
             <Compass
                 style={{marginTop:20}}
