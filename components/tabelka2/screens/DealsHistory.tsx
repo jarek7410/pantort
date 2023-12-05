@@ -1,8 +1,10 @@
 import React, {useEffect} from "react";
-import {BackHandler, ScrollView, Text, View} from "react-native"
+import {BackHandler, ScrollView,  View} from "react-native"
 import {deleteFromHistory, historyList, loadFromHistory} from "../historyHendler";
 import {Button, Card} from "@rneui/themed";
 import {constractComposer, outcomeComposer, windConposer} from "../../../helpers/composerhelper";
+import {colors} from "../styles/styles";
+import {Text} from "../components/Text";
 export const DealsHistory=({changeToTable,deleteHistory,changeToSaveLoad})=>{
     const [historyList,setHistryList]=React.useState<historyList>(undefined)
     useEffect( () => {
@@ -39,11 +41,11 @@ export const DealsHistory=({changeToTable,deleteHistory,changeToSaveLoad})=>{
            <View>
                <View style={[{flexDirection:"row",alignItems:"center"}]}>
                    <Button onPress={changeToTable} size="lg" style={{}}>
-                       <Text>powrót</Text>
+                       <Text style={{color:colors.text}}> powrót</Text>
                    </Button>
-                   <Text>Historia:</Text>
+                   <Text style={{color:colors.text}}>Historia:</Text>
                    <Button onPress={changeToSaveLoad} size="lg" style={{}}>
-                       <Text>zapisz/wczytaj</Text>
+                       <Text style={{color:colors.text}}>zapisz/wczytaj</Text>
                    </Button>
                 </View>
            </View>
@@ -56,7 +58,7 @@ export const DealsHistory=({changeToTable,deleteHistory,changeToSaveLoad})=>{
                 }
             </ScrollView>
            <Button onPress={deleteHistory}>
-               <Text>usuń Historie i wszystkie punkty</Text>
+               <Text style={{color:colors.text}}>usuń Historie i wszystkie punkty</Text>
            </Button>
        </>
     )}
@@ -64,10 +66,10 @@ export const DealsHistory=({changeToTable,deleteHistory,changeToSaveLoad})=>{
         return(
             <>
                 <Button onPress={changeToTable}>
-                    <Text>powrót</Text>
+                    <Text style={{color:colors.text}}>powrót</Text>
                 </Button>
 
-                <Text>loading</Text>
+                <Text style={{color:colors.text}}>loading</Text>
             </>
         )
     }
@@ -78,16 +80,21 @@ const HistoryCard=({history,deleteItem})=>{
         deleteItem(history.id)
     }
     return(
-        <Card>
-            <Text>{history.id} {history.time} </Text>
+        <View style={{
+            backgroundColor:colors.background,
+            width:"100%",
+            height:"100%",
+            padding:10,
+        }}>
+            <Text style={{color:colors.text}}>{history.id} {history.time} </Text>
 
-            <Text>rozdanie numer:{history.board.number}</Text>
-            <Text>konstract:{constractComposer(history.board.contract)} {windConposer(history.board.contract)} {outcomeComposer(history.board.outcome)}</Text>
-            <Text>wynik:</Text>
-            <Text>Imp:{history.score.imps}, punkty rozgrywającego:{history.score.pointsOnPlayer}, punkty za kontrakt:{history.score.score}</Text>
+            <Text style={{color:colors.text}}>rozdanie numer:{history.board.number}</Text>
+            <Text style={{color:colors.text}}>konstract:{constractComposer(history.board.contract)} {windConposer(history.board.contract)} {outcomeComposer(history.board.outcome)}</Text>
+            <Text style={{color:colors.text}}>wynik:</Text>
+            <Text style={{color:colors.text}}>Imp:{history.score.imps}, punkty rozgrywającego:{history.score.pointsOnPlayer}, punkty za kontrakt:{history.score.score}</Text>
             <Button onPress={deleteHistory}>
-                <Text>usuń</Text>
+                <Text style={{color:colors.text}}>usuń</Text>
             </Button>
-        </Card>
+        </View>
     )
 }

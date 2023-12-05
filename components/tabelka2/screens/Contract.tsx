@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
-import {BackHandler, StyleSheet, Text, View} from "react-native";
+import {BackHandler, StyleSheet, View} from "react-native";
 import {CheckBox, HeightButton, MyCheckbox} from "../../basicComponents/CheckBox";
 import {bid, result, suit} from "../../../helpers/enumhelper";
 import {color} from "../../../styles/colors";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import {outcomeComposer} from "../../../helpers/composerhelper";
 import {Button} from "@rneui/themed";
 import {colors} from "../styles/styles";
 import {HeightRadio} from "./Contract/HeightRadio";
+import {Text} from "../components/Text";
 
 export const ContractScreen = ({contract,setContract,changeToTable}) => {
     const [isKontra, setIsKontra] = React.useState<bid>(bid.none);
@@ -118,8 +118,8 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                                 setIsKontra(bid.x)
                             }
                         }}
-                        fillColor={colors.dark}
-                        unfillColor={colors.secondary}
+                        fillColor={colors.card}
+                        unfillColor={colors.button}
                         fill={
                             <Text style={styles.text}>
                                 X
@@ -143,8 +143,8 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                                 setIsKontra(bid.xx)
                             }
                         }}
-                        fillColor={colors.dark}
-                        unfillColor={colors.secondary}
+                        fillColor={colors.card}
+                        unfillColor={colors.button}
                         fill={
                             <Text style={styles.text}>
                                 XX
@@ -171,9 +171,9 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     }}
                     disableBuiltInState
                     fillColor={"grey"}
-                    unfillColor={colors.secondary}
+                    unfillColor={colors.button}
                 >
-                    <MaterialCommunityIcons name="cards-spade" size={45} color={colors.dark}/>
+                    <MaterialCommunityIcons name="cards-spade" size={45} color={colors.background}/>
                 </CheckBox>
                 <CheckBox
                     height={size}
@@ -185,9 +185,9 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     }}
                     disableBuiltInState
                     fillColor={color.red}
-                    unfillColor={colors.secondary}
+                    unfillColor={colors.button}
                 >
-                    <MaterialCommunityIcons name="cards-diamond" size={45} color={colors.light}/>
+                    <MaterialCommunityIcons name="cards-diamond" size={45} color={colors.warning}/>
                 </CheckBox>
 
                 <CheckBox
@@ -200,7 +200,7 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     }}
                     disableBuiltInState
                     fillColor={color.blue}
-                    unfillColor={colors.secondary}
+                    unfillColor={colors.card}
                 >
                     <Text style={[styles.text, {color: "blue", fontWeight: "bold"}]}>
                         NT
@@ -218,9 +218,9 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     }}
                     disableBuiltInState
                     fillColor={color.red}
-                    unfillColor={colors.secondary}
+                    unfillColor={colors.button}
                 >
-                    <MaterialCommunityIcons name="cards-heart" size={45} color={colors.light}/>
+                    <MaterialCommunityIcons name="cards-heart" size={45} color={colors.warning}/>
                 </CheckBox>
                 <CheckBox
                     height={size}
@@ -232,9 +232,9 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                     }}
                     disableBuiltInState
                     fillColor={"grey"}
-                    unfillColor={colors.secondary}
+                    unfillColor={colors.button}
                 >
-                    <MaterialCommunityIcons name="cards-club" size={45} color={colors.dark}/>
+                    <MaterialCommunityIcons name="cards-club" size={45} color={colors.background}/>
                 </CheckBox>
 
                 {/*<View style={{borderRightWidth: 1, height: "100%", marginHorizontal: 5}}/>*/}
@@ -274,9 +274,9 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 30,
-        color: colors.light,//TODO: why!
+        color: colors.text,//TODO: why!
     },
-    textNoDecoration: {textDecorationLine: "none", color: colors.light},
+    textNoDecoration: {textDecorationLine: "none", color: colors.text},
     textInput: {
         fontSize: 25,
         height: 60,

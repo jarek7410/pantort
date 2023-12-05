@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {BackHandler, ScrollView, Text, View} from "react-native"
-import {Card, Input,Button} from "@rneui/themed";
+import {BackHandler, ScrollView,  View,Button} from "react-native"
+import {Card, Input} from "@rneui/themed";
 import {getCountedScore} from "../historyHendler";
-import {styles} from "../styles/styles";
+import {colors, styles} from "../styles/styles";
+import {Text} from "../components/Text";
 export const Players=({names,setNames,changeToTable})=>{
 
     useEffect(() => {
@@ -26,9 +27,9 @@ export const Players=({names,setNames,changeToTable})=>{
     return(
         <>
           <View style={[styles.row,{width:"100%",alignItems:"center"}]}>
-              <Button onPress={changeToTable}>
-                  <Text>Powrót</Text>
-              </Button>
+              <Button onPress={changeToTable} title={"Powrót"}  color={colors.button}></Button>
+                  {/*<Text>Powrót</Text>*/}
+              {/*</Button>*/}
               <Text>Players</Text>
           </View>
 
@@ -56,16 +57,14 @@ const PlayerCard=({player,id,changeName})=>{
         changeName(id,name)
     }
     return(
-        <Card>
+        <View style={{backgroundColor:colors.card,padding:10,margin:3 }}>
             <Text>{id===0?"N":id}</Text>
             <Text>imps:{imps}, pseudonim:{name} </Text>
-            <Input onChangeText={setName} value={name}></Input>
+            <Input onChangeText={setName} value={name} style={{color:colors.text}}></Input>
             {player.name!==name &&
-                <Button onPress={save}>
-                    Zapisz
-                </Button>
+                <Button onPress={save} title={"Zapisz"}/>
             }
-        </Card>
+        </View>
     )
 
 }

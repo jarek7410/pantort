@@ -1,5 +1,6 @@
 import {colors, styles} from "../../styles/styles";
-import {Text} from "react-native";
+
+import {Text} from "../../components/Text";
 import {MyCheckbox} from "../../../basicComponents/CheckBox";
 import React from "react";
 
@@ -8,8 +9,8 @@ export const HeightRadio = ({size,contractHeight,setContractHeight,chosenHeight}
         <MyCheckbox
             width={size}
             height={size}
-            fillColor={colors.dark}
-            unfillColor={colors.secondary}
+            fillColor={colors.background}
+            unfillColor={colors.button}
             isChecked={contractHeight === chosenHeight}
             onPress={()=>{
                 setContractHeight(chosenHeight)

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {BackHandler, StyleSheet, Text, View} from "react-native"
+import {BackHandler, StyleSheet,  View} from "react-native"
 import {ButtonNinus, ButtonPlus} from "../../tabelka/Buttons";
 import {result} from "../../../helpers/enumhelper";
 import {CheckBox} from "../../basicComponents/CheckBox";
@@ -8,6 +8,7 @@ import {color} from "../../../styles/colors";
 import {outcomeComposer} from "../../../helpers/composerhelper";
 import {Button} from "@rneui/themed";
 import {colors} from "../styles/styles";
+import {Text} from "../components/Text";
 export const DealInput=({setDeal,changeToTable})=>{
     const [outcome,setOutcome] = React.useState<result>()
     const [takes,setTakes] = React.useState(0);
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize:20,
-        color:colors.light,
+        color:colors.text,
     },
     textNoDecoration: { textDecorationLine: "none" },
     textInput:{

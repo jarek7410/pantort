@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import {Alert, BackHandler, Text, View} from "react-native"
+import {Alert, BackHandler, View} from "react-native"
 import {Compass} from "./Table/Compass";
 import {colors, styles} from "../styles/styles";
 import {Button} from "../../basicComponents/Button";
 import {wind as windE, wind} from "../../../helpers/enumhelper";
 import {ButtonNinus, ButtonPlus} from "../../tabelka/Buttons";
-import {position} from "../interfaces";
+import {Text} from "../components/Text";
 export const Table=({
                         boardNumber,
                         setBoardNumber,
@@ -60,7 +60,7 @@ export const Table=({
     return(
 
         <View style={[styles.centerContent,
-            {backgroundColor:colors.secondary,
+            {backgroundColor:colors.background,
                 width:"100%",
                 height:"100%",
             }]}>
@@ -68,15 +68,15 @@ export const Table=({
             <View style={[styles.row]}>
                 <Button onPress={changeToPlayers}
                         style={[styles.button,{width: 100}]}>
-                    <Text style={{color:colors.light}}>Gracze</Text>
+                    <Text style={{color:colors.text}}>Gracze</Text>
                 </Button>
                 <Button onPress={changeToHistory}
                         style={[styles.button,{width: 100}]}>
-                    <Text style={{color:colors.light}}>historia</Text>
+                    <Text style={{color:colors.text}}>historia</Text>
                 </Button>
             </View>
             <View style={[styles.card]}>
-                <Text style={{fontSize:20,color:colors.light}}>Numer pudełka: {boardNumber}</Text>
+                <Text style={{fontSize:20,color:colors.text}}>Numer pudełka: {boardNumber}</Text>
                 <View style={[styles.row,styles.centerContent]}>
                     <ButtonNinus text={"-4"} onPress={()=>{decreaseBoard(4)}}/>
                     <ButtonNinus text={"-"} onPress={()=>{decreaseBoard(1)}}/>

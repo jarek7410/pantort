@@ -1,9 +1,11 @@
-import React, {useContext, useEffect} from "react";
-import {Pressable, Text, View} from "react-native"
+import React, {useContext, useEffect, useState} from "react";
+import {Pressable,  View} from "react-native"
+import {Text} from "../../components/Text";
 import {colors, styles} from "../../styles/styles";
-import {isWindVul, Vulnerability, wind as windE} from "../../../../helpers/enumhelper";
+import {isWindVul, suit, Vulnerability, wind as windE} from "../../../../helpers/enumhelper";
 import {position} from "../../interfaces";
 import {constractComposer} from "../../../../helpers/composerhelper";
+import {SiutText} from "../../components/SiutText";
 
 export const Compass = ({
                             style,
@@ -81,8 +83,7 @@ const NameTag = ({name,wind,squareSides,volnable,setPlayer,dealer}) => {
                     justifyContent:"center",
                 },
             ]}>
-                <Text style={{fontSize:24,
-                    color:colors.light}}>{wind}</Text>
+                <Text style={{fontSize:24}}>{wind}</Text>
                 <Text>{name}</Text>
             </View>
         </Pressable>
@@ -113,13 +114,17 @@ const Squer=({wind,dealer,volnable})=>{
 }
 const Center = ({squareSides,contract}) => {
     const [constract,setContract]=React.useState<string>()
+    const [siut,setSiut]= useState<suit>();
+    const [startText,setStartText]= useState("");
     useEffect(() => {
         const contractString=constractComposer(contract)
         console.log("contractString\"",contractString,"\"",typeof contractString,contractString.length)
         if(contractString === ""||contractString === " "){
-            setContract("naciśnij po kontrakt")
+            setContract("###")
+            setStartText("###")
         }else{
             setContract(contractString)
+            setStartText("")
         }
         console.log("contract",contractString,typeof contractString)
     }, []);
@@ -127,12 +132,13 @@ const Center = ({squareSides,contract}) => {
         <View style={[{
             width: squareSides,
             height: squareSides,
-            backgroundColor: colors.primary,
+            backgroundColor: colors.button,
             justifyContent: "center",
             alignItems: "center",
             padding: 0,
         }]}>
-            <Text style={{fontSize:26,color:colors.light}}>{constract}</Text>
+            {/*<Text style={{fontSize:26}}>{constract}</Text>*/}
+            <SiutText startText={startText} contract={contract}/>
         </View>
     )
 }
