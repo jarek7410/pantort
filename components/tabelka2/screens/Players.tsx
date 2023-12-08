@@ -53,7 +53,7 @@ const PlayerCard=({player,id,changeName})=>{
         })
     }, []);
     const save=()=>{
-        console.log("save",id,name)
+        // console.log("save",id,name)
         changeName(id,name)
     }
     return(

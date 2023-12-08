@@ -19,9 +19,6 @@ export const SiutText=({
             color: colors.text,//TODO: why!
         },
     })
-    useEffect(() => {
-        console.log(contract.double,contract.suit)
-    }, []);
     return(
         <view style={{flexDirection:"row"}}>
             <Text style={[styles.text,]}>{startText}</Text>

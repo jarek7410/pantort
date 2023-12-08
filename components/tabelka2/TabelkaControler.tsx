@@ -13,6 +13,7 @@ import {loadFromHistory, restartHistory, saveToHistory} from "./historyHendler";
 import {DealsHistory} from "./screens/DealsHistory";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {SaveLoad} from "./screens/SaveLoad";
+import playStyles from "../mecz/styles/play.styles";
 
 export const TabelkaControler = () =>{
     const [screen,setScreen] = useState(TabelkaEnum.table)
@@ -41,6 +42,7 @@ export const TabelkaControler = () =>{
             }else{
                 setBoardNumber(1)
             }
+            console.log("names",history.players)
             if(history.players!==undefined){
                 setNames(history.players)
             }

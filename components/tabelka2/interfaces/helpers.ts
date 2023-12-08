@@ -17,7 +17,7 @@ export const position = (windi:wind,BoardNumber:number,names:Names)=>{
 }
 export const positionCount = (windi:wind,BoardNumber:number):number=>{
     const BN= (Math.floor((BoardNumber-1) / 4)%3 )+1;
-    console.log("positionCount",windi,BoardNumber,"BN",BN,"calc",Math.floor((BoardNumber-1) / 4))
+    // console.log("positionCount",windi,BoardNumber,"BN",BN,"calc",Math.floor((BoardNumber-1) / 4))
     if(windi===wind.S){
         return BN;
     }
@@ -37,7 +37,7 @@ export const positionCount = (windi:wind,BoardNumber:number):number=>{
 }
 export const moves =(PNumber:number,BoardNumber:number):wind=> {
     const BN= (Math.floor((BoardNumber-1) / 4)%3 )+1;
-    console.log("moves",PNumber,BoardNumber,"BN",BN,"calc",Math.floor((BoardNumber-1) / 4))
+    // console.log("moves",PNumber,BoardNumber,"BN",BN,"calc",Math.floor((BoardNumber-1) / 4))
 
     if (PNumber === 1) {
         if(BN===1){

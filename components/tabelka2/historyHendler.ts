@@ -47,6 +47,7 @@ export const loadFromHistory = async () => {
     } catch (e) {
         return
     }
+    console.log("histry hendler",value.players)
     return value;
 }
 

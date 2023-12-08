@@ -23,7 +23,9 @@ export const Table=({
                         setContract
 })=>{
     const [player,setPlayerState]=React.useState<wind>(undefined)
-
+    useEffect(() => {
+        setPlayerState(contract.wind)
+    }, []);
     useEffect(() => {
         const backAction = () => {
             Alert.alert('Czekaj!', 'Na pewno chcesz wyjść?', [
@@ -44,6 +46,7 @@ export const Table=({
 
         return () => backHandler.remove();
     }, []);
+
     const setPlayer=(wind:wind)=>{
         // console.log("setPlayer",contract.wind,"->",wind)
         const newContract=contract
