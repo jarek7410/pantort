@@ -15,7 +15,7 @@ export const expectablePointsTableka=(number:number,val:boolean)=>{
         return 110*multiplier;
     }
     if(num<=4){
-        return (val?290:200*multiplier);
+        return (val?290:200)*multiplier;
     }
     if(num<=5){
         return (val?440:300)*multiplier;
