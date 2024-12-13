@@ -4,7 +4,6 @@ import {Compass} from "./Table/Compass";
 import {colors, styles} from "../styles/styles";
 import {Button} from "../../basicComponents/Button";
 import {wind as windE, wind} from "../../../helpers/enumhelper";
-// import {ButtonNinus, ButtonPlus} from "../../tabelka/Buttons";
 import {Text} from "../components/Text";
 import {BoardNumberSelect} from "./Table/BoardNumberSelect";
 export const Table=({

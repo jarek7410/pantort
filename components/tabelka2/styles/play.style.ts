@@ -2,7 +2,7 @@ import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
     radioButton:{
-      borderRadius:10,
+        borderRadius:10,
     },
     menu:{
         borderRadius:3,

@@ -89,9 +89,9 @@ export const isWindVul=(windVar:wind,vul:Vulnerability)=>{
     }
     if(vul===Vulnerability.EW){
         if(windVar===wind.EW||windVar===wind.E||windVar===wind.W){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
     return false;
 }

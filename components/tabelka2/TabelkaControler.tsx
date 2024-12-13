@@ -3,7 +3,7 @@ import {duplicateBoardsComposer} from "../../helpers/composerhelper";
 import {suit, vals, Vulnerability, wind} from "../../helpers/enumhelper";
 import {Table} from "./screens/Table";
 import {TabelkaEnum} from "./Tabelka.enum";
-import {Text} from "react-native";
+import {Text, View} from "react-native";
 import {Players} from "./screens/Players";
 import {Names} from "./interfaces";
 import {ContractScreen} from "./screens/Contract";
@@ -13,7 +13,7 @@ import {loadFromHistory, restartHistory, saveToHistory} from "./historyHendler";
 import {DealsHistory} from "./screens/DealsHistory";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {SaveLoad} from "./screens/SaveLoad";
-import playStyles from "../mecz/styles/play.styles";
+import {colors} from "./styles/styles";
 
 export const TabelkaControler = () =>{
     const [screen,setScreen] = useState(TabelkaEnum.table)
@@ -98,13 +98,11 @@ export const TabelkaControler = () =>{
 
 
     return(
-        <SafeAreaView>
+        <View style={{width:"100%",height:"100%",backgroundColor:colors.background}}>
             {TabelkaEnum.table===screen &&
                 <Table
                     names={names}
                     volnable={volnable}
-                    // setPlayer={setPlayer}
-                    // player={player}
                     dealer={dealer}
                     changeToPlayers={changeToPlayers}
                     changeToContract={changeToContract}
@@ -154,6 +152,6 @@ export const TabelkaControler = () =>{
                     changeToTable={changeToTable}
                 />
             }
-        </SafeAreaView>
+        </View>
     )
 }

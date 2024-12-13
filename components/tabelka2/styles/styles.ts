@@ -25,16 +25,37 @@ import {ColorValue, StyleSheet} from "react-native";
 //     Vulnerable: "firebrick",
 //     NotVulnerable: "yellowgreen"
 // }
-export const hackerColors:Colors = {
-    vauleable: "#yellowgreen",
-    nonVauleable: "firebrick",
+ const hackerColors:Colors = {
+    player: "lightskyblue",
+    vauleable: "firebrick",
+    nonVauleable: "yellowgreen",
     background: "#000000",
     text: "#00FF19",
     button: "#343a40",
     card: "#1b1c1c",
-    warning: "#850505",
+    warning: "#850505"
 }
-export const    colors:Colors = hackerColors;
+ const casualgreen:Colors = {
+     player: "lightskyblue",
+     vauleable: "firebrick",
+     nonVauleable: "yellowgreen",
+    background: "#beff90",
+    text: "#0c3400",
+    button: "#36b800",
+    card: "#93ff50",
+    warning: "#ad0101",
+}
+ const casual:Colors = {
+    player: "lightskyblue",
+     vauleable: "firebrick",
+     nonVauleable: "yellowgreen",
+    background: "#fff",
+    text: "#43084a",
+    button: "#9525a6",
+    card: "#eab0f7",
+    warning: "#ad0101"
+}
+export const colors:Colors = hackerColors;
 // export interface Colors{
 //     light: ColorValue,
 //     dark: ColorValue,
@@ -48,6 +69,7 @@ export const    colors:Colors = hackerColors;
 //     NotVulnerable: ColorValue,
 // }
 export interface Colors{
+    player: ColorValue,
     vauleable: ColorValue,
     nonVauleable: ColorValue,
     background: ColorValue,

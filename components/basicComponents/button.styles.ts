@@ -1,9 +1,10 @@
 import {StyleSheet} from "react-native";
+import {colors} from "../tabelka2/styles/styles";
 
 const styles = StyleSheet.create({
     button:{
         height:35,
-        backgroundColor:"grey",
+        backgroundColor:colors.button,
         alignItems:"center",
         justifyContent:"center",
         margin:2,

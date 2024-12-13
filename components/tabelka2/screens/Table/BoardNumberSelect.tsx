@@ -1,7 +1,7 @@
 import {colors, styles} from "../../styles/styles";
 import {Text} from "../../components/Text";
 import {Pressable, View} from "react-native";
-import {ButtonNinus, ButtonPlus} from "../../../tabelka/Buttons";
+import {ButtonNinus, ButtonPlus} from "../../components/Buttons";
 import React, {useState} from "react";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 
@@ -17,10 +17,10 @@ export const BoardNumberSelect =({boardNumber,decreaseBoard,increaseBoard})=>{
             </Pressable>
             {isFold&&
             <View style={[styles.row,styles.centerContent,{marginTop:10}]} >
-                <ButtonNinus text={"-4"} onPress={()=>{decreaseBoard(4)}}/>
-                <ButtonNinus text={"-"} onPress={()=>{decreaseBoard(1)}}/>
-                <ButtonPlus text={"+"} onPress={()=>increaseBoard(1)}/>
-                <ButtonPlus text={"+4"} onPress={()=>increaseBoard(4)}/>
+                <ButtonNinus text={"-4"} onPress={()=>{decreaseBoard(4)}} style={{backgroundColor:colors.vauleable}}/>
+                <ButtonNinus text={"-"} onPress={()=>{decreaseBoard(1)}} style={{backgroundColor:colors.vauleable}}/>
+                <ButtonPlus text={"+"} onPress={()=>increaseBoard(1)} style={{backgroundColor:colors.nonVauleable}}/>
+                <ButtonPlus text={"+4"} onPress={()=>increaseBoard(4)} style={{backgroundColor:colors.nonVauleable}}/>
             </View>
             }
         </View>

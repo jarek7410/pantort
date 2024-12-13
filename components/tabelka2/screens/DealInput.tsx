@@ -1,21 +1,26 @@
 import React, {useEffect} from "react";
 import {BackHandler, StyleSheet,  View} from "react-native"
-import {ButtonNinus, ButtonPlus} from "../../tabelka/Buttons";
+import {ButtonNinus, ButtonPlus,styles as buttonStyles} from "../components/Buttons";
 import {result} from "../../../helpers/enumhelper";
 import {CheckBox} from "../../basicComponents/CheckBox";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {color} from "../../../styles/colors";
 import {outcomeComposer} from "../../../helpers/composerhelper";
-import {Button} from "@rneui/themed";
+import {Button} from "../../basicComponents/Button";
 import {colors} from "../styles/styles";
 import {Text} from "../components/Text";
+
 export const DealInput=({setDeal,changeToTable})=>{
     const [outcome,setOutcome] = React.useState<result>()
     const [takes,setTakes] = React.useState(0);
     const [points,setPoints] = React.useState(20);
 
     const size = 50
-
+    useEffect(() => {
+        if(takes>13){
+            setTakes(1)
+        }
+    }, [takes]);
     useEffect(() => {
         const backAction = () => {
             changeToTable()
@@ -47,25 +52,25 @@ export const DealInput=({setDeal,changeToTable})=>{
     }
 
     return(
-        <>
+        <View style={{backgroundColor:colors.background,height:"100%",width:"100%",justifyContent:"center",alignItems:"center"}}>
             <Button onPress={changeToTable}>
                 <Text>Porwóć</Text>
             </Button>
-        <View>
-            <Text style={styles.text}>punkty na lini:</Text>
+        <View style={{justifyContent:"center",alignItems:"center",width:"auto"}}>
+            <Text style={[styles.text,{width:"auto"}]}>punkty na lini:</Text>
             <View style={[styles.rowOnly]}>
                 <View>
-                    <ButtonNinus text={"-5"} onPress={()=>{decreasePoints(5)}}/>
-                    <ButtonNinus text={"-"} onPress={()=>{decreasePoints(1)}}/>
+                    <ButtonNinus text={"-5"} onPress={()=>{decreasePoints(5)}} style={{backgroundColor:colors.vauleable}}/>
+                    <ButtonNinus text={"-"} onPress={()=>{decreasePoints(1)}} style={{backgroundColor:colors.vauleable}}/>
                 </View>
-                <View>
-                    <Text style={[styles.text,{width:35,height:30}]}>
+                <View style={[{backgroundColor:colors.background,justifyContent:"center",alignItems:"center"},buttonStyles.squer]}>
+                    <Text style={[styles.text]}>
                         [{points}]
                     </Text>
                 </View>
                 <View>
-                    <ButtonPlus text={"+5"} onPress={()=>increasePoints(5)}/>
-                    <ButtonPlus text={"+"} onPress={()=>increasePoints(1)}/>
+                    <ButtonPlus text={"+5"} onPress={()=>increasePoints(5)} style={{backgroundColor:colors.nonVauleable}}/>
+                    <ButtonPlus text={"+"} onPress={()=>increasePoints(1)} style={{backgroundColor:colors.nonVauleable}}/>
                 </View>
             </View>
         </View>
@@ -80,7 +85,7 @@ export const DealInput=({setDeal,changeToTable})=>{
                     takes>=0?setTakes(takes+1):setTakes(1);
                 }}
                 disableBuiltInState
-                fillColor={"dimgray"}
+                fillColor={colors.nonVauleable}
                 unfillColor={"grey"}
             >
                 <MaterialCommunityIcons name="plus-thick" size={24} color="black" />
@@ -95,7 +100,7 @@ export const DealInput=({setDeal,changeToTable})=>{
                     setTakes(0);
                 }}
                 disableBuiltInState
-                fillColor={"yellowgreen"}
+                fillColor={colors.player}
                 unfillColor={color.yellow}
             >
                 <MaterialCommunityIcons name="equal" size={24} color="black" />
@@ -109,7 +114,7 @@ export const DealInput=({setDeal,changeToTable})=>{
                     takes<=0?setTakes(takes-1):setTakes(-1);
                 }}
                 disableBuiltInState
-                fillColor={"firebrick"}
+                fillColor={colors.vauleable}
                 unfillColor={color.red}
             >
                 <MaterialCommunityIcons name="minus-thick" size={24} color="black" />
@@ -126,7 +131,7 @@ export const DealInput=({setDeal,changeToTable})=>{
                     takes>=0?setTakes(takes+1):setTakes(1);
                 }}
                 disableBuiltInState
-                fillColor={"dimgray"}
+                fillColor={colors.nonVauleable}
                 unfillColor={"grey"}
             >
                 <MaterialCommunityIcons name="plus-thick" size={24} color="black" />
@@ -147,7 +152,7 @@ export const DealInput=({setDeal,changeToTable})=>{
                     takes<=0?setTakes(takes-1):setTakes(-1);
                 }}
                 disableBuiltInState
-                fillColor={"firebrick"}
+                fillColor={colors.vauleable}
                 unfillColor={color.red}
             >
                 <MaterialCommunityIcons name="minus-thick" size={24} color="black" />
@@ -161,7 +166,7 @@ export const DealInput=({setDeal,changeToTable})=>{
                     <Text>zatwierdz</Text>
                 </Button>
             }
-        </>
+        </View>
     )
 }
 

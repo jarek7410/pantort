@@ -78,7 +78,7 @@ const NameTag = ({name,wind,squareSides,volnable,setPlayer,dealer,player}) => {
                     marginRight: wind==="E"||wind==="W"?-squareSides/4:0,
                     marginTop: wind==="E"||wind==="W"?squareSides/4:0,
                     marginBottom: wind==="E"||wind==="W"?squareSides/4:0,
-                    backgroundColor: dealer===wind?"lightskyblue":isWindVul(wind,volnable)?"firebrick":"yellowgreen",
+                    backgroundColor: dealer===wind?colors.player:isWindVul(wind,volnable)?colors.vauleable:colors.nonVauleable,
                     alignItems:"center",
                     justifyContent:"center",
                     borderBottomLeftRadius:
@@ -142,7 +142,7 @@ const Squer=({wind,dealer,volnable,style})=>{
         <View style={[styles.squere,style,
             {
                 // borderBottomLeftRadius:20,
-                backgroundColor: dealer===wind?"lightskyblue":isWindVul(wind,volnable)?"firebrick":"yellowgreen",
+                backgroundColor: dealer===wind?colors.player:isWindVul(wind,volnable)?colors.vauleable:colors.nonVauleable,
             }]}></View>
     )
 }
@@ -155,7 +155,7 @@ const Center = ({squareSides,contract}) => {
         console.log("contractString\"",contractString,"\"",typeof contractString,contractString.length)
         if(contractString === ""||contractString === " "){
             // setContract("###")
-            setStartText("###")
+            setStartText("##")
         }else{
             // setContract(contractString)
             setStartText("")
@@ -171,8 +171,7 @@ const Center = ({squareSides,contract}) => {
             alignItems: "center",
             padding: 0,
         }]}>
-            {/*<Text style={{fontSize:26}}>{constract}</Text>*/}
-            <SiutText startText={startText} contract={contract}/>
+            <SiutText startText={startText} endText={startText} contract={contract}/>
         </View>
     )
 }

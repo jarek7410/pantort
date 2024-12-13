@@ -80,7 +80,7 @@ export const getCountedScore = async (playerId: number) => {
     return score;
 }
 export const restartHistory = async (players:Names) => {
-    historyKey='my-key';
+    historyKey='this game';
     const value ={
         history:[],
         players:players,

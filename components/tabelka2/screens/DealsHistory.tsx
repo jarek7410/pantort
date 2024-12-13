@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
-import {BackHandler, ScrollView,  View} from "react-native"
-import {deleteFromHistory, historyList, loadFromHistory} from "../historyHendler";
-import {Button} from "@rneui/themed";
+import {BackHandler, SafeAreaView, ScrollView, View} from "react-native"
+import {deleteFromHistory, historyList, loadFromHistory, restartHistory} from "../historyHendler";
+import {Button} from "../../basicComponents/Button";
 import {outcomeComposer, windConposer} from "../../../helpers/composerhelper";
 import {colors, styles} from "../styles/styles";
 import {Text} from "../components/Text";
@@ -38,14 +38,14 @@ export const DealsHistory=({changeToTable,deleteHistory,changeToSaveLoad})=>{
     }
     if(historyList!=undefined){
     return(
-       <>
+       <SafeAreaView>
            <View>
-               <View style={[{flexDirection:"row",alignItems:"center"}]}>
-                   <Button onPress={changeToTable} size="lg" style={{}}>
+               <View style={[{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}]}>
+                   <Button onPress={changeToTable}  style={{width:100}}>
                        <Text style={{color:colors.text}}> powrót</Text>
                    </Button>
                    <Text style={{color:colors.text}}>Historia:</Text>
-                   <Button onPress={changeToSaveLoad} size="lg" style={{}}>
+                   <Button onPress={changeToSaveLoad} style={styles.button}>
                        <Text style={{color:colors.text}}>zapisz/wczytaj</Text>
                    </Button>
                 </View>
@@ -58,10 +58,10 @@ export const DealsHistory=({changeToTable,deleteHistory,changeToSaveLoad})=>{
                 })
                 }
             </ScrollView>
-           <Button onPress={deleteHistory}>
+           <Button onPress={deleteHistory} style={{width:100,height:60}}>
                <Text style={{color:colors.text}}>usuń Historie i wszystkie punkty</Text>
            </Button>
-       </>
+       </SafeAreaView>
     )}
     else{
         return(
@@ -70,7 +70,12 @@ export const DealsHistory=({changeToTable,deleteHistory,changeToSaveLoad})=>{
                     <Text style={{color:colors.text}}>powrót</Text>
                 </Button>
 
-                <Text style={{color:colors.text}}>loading</Text>
+                <Text style={{color:colors.text}}>wczytywanie</Text>
+                <Button onPress={()=>{
+                    deleteHistory()
+                }}>
+                    <Text style={{color:colors.text}}>zresetuj base danych aplikacji</Text>
+                </Button>
             </>
         )
     }
@@ -104,7 +109,7 @@ const HistoryCard=({history,deleteItem})=>{
             </View>
             {/*<Text style={{color:colors.text}}>wynik:</Text>*/}
             <Text style={{color:colors.text}}>Imp:{history.score.imps}, punkty rozgrywającego:{history.score.pointsOnPlayer}, punkty za kontrakt:{history.score.score}</Text>
-            <Button onPress={deleteHistory}>
+            <Button onPress={deleteHistory} style={[styles.button,{width:50}]}>
                 <Text style={{color:colors.text}}>usuń</Text>
             </Button>
         </View>

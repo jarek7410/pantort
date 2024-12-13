@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
 import {BackHandler, StyleSheet, View} from "react-native";
 import {CheckBox, HeightButton, MyCheckbox} from "../../basicComponents/CheckBox";
-import {bid, result, suit} from "../../../helpers/enumhelper";
+import {bid, suit} from "../../../helpers/enumhelper";
 import {color} from "../../../styles/colors";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import {Button} from "@rneui/themed";
+import {Button} from "../../basicComponents/Button";
 import {colors} from "../styles/styles";
 import {HeightRadio} from "./Contract/HeightRadio";
 import {Text} from "../components/Text";
@@ -43,7 +43,7 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
         changeToTable()
     };
     return (
-        <>
+        <View style={{backgroundColor:colors.background,height:"100%",width:"100%",justifyContent:"center",alignItems:"center"}}>
             <View style={[styles.row]}>
                 <View>
 
@@ -242,7 +242,7 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
                 {/*<Text style={[styles.text,{width:50}]}>{outcomeComposer({tricks: takes,result:outcome})}</Text>*/}
             </View>
             {contractHeight!==undefined&&playedSuit!==undefined&&
-                <Button onPress={save}>
+                <Button onPress={save} style={{width: 100}}>
                     <Text>Zapisz</Text>
                 </Button>
             }
@@ -252,7 +252,7 @@ export const ContractScreen = ({contract,setContract,changeToTable}) => {
             {contractHeight===undefined&&
                 <Text style={{color:colors.warning}}>wybierz  wysokość kontraktu</Text>
             }
-        </>
+        </View>
     )
 }
 

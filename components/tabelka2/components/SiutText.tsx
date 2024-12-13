@@ -3,7 +3,7 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {colors} from "../styles/styles";
 import React, {useEffect} from "react";
 import {Text} from "./Text";
-import {StyleSheet} from "react-native";
+import {StyleSheet, View} from "react-native";
 
 export const SiutText=({
     startText="",
@@ -20,7 +20,7 @@ export const SiutText=({
         },
     })
     return(
-        <view style={{flexDirection:"row"}}>
+        <View style={{flexDirection:"row"}}>
             <Text style={[styles.text,]}>{startText}</Text>
             {/*{(contract.number>7||contract.number<0)&&*/}
                 <Text style={[styles.text,]}>{contract.number}</Text>
@@ -50,6 +50,6 @@ export const SiutText=({
                 <Text style={[styles.text,]}>XX</Text>
             }
             <Text style={[styles.text,]}>{endText}</Text>
-        </view>
+        </View>
     )
 }

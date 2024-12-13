@@ -13,7 +13,8 @@ npm-debug.*
 web-build/
 package-lock.json
 pc-api-8971177932573870725-332-ba954d82ffb9.json
-
+/ios
+/android
 # macOS
 .DS_Store
 

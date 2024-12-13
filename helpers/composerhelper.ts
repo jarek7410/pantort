@@ -220,8 +220,6 @@ export const scoreComposer = (contract: contract,outcome:outcome,vol:boolean) =>
     }else{
         score+=50
     }
-
-
     if(contract.number>=7){
         score+=vol?1500:1000;
     }
@@ -243,6 +241,8 @@ export const duplicateBoardsComposer = (board:number) => {
         val=Vulnerability.EW;
     }else if(board%16==4||board%16==7||board%16==10||board%16==13){
         val=Vulnerability.BOTH;
+    }else{
+        console.log("error")
     }
     if(board%4==1){
         dealer=wind.N;
