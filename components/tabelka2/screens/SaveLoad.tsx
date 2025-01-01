@@ -1,5 +1,7 @@
-import {Button, Card, Input} from "@rneui/themed";
+import { Input} from "@rneui/themed";
 import {View, BackHandler, Alert, ScrollView} from "react-native";
+import {Button} from "../../basicComponents/Button";
+
 import {colors} from "../styles/styles";
 import React, {useEffect} from "react";
 import {Text} from "../components/Text";
@@ -40,18 +42,18 @@ export const SaveLoad = ({changeToTable,changeTohistory}) => {
     }
 return (<>
             <View style={[{ flexDirection: "row", alignItems: "center" }]}>
-                <Button onPress={changeTohistory} size="lg" style={{}}>
+                <Button onPress={changeTohistory} style={{}}>
                     <Text>powrót</Text>
                 </Button>
                 <Text>zapisz/wczytaj</Text>
             </View>
             <View>
                 <Text style={{color:colors.text}}>zapisz jako:</Text>
-                <Input onChangeText={setKey} value={key}></Input>
+                <Input style={{color:colors.text}} onChangeText={setKey} value={key}></Input>
             </View>
             <View style={[{ flexDirection: "row", alignItems: "center" }]}>
 
-                <Button onPress={save} size="lg" style={{}}>
+                <Button onPress={save}  style={{}}>
                     <Text>zapisz</Text>
                 </Button>
             </View>
@@ -68,14 +70,21 @@ export const LoadCard = ({mykey,load}) => {
 
     return (
         <>
-            <Card>
+            <View style={{
+                backgroundColor:colors.card,
+                width:"100%",
+                // height:"100%",
+                padding:10,
+                margin:5,
+                borderRadius:5,
+            }}>
                 <Text style={{color:colors.text}}>{mykey}</Text>
                 <Button onPress={()=>{
                     load(mykey)
                 }}
-                        size="lg" style={{}}>
+                        style={{}}>
                     <Text>wczytaj</Text>
                 </Button>
-            </Card>
+            </View>
         </>);
 }

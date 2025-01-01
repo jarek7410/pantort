@@ -1,10 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {board} from "../../helpers/interfaces";
 import {moves, Names} from "./interfaces";
-import {simpleImpScoreComposer, simpleScoreComposer} from "../../helpers/composerhelper";
-import {windIsWindy} from "../../helpers/enumhelper";
+import {duplicateBoardsComposer, simpleImpScoreComposer, simpleScoreComposer} from "../../helpers/composerhelper";
+import {isWindVul, windIsWindy} from "../../helpers/enumhelper";
+import {expectablePointsTableka} from "../../helpers/brydzHalpers";
 
-export let historyKey:string = 'my-key';
+export let historyKey:string = 'this game';
 export const saveToHistory = async (board:board,players:Names,pointsOnPlayer) => {
     let value:historyList= await loadFromHistory();
     if(value === null){
@@ -23,6 +24,7 @@ export const saveToHistory = async (board:board,players:Names,pointsOnPlayer) =>
             pointsOnPlayer:pointsOnPlayer,
             score:simpleScoreComposer(board),
             imps:simpleImpScoreComposer(board,pointsOnPlayer),
+            estimatedScore: expectablePointsTableka( pointsOnPlayer,isWindVul(board.contract.wind,duplicateBoardsComposer(board.number).vulnerability)),
         }
     }
     value.history.push(historyItem)
@@ -80,7 +82,7 @@ export const getCountedScore = async (playerId: number) => {
     return score;
 }
 export const restartHistory = async (players:Names) => {
-    historyKey='this game';
+    // historyKey=historyKey;
     const value ={
         history:[],
         players:players,
@@ -118,6 +120,7 @@ export interface score{
     pointsOnPlayer:number,//0-40
     score:number,
     imps:number,
+    estimatedScore:number,
 }
 export interface historyItem{
     id:number,

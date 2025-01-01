@@ -28,11 +28,7 @@ export const TabelkaControler = () =>{
     const [boardNumber,setBoardNumber] = useState(2)
     const [volnable,setVolnable] = useState(Vulnerability.NS)
     const [dealer,setDealer] = useState<wind>(wind.E)
-    // const [player,setPlayer] = useState<wind>(wind.N)
     const [contract,setContract] = useState<contract>({double: undefined, number: undefined, suit: undefined, wind: undefined})
-    const [pointsOnPlayer,setPointsOnPlayer] = useState(0)
-    const [outcome,setOutcome] = useState<outcome>()
-    const [lead,setLead] = useState<lead>({suit:suit.DIAMONDS,vals:vals.seven})
     // start setup
     useEffect(() => {
         loadFromHistory().then((history)=>{
@@ -76,22 +72,18 @@ export const TabelkaControler = () =>{
     }
     const  setDeal=  async (outcome:outcome,points:number)=>{
         console.log("setDeal",outcome,points)
-        setOutcome(outcome)
-        setPointsOnPlayer(points)
+        // setOutcome(outcome)
+        // setPointsOnPlayer(points)
         await saveToHistory({
             number:boardNumber,
             contract:contract,
-            lead:lead,
+            lead: {suit:suit.DIAMONDS,vals:vals.seven},
             outcome:outcome
         },names,points)
-        // const histry = await loadFromHistory()
-        // console.log("histry",histry)
 
         setBoardNumber(boardNumber+1)
         setContract({double: undefined, number: undefined, suit: undefined, wind: undefined})
-        setPointsOnPlayer(0)
-        setOutcome(undefined)
-        // setLead({suit:suit.DIAMONDS,vals:vals.seven})
+
 
         changeToTable()
     };

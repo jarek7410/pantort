@@ -9,148 +9,154 @@ export const expectablePointsTableka=(number:number,val:boolean)=>{
         return 50*multiplier;
     }
     if(num<=2){
-        return 70*multiplier;
+        return 90*multiplier;
     }
     if(num<=3){
-        return 110*multiplier;
+        return 130*multiplier;
     }
     if(num<=4){
-        return (val?290:200)*multiplier;
+        return (val?260:220)*multiplier;
     }
     if(num<=5){
-        return (val?440:300)*multiplier;
+        return (val?400:300)*multiplier;
     }
     if(num<=6){
-        return (val?520:350)*multiplier;
-    }
-    if(num<=7){
         return (val?600:400)*multiplier;
     }
-    if(num<=8){
+    if(num<=7){
         return (val?630:430)*multiplier;
     }
-    if(num<=9){
+    if(num<=8){
         return (val?660:460)*multiplier;
     }
-    if(num<=10){
+    if(num<=9){
         return (val?690:490)*multiplier;
     }
+    if(num<=10){
+        return (val?720:520)*multiplier;
+    }
     if(num<=11){
-        return (val?800:600)*multiplier;
+        return (val?1000:700)*multiplier;
     }
     if(num<=12){
-        return (val?1050:700)*multiplier;
-    }
-    if(num<=13){
         return (val?1350:900)*multiplier;
     }
+    if(num<=13){
+        return (val?1440:990)*multiplier;
+    }
     if(num<=14){
-        return (val?1500:1000)*multiplier;
+        return (val?1800:1250)*multiplier;
     }
     if(num<=15){
-        return (val?1650:1100)*multiplier;
-    }
-    if(num<=16){
-        return (val?1800:1200)*multiplier;
-    }
-    if(num>=17){
         return (val?2100:1400)*multiplier;
     }
+    if(num<=16){
+        return (val?2200:1400)*multiplier;
+    }
+    if(num>=17){
+        return (val?2200:1400)*multiplier;
+    }
 }
-export const impTable=(difference:number)=>{
+export const impTable=(differences:number)=>{
     // console.log("imptool",difference)
+    const difference:number=differences>=0?differences:-differences;
+    const multiplier:number=differences>=0?1:-1;
+    let imps:number
     if(difference<=10){
-        return 0;
+        imps = 0;
     }
-    if (difference<=40){
-        return 1;
+    else if (difference<=40){
+        imps = 1;
     }
-    if (difference<=80){
-        return 2;
+    else if (difference<=80){
+        imps = 2;
     }
-    if (difference<=120){
-        return 3;
+    else if (difference<=120){
+        imps = 3;
     }
-    if (difference<=160){
-        return 4;
+    else if (difference<=160){
+        imps = 4;
     }
-    if (difference<=210){
-        return 5;
+    else if (difference<=210){
+        imps = 5;
     }
-    if (difference<=260){
-        return 6;
+    else if (difference<=260){
+        imps = 6;
     }
-    if (difference<=310){
-        return 7;
+    else if (difference<=310){
+        imps = 7;
     }
-    if (difference<=360){
-        return 8;
+    else if (difference<=360){
+        imps = 8;
     }
-    if (difference<=420){
-        return 9;
+    else if (difference<=420){
+        imps = 9;
     }
-    if (difference<=490){
-        return 10;
+    else if (difference<=490){
+        imps = 10;
     }
-    if (difference<=590){
-        return 11;
+    else if (difference<=590){
+        imps = 11;
     }
-    if (difference<=740){
-        return 12;
+    else if (difference<=740){
+        imps = 12;
     }
-    if (difference<=890){
-        return 13;
+    else if (difference<=890){
+        imps = 13;
     }
-    if (difference<=1090){
-        return 14;
+    else if (difference<=1090){
+        imps = 14;
     }
-    if (difference<=1290){
-        return 15;
+    else if (difference<=1290){
+        imps = 15;
     }
-    if (difference<=1490){
-        return 16;
+    else if (difference<=1490){
+        imps = 16;
     }
-    if (difference<=1740){
-        return 17;
+    else if (difference<=1740){
+        imps = 17;
     }
-    if (difference<=1990){
-        return 18;
+    else if (difference<=1990){
+        imps = 18;
     }
-    if (difference<=2240){
-        return 19;
+    else if (difference<=2240){
+        imps = 19;
     }
-    if (difference<=2490){
-        return 20;
+    else if (difference<=2490){
+        imps = 20;
     }
-    if (difference<=2990){
-        return 21;
+    else if (difference<=2990){
+        imps = 21;
     }
-    if (difference<=3490){
-        return 22;
+    else if (difference<=3490){
+        imps = 22;
     }
-    if (difference<=3990){
-        return 23;
+    else if (difference<=3990){
+        imps = 23;
     }
-    if(difference<=4490){
-        return 24;
+    else if(difference<=4490){
+        imps = 24;
     }
-    if(difference<=4990){
-        return 25;
+    else if(difference<=4990){
+        imps = 25;
     }
-    if(difference<=5990){
-        return 26;
+    else if(difference<=5990){
+        imps = 26;
     }
-    if(difference<=6490){
-        return 27;
+    else if(difference<=6490){
+        imps = 27;
     }
-    if(difference<=7090){
-        return 28;
+    else if(difference<=7090){
+        imps = 28;
     }
-    if(difference<=7490){
-        return 29;
+    else if(difference<=7490){
+        imps = 29;
     }
-    if(difference<=7990){
-        return 30;
+    else if(difference<=7990){
+        imps = 30;
     }
-    return 31;
+    else if(difference>=7990){
+        imps = 31;
+    }
+    return imps*multiplier;
 }

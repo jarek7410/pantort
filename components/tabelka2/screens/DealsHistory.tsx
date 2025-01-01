@@ -57,10 +57,11 @@ export const DealsHistory=({changeToTable,deleteHistory,changeToSaveLoad})=>{
                     )
                 })
                 }
+                <Button onPress={deleteHistory} style={{width:100,height:60}}>
+                    <Text style={{color:colors.text}}>usuń Historie i wszystkie punkty</Text>
+                </Button>
+                <View style={{height:200,width:10}}></View>
             </ScrollView>
-           <Button onPress={deleteHistory} style={{width:100,height:60}}>
-               <Text style={{color:colors.text}}>usuń Historie i wszystkie punkty</Text>
-           </Button>
        </SafeAreaView>
     )}
     else{
@@ -92,6 +93,7 @@ const HistoryCard=({history,deleteItem})=>{
             // height:"100%",
             padding:10,
             margin:5,
+            borderRadius:5,
         }}>
             <Text style={{color:colors.text}}>{history.id} {history.time} </Text>
 
@@ -109,6 +111,7 @@ const HistoryCard=({history,deleteItem})=>{
             </View>
             {/*<Text style={{color:colors.text}}>wynik:</Text>*/}
             <Text style={{color:colors.text}}>Imp:{history.score.imps}, punkty rozgrywającego:{history.score.pointsOnPlayer}, punkty za kontrakt:{history.score.score}</Text>
+            <Text style={{color:colors.text}}>przewidywany wynik:{history.score.estimatedScore}</Text>
             <Button onPress={deleteHistory} style={[styles.button,{width:50}]}>
                 <Text style={{color:colors.text}}>usuń</Text>
             </Button>

@@ -30,7 +30,7 @@ import {ColorValue, StyleSheet} from "react-native";
     vauleable: "firebrick",
     nonVauleable: "yellowgreen",
     background: "#000000",
-    text: "#00FF19",
+     text: "#199632",
     button: "#343a40",
     card: "#1b1c1c",
     warning: "#850505"

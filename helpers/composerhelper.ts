@@ -157,9 +157,10 @@ export const simpleImpScoreComposer = (board:board,points:number) => {
         board.contract.wind===wind.N||
         board.contract.wind===wind.S||
         board.contract.wind===wind.NS?1:-1
-    console.log(  impTable(scoreLocal-estimate)*who)
+    console.log(  impTable(scoreLocal-estimate)*who,"difrence",scoreLocal,":",estimate)
     return  impTable(scoreLocal-estimate)*who
 }
+
 export const simpleScoreComposer = (board:board) => {
     const vul=duplicateBoardsComposer(board.number).vulnerability
     return scoreComposer(
@@ -171,16 +172,18 @@ export const simpleScoreComposer = (board:board) => {
 export const scoreComposer = (contract: contract,outcome:outcome,vol:boolean) => {
     let score:number=0;
     if(outcome.result===result.under){
-        let trik:number=vol?100:50;
+        let trik:number;
         if(contract.double==bid.x){
             trik=vol?300:200;
-            score=-100;
-        }
+            // score=-100;
+        }else
         if(contract.double==bid.xx){
             trik=vol?400:300;
-            score=-100;
+            // score=-100;
+        }else{
+            trik=vol?100:50;
         }
-        score+=trik*outcome.tricks;
+        score=trik*outcome.tricks;
         return score
     }else if(outcome.result===result.over){
         let trik:number=30;
@@ -194,7 +197,6 @@ export const scoreComposer = (contract: contract,outcome:outcome,vol:boolean) =>
             trik=vol?400:200;
         }
         score+=trik*outcome.tricks;
-
     }
     let fairytail:number=0;
     if(contract.suit==suit.NT){
